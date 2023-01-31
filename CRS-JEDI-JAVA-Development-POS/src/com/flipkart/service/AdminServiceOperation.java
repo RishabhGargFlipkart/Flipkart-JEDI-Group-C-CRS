@@ -27,4 +27,7 @@ public class AdminServiceOperation implements AdminService {
         return null;
     }
 
+    public List<Student> viewPendingAdmissions() {
+        return null;
+    }
 }
