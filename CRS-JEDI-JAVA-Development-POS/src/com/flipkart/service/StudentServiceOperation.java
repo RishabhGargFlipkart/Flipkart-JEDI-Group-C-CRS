@@ -1,4 +1,4 @@
-package src.com.flipkart.service;
+package com.flipkart.service;
 
 public class StudentServiceOperation {
     public int register(String name, String userId, String password, String branch, int batch) {
