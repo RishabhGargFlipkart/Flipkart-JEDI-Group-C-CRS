@@ -35,5 +35,14 @@ public class Course {
     private String courseCode;
     private String courseName;
     private String instructorId;
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public void setSeats(int seats) {
+        this.seats = seats;
+    }
+
     private int seats = 10;
 }
