@@ -54,7 +54,23 @@ public class CRSApplication {
         userID = sc.next();
         System.out.print("Enter Password: ");
         password=sc.next();
-        
+        System.out.println("Enter Role: Student,Professor,Admin ");
+        role=sc.next();
+
+        if(role.equalsIgnoreCase("Student")){
+            StudentCRSMenu student=new StudentCRSMenu();
+            student.create_menu(userID);
+        }
+        else if(role.equalsIgnoreCase("Professor")){
+            ProfessorCRSMenu prof=new ProfessorCRSMenu();
+            prof.createMenu(userID);
+        }
+        else if(role.equalsIgnoreCase("Admin")){
+            AdminCRSMenu admin=new AdminCRSMenu();
+            admin.createMenu(userID);
+        }
+        else
+            System.out.println("Wrong password");
         
 
     }

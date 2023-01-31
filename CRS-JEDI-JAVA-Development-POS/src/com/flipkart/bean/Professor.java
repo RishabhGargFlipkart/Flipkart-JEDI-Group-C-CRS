@@ -21,8 +21,6 @@ public class Professor extends User {
 	 * @param args
 	 */
 
-	public static void main(String[] args) {
 
-	}
 
 }

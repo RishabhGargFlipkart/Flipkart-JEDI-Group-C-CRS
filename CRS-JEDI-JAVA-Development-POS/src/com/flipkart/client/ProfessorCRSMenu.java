@@ -13,11 +13,11 @@ public class ProfessorCRSMenu {
         Scanner sc = new Scanner(System.in);
         int userInput;
         System.out.println("---------Professor Menu---------");
-        System.out.print("1. View Courses");
-        System.out.print("2. View Enrolled Students");
-        System.out.print("3. Add grade");
-        System.out.print("4. Logout");
-        System.out.print("---------------------------------");
+        System.out.println("1. View Courses");
+        System.out.println("2. View Enrolled Students");
+        System.out.println("3. Add grade");
+        System.out.println("4. Logout");
+        System.out.println("---------------------------------");
         userInput=sc.nextInt();
         while (userInput != 4) {
             switch (userInput) {

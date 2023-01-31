@@ -12,7 +12,7 @@ public class AdminCRSMenu {
     Scanner scanner =new Scanner(System.in);
     AdminServiceOperation adminService = new AdminServiceOperation();
 
-    public void createMenu(){
+    public void createMenu(String userId){
         while(true)
         {
             System.out.println("Welcome to Admin Department");
@@ -39,7 +39,7 @@ public class AdminCRSMenu {
                 case 5:
                     viewCourses();
                 case 6:
-                    break;
+                    return;
             }
 
 
