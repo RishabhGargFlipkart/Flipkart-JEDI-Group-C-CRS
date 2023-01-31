@@ -3,7 +3,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import java.util.List;
 
-public class ProfessorServiceOperation {
+public class ProfessorServiceOperation implements ProfessorService {
     public String addGrade(int profId, int studentId, String courseCode, int semester){
         return null;
     }

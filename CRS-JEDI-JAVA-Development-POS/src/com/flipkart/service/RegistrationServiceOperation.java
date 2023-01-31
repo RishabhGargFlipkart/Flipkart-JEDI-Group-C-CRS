@@ -5,11 +5,7 @@ import com.flipkart.bean.StudentGrade;
 
 import java.util.List;
 
-public class RegistrationServiceOperation {
-
-    private RegistrationServiceOperation() {
-    }
-
+public class RegistrationServiceOperation implements RegistrationService{
     public boolean addCourse(){
         return false;
     }
