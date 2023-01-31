@@ -3,13 +3,16 @@ package com.flipkart.client;
 import java.util.Scanner;
 
 public class CRSApplication {
+    static boolean loggedin = false;
 
     public static void main(String[]args){
         Scanner sc = new Scanner(System.in);
+
         CRSApplication crsApplication=new CRSApplication();
         int userInput;
         createMainMenu();
         userInput=sc.nextInt();
+
         while(userInput!=4)
         {
             switch(userInput){
