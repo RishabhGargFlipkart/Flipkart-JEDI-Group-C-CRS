@@ -13,7 +13,7 @@ public class AdminCRSMenu {
     AdminServiceOperation adminService = new AdminServiceOperation();
 
     public void createMenu(){
-        while(CRSApplication.loggedin)
+        while(true)
         {
             System.out.println("Welcome to Admin Department");
             System.out.println("Please select an option to perform:");
@@ -22,6 +22,7 @@ public class AdminCRSMenu {
             System.out.println("3. approve student");
             System.out.println("4. add professor");
             System.out.println("5. view courses");
+            System.out.println("6. Exit");
 
             int option= scanner.nextInt();
 
@@ -37,6 +38,8 @@ public class AdminCRSMenu {
                     addProfessor();
                 case 5:
                     viewCourses();
+                case 6:
+                    break;
             }
 
 
