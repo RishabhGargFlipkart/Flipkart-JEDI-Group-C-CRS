@@ -50,13 +50,13 @@ public class AdminCRSMenu {
 
     private void addCourse()
     {
-        List<Course> courseList = adminService.viewCourses(1);
-        System.out.println("Enter course Id: ");
-        String courseID=scanner.nextLine();
-        System.out.println("Enter course name: ");
-        String courseName= scanner.nextLine();
-        Course course = new Course(courseID, courseName, null, 10);
-        adminService.addCourse(course,courseList);
+//        List<Course> courseList = adminService.viewCourses(1);
+//        System.out.println("Enter course Id: ");
+//        String courseID=scanner.nextLine();
+//        System.out.println("Enter course name: ");
+//        String courseName= scanner.nextLine();
+//        Course course = new Course(courseID, courseName, null, 10);
+//        adminService.addCourse(course,courseList);
 
     }
 

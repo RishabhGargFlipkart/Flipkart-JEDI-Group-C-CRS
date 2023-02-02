@@ -11,18 +11,18 @@ package com.flipkart.bean;
  */
 public class Student {
     private String branchName;
-    private int studentId;
+    private String studentId;
     private int batch;
     private boolean isApproved;
     public void setBranchName(String branchName) {
         this.branchName = branchName;
     }
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
