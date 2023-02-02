@@ -1,8 +1,5 @@
 package com.flipkart.service;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.EnrolledStudent;
-import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.*;
 import com.flipkart.constant.Grade;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +11,7 @@ public class ProfessorServiceOperation implements ProfessorService {
     List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
 
     List<StudentGrade> studentGrades=new ArrayList<StudentGrade>();
+    List<Professor> professors = new ArrayList<>();
     List<Course>  course = new ArrayList<Course>();
     public ProfessorServiceOperation()
     {
@@ -81,6 +79,31 @@ public class ProfessorServiceOperation implements ProfessorService {
         enrolledStudents.add(enrolledStudent2);
         enrolledStudents.add(enrolledStudent3);
 
+        //Professor data
+        Professor professor1 = new Professor();
+        professor1.setDepartment("ABC");
+        professor1.setName("ABC");
+        professor1.setRole("Professor");
+        professor1.setUserId("10");
+        professor1.setPassword("ABC");
+
+        Professor professor2 = new Professor();
+        professor2.setDepartment("ABCD");
+        professor2.setName("ABCD");
+        professor2.setRole("Professor");
+        professor2.setUserId("11");
+        professor2.setPassword("ABCD");
+
+        Professor professor3 = new Professor();
+        professor3.setDepartment("ABCDE");
+        professor3.setName("ABCDE");
+        professor3.setRole("Professor");
+        professor3.setUserId("12");
+        professor3.setPassword("ABCDE");
+
+        professors.add(professor1);
+        professors.add(professor2);
+        professors.add(professor3);
 
         for(Course crs:course)
         {
@@ -182,6 +205,10 @@ public class ProfessorServiceOperation implements ProfessorService {
         return profCourseMap.get(profId);
     }
 
+    public List<Professor> getProfessors(){
+        return professors;
+    }
+
     public boolean assignCourse(String profId,String courseCode)
     {
         int i=0;
@@ -206,4 +233,5 @@ public class ProfessorServiceOperation implements ProfessorService {
         }
         return false;
     }
+
 }

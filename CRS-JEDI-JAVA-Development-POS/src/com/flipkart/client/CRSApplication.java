@@ -59,7 +59,7 @@ public class CRSApplication {
 
         if(role.equalsIgnoreCase("Student")){
             StudentCRSMenu student=new StudentCRSMenu();
-            student.create_menu(userID);
+            student.createMenu(userID);
         }
         else if(role.equalsIgnoreCase("Professor")){
             ProfessorCRSMenu prof=new ProfessorCRSMenu();
