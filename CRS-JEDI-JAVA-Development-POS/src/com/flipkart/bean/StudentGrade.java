@@ -1,7 +1,7 @@
 package com.flipkart.bean;
 
 public class StudentGrade {
-    private int studentID;
+    private String studentID;
     private String courseID;
     private String courseName;
     private String grade;
@@ -9,18 +9,18 @@ public class StudentGrade {
     public StudentGrade() {
     }
 
-    public StudentGrade(int studentID, String courseID, String courseName, String grade) {
+    public StudentGrade(String studentID, String courseID, String courseName, String grade) {
         this.studentID = studentID;
         this.courseID = courseID;
         this.courseName = courseName;
         this.grade = grade;
     }
 
-    public int getStudentID() {
+    public String getStudentID() {
         return studentID;
     }
 
-    public void setStudentID(int studentID) {
+    public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
 
