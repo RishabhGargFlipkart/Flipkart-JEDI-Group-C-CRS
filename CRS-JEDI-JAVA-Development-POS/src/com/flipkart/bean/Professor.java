@@ -18,6 +18,7 @@ public class Professor extends User {
 		this.department = department;
 	}
 
+
 	public void display()
 	{
 		System.out.println(this.getUserId()+" "+this.getName()+" "+this.department);
