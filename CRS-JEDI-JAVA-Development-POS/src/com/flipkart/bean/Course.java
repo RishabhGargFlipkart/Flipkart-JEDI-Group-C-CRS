@@ -51,5 +51,12 @@ public class Course {
         this.seats = seats;
     }
 
+    @Override
+    public boolean equals(Object course){
+        if(this==course) return true;
+        if(!(course instanceof Course)) return false;
+        return this.getCourseCode().equals(((Course)course).getCourseCode());
+    }
+
     private int seats = 10;
 }
