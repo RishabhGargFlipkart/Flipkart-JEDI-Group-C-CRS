@@ -9,4 +9,5 @@ public interface ProfessorService {
     public String addGrade(String profId, String studentId, String courseCode,String grade);
     public List<EnrolledStudent> viewEnrolledStudents(String profId, String courseCode);
     public List<Course> getCourses(String profId);
+    public boolean assignCourse(String profId,String courseCode);
 }

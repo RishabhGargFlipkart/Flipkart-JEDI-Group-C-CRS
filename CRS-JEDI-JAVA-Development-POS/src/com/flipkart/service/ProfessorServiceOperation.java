@@ -3,13 +3,13 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.StudentGrade;
-
+import com.flipkart.constant.Grade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ProfessorServiceOperation implements ProfessorService {
-
+    Grade g;
     HashMap<String,List<Course>> profCourseMap=new HashMap<String,List<Course>>();
     List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
 
@@ -20,7 +20,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         Course course1 = new Course();
         course1.setCourseCode("1");
         course1.setCourseName("DAA");
-        course1.setInstructorId("P1");
+        course1.setInstructorId("NA");
         course1.setSeats(9);
 
         Course course2 = new Course();
@@ -32,7 +32,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         Course course3 = new Course();
         course3.setCourseCode("3");
         course3.setCourseName("OS");
-        course3.setInstructorId("P3");
+        course3.setInstructorId("P2");
         course3.setSeats(9);
 
         course.add(course1);
@@ -180,5 +180,30 @@ public class ProfessorServiceOperation implements ProfessorService {
 
     public List<Course> getCourses(String profId){
         return profCourseMap.get(profId);
+    }
+
+    public boolean assignCourse(String profId,String courseCode)
+    {
+        int i=0;
+        for(Course crs: course)
+        {
+            if(crs.getCourseCode().equalsIgnoreCase(courseCode))
+            {
+                if(crs.getInstructorId().equals("NA"))
+                {
+                    crs.setInstructorId(profId);
+//                    System.out.println(crs.getInstructorId());
+//                    System.out.println(i);
+                    course.set(i,crs);
+//                    System.out.println(course.get(0).getInstructorId());
+                    List<Course> newList=profCourseMap.get(profId);
+                    newList.add(crs);
+                    profCourseMap.put(profId, newList);
+                    return true;
+                }
+            }
+            i++;
+        }
+        return false;
     }
 }
