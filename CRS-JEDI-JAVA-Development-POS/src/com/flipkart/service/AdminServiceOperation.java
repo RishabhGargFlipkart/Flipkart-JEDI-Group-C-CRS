@@ -9,7 +9,7 @@ public class AdminServiceOperation implements AdminService {
     HashMap<String,List<Course>> profCourseMap=new HashMap<String,List<Course>>();
     List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
 
-    List<Student> students=new ArrayList<>();
+    public static List<Student> students=new ArrayList<>();
     List<StudentGrade> studentGrades = new ArrayList<StudentGrade>();
 
     List<Professor> professorList=new ArrayList<>();
@@ -188,5 +188,9 @@ public class AdminServiceOperation implements AdminService {
             }
         }
         return pendingStudents;
+    }
+
+    public static void addStudentToList(Student s){
+        students.add(s);
     }
 }
