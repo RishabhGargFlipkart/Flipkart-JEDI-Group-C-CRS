@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 import java.util.Date;
-public class Admin {
+public class Admin extends User{
     public Date getDateOfJoining() {
         return dateOfJoining;
     }

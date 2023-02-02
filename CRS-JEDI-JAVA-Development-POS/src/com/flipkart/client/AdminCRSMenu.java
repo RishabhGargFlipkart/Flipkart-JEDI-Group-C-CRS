@@ -5,6 +5,7 @@ import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.bean.Professor;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 public class AdminCRSMenu {
@@ -22,7 +23,8 @@ public class AdminCRSMenu {
             System.out.println("3. approve student");
             System.out.println("4. add professor");
             System.out.println("5. view courses");
-            System.out.println("6. Exit");
+            System.out.println("6. view professors");
+            System.out.println("7. Exit");
 
             int option= scanner.nextInt();
 
@@ -30,48 +32,54 @@ public class AdminCRSMenu {
             switch(option) {
                 case 1:
                     addCourse();
+                    break;
                 case 2:
                     deleteCourse();
+                    break;
                 case 3:
                     approveStudent();
+                    break;
                 case 4:
                     addProfessor();
+                    break;
                 case 5:
                     viewCourses();
+                    break;
                 case 6:
+                    viewProfessors();
+                    break;
+                case 7:
                     return;
             }
-
-
-
-
         }
     }
 
     private void addCourse()
     {
-//        List<Course> courseList = adminService.viewCourses(1);
-//        System.out.println("Enter course Id: ");
-//        String courseID=scanner.nextLine();
-//        System.out.println("Enter course name: ");
-//        String courseName= scanner.nextLine();
-//        Course course = new Course(courseID, courseName, null, 10);
-//        adminService.addCourse(course,courseList);
+        System.out.println("List of already existing courses:");
+        List<Course> courseList = adminService.viewCourses(1);
+        System.out.println("Enter new course details");
+        System.out.println("Enter course Id: ");
+        String courseID=scanner.next();
+        System.out.println("Enter course name: ");
+        String courseName= scanner.next();
+        Course course = new Course(courseID, courseName, null, 10);
+        adminService.addCourse(course,courseList);
 
     }
 
     private void deleteCourse() {
         List<Course> courseList = adminService.viewCourses(1);
         System.out.println("Enter course Id: ");
-        String courseID=scanner.nextLine();
+        String courseID=scanner.next();
         adminService.deleteCourse(courseID, courseList);
 
     }
 
     private void approveStudent() {
-        List<Student> studentList= adminService.viewPendingAdmissions();
+        List<Student> studentList= adminService.viewPendingAdmission();
         System.out.println("Enter Student's ID:");
-        int studentUserIdApproval = scanner.nextInt();
+        String studentUserIdApproval = scanner.next();
         adminService.approveStudent(studentUserIdApproval, studentList);
 
     }
@@ -105,6 +113,10 @@ public class AdminCRSMenu {
         adminService.addProfessor(professor);
     }
 
+    public void viewProfessors(){
+        List<Professor> professorList = new ArrayList<Professor>();
+        professorList = adminService.viewProfessors();
+    }
 
 }
 
