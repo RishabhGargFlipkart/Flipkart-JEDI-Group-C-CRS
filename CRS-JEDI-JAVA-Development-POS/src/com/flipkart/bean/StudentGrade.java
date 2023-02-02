@@ -6,15 +6,15 @@ public class StudentGrade {
     private String courseName;
     private String grade;
 
-    public StudentGrade() {
-    }
+//    public StudentGrade() {
+//    }
 
-    public StudentGrade(String studentID, String courseID, String courseName, String grade) {
-        this.studentID = studentID;
-        this.courseID = courseID;
-        this.courseName = courseName;
-        this.grade = grade;
-    }
+//    public StudentGrade(String studentID, String courseID, String courseName, String grade) {
+//        this.studentID = studentID;
+//        this.courseID = courseID;
+//        this.courseName = courseName;
+//        this.grade = grade;
+//    }
 
     public String getStudentID() {
         return studentID;

@@ -28,13 +28,14 @@ public class ProfessorCRSMenu {
         Scanner sc = new Scanner(System.in);
         int userInput;
         System.out.println("---------Professor Menu---------");
-        System.out.println("1. View Courses");
+        System.out.println("1. View Your Courses");
         System.out.println("2. View Enrolled Students");
         System.out.println("3. Add grade");
-        System.out.println("4. Logout");
+        System.out.println("4. Assign a course");
+        System.out.println("5. Logout");
         System.out.println("---------------------------------");
         userInput=sc.nextInt();
-        while (userInput != 4) {
+        while (userInput != 5) {
             switch (userInput) {
                 case 1:
                     //view all the courses taught by the professor
@@ -52,6 +53,9 @@ public class ProfessorCRSMenu {
                     addGrade(profId);
                     break;
                 case 4:
+                    assignCourse(profId);
+                    break;
+                case 5:
                     //logout from the system
                     //CRSApplication.loggedin = false;
                     return;
@@ -128,6 +132,20 @@ public class ProfessorCRSMenu {
         grade=sc.next();
 
         professorInterface.addGrade(profId,studentId,courseCode,grade);
+
+    }
+    public void assignCourse(String profId)
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the course code you would like to teach:");
+        String cc=sc.next();
+        boolean check=professorInterface.assignCourse(profId,cc);
+        if(check)
+        {
+            System.out.println("Course assigned successfully");
+        }
+        else
+            System.out.println("The course is either taken or invalid course code.");
 
     }
 }
