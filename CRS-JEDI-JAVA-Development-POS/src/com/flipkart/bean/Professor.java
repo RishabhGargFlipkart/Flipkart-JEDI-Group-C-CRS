@@ -22,6 +22,11 @@ public class Professor extends User {
 	{
 		System.out.println(this.getUserId()+" "+this.getName()+" "+this.department);
 	}
-
+	@Override
+	public boolean equals(Object professor){
+		if(this==professor) return true;
+		if(!(professor instanceof Professor)) return false;
+		return this.getUserId().equals(((Professor)professor).getUserId());
+	}
 
 }
