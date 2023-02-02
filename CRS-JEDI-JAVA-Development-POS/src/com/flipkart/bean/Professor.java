@@ -17,10 +17,11 @@ public class Professor extends User {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	/**
-	 * @param args
-	 */
 
+	public void display()
+	{
+		System.out.println(this.getUserId()+" "+this.getName()+" "+this.department);
+	}
 
 
 }
