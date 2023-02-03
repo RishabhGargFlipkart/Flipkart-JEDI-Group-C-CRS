@@ -9,7 +9,7 @@ public class AdminServiceOperation implements AdminService {
     HashMap<String,List<Course>> profCourseMap=new HashMap<String,List<Course>>();
     List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
 
-    List<Student> students=new ArrayList<>();
+    public static List<Student> students=new ArrayList<>();
     List<StudentGrade> studentGrades = new ArrayList<StudentGrade>();
 
     List<Professor> professorList=new ArrayList<>();
@@ -68,18 +68,25 @@ public class AdminServiceOperation implements AdminService {
         student3.setStudentId("123");
         student3.setBatch(2019);
         student3.setBranchName("ABC");
+        student3.setGradeCardApproved(false);
+        student3.setName("John");
 
         Student student1 = new Student();
         student1.setApproved(true);
         student1.setStudentId("234");
         student1.setBatch(2019);
         student1.setBranchName("ABC");
+        student1.setGradeCardApproved(false);
+        student1.setName("Jessica");
+
 
         Student student2 = new Student();
         student2.setApproved(true);
         student2.setStudentId("345");
         student2.setBatch(2019);
         student2.setBranchName("ABC");
+        student2.setGradeCardApproved(true);
+        student1.setName("Virat");
 
         students.add(student1);
         students.add(student2);
@@ -178,6 +185,18 @@ public class AdminServiceOperation implements AdminService {
         return professorList;
     }
 
+    @Override
+    public void approveGradeCard(String studentId) {
+        for(Student student : students){
+            if(student.getStudentId().equals(studentId)){
+                student.setGradeCardApproved(true);
+                System.out.println("Grade card of student with Id "+ studentId+ " is approved");
+                return;
+            }
+        }
+        System.out.println("Student not found");
+    }
+
     public List<Student> viewPendingAdmission() {
         List<Student> pendingStudents = new ArrayList<Student>();
         for(Student student:students)
@@ -189,4 +208,5 @@ public class AdminServiceOperation implements AdminService {
         }
         return pendingStudents;
     }
+
 }
