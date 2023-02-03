@@ -12,15 +12,16 @@ import com.flipkart.bean.Professor;
 import java.util.Scanner;
 import java.util.List;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.data.Professors;
 import com.flipkart.data.CourseList;
+import com.flipkart.data.IsRegistered;
 public class StudentCRSMenu {
     Scanner sc=new Scanner(System.in);
     private boolean is_registered;
     RegistrationService registrationService = new RegistrationServiceOperation();
     ProfessorServiceOperation professorService = new ProfessorServiceOperation();
     NotificationService notificationService = new NotificationServiceOperation();
-
-
+    Professors professors = new Professors();
     public void createMenu(String studentId)
     {
         int choice;
@@ -75,7 +76,7 @@ public class StudentCRSMenu {
     private void registerCourses(String studentId)
     {
         int count = 0;
-        while(count<6)
+        while(count<3)
         {
             if(is_registered)
             {
@@ -101,11 +102,12 @@ public class StudentCRSMenu {
         }
         System.out.println("Registration Successful.");
         is_registered = true;
+        IsRegistered.isRegistered = true;
         registrationService.setRegistrationStatus(studentId);
     }
     private void addCourse(String studentId)
     {
-        if(is_registered)
+        if(registrationService.getRegistrationStatus(studentId))
         {
             List<Course> availableCourseList=viewCourse(studentId);
 
@@ -113,7 +115,7 @@ public class StudentCRSMenu {
                 return;
 
 
-                System.out.println("Enter Course Code : " );
+                System.out.println("Enter Course Code :" );
                 String courseCode = sc.next();
                 if(registrationService.addCourse(courseCode, studentId,availableCourseList))
                 {
@@ -147,14 +149,8 @@ public class StudentCRSMenu {
 
             System.out.println("Enter the Course Code : ");
             String courseCode = sc.next();
-
-
-                registrationService.dropCourse(courseCode, studentId,registeredCourseList);
-                System.out.println("You have successfully dropped Course : " + courseCode);
-
-
-                System.out.println("You have not registered for course.");
-
+            registrationService.dropCourse(courseCode, studentId,registeredCourseList);
+            System.out.println("You have successfully dropped Course : " + courseCode);
         }
         else
         {
@@ -189,10 +185,6 @@ public class StudentCRSMenu {
 
             course_registered = registrationService.viewRegisteredCourses(studentId);
 
-
-
-
-
         if(course_registered.isEmpty())
         {
             System.out.println("You haven't registered for any course");
@@ -205,11 +197,12 @@ public class StudentCRSMenu {
         {
             String id = obj.getInstructorId();
             Professor prof = null;
-            for(Professor p: professorService.getProfessors())
+            for(Professor p: Professors.professors)
             {
-                if(p.getUserId() == id)
+                if(p.getUserId().equalsIgnoreCase(id))
                 {
                     prof = p;
+
                 }
             }
             System.out.println(String.format("%-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),prof.getName()));

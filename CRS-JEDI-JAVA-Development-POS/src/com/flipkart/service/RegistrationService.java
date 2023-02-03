@@ -13,5 +13,5 @@ public interface RegistrationService {
     public List<Course> viewRegisteredCourses(String studentId);
     public double calculateFee(String studentId);
     public boolean getRegistrationStatus(String studentId);
-    public void setRegistrationStatus(String studentId);
+    public boolean setRegistrationStatus(String studentId);
 }

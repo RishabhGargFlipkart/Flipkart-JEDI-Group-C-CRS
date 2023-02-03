@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseList {
-    List<Course> courseList = new ArrayList<Course>();
+    public static List<Course> courseList;
     public CourseList()
     {
+        courseList = new ArrayList<Course>();
         Course course1 = new Course();
         course1.setCourseCode("1");
         course1.setCourseName("DAA");
-        course1.setInstructorId("NA");
+        course1.setInstructorId("P3");
         course1.setSeats(9);
 
         Course course2 = new Course();
@@ -27,10 +28,17 @@ public class CourseList {
         course3.setInstructorId("P2");
         course3.setSeats(9);
 
+        Course course4 = new Course();
+        course4.setCourseCode("4");
+        course4.setCourseName("DBMS");
+        course4.setInstructorId("P1");
+        course4.setSeats(9);
+
 
         courseList.add(course1);
         courseList.add(course2);
         courseList.add(course3);
+        courseList.add(course4);
     }
     public List<Course> getCourseList()
     {
