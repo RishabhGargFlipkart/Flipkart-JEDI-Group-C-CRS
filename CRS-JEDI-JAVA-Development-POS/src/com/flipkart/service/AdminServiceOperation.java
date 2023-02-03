@@ -71,6 +71,7 @@ public class AdminServiceOperation implements AdminService {
         student3.setGradeCardApproved(false);
         student3.setName("John");
 
+
         Student student1 = new Student();
         student1.setApproved(true);
         student1.setStudentId("234");
@@ -86,7 +87,7 @@ public class AdminServiceOperation implements AdminService {
         student2.setBatch(2019);
         student2.setBranchName("ABC");
         student2.setGradeCardApproved(true);
-        student1.setName("Virat");
+        student2.setName("Virat");
 
         students.add(student1);
         students.add(student2);
@@ -195,6 +196,22 @@ public class AdminServiceOperation implements AdminService {
             }
         }
         System.out.println("Student not found");
+    }
+
+    public List<Student> viewPendingAdmission() {
+        List<Student> pendingStudents = new ArrayList<Student>();
+        for(Student student:students)
+        {
+            if(!student.isApproved())
+            {
+                pendingStudents.add(student);
+            }
+        }
+        return pendingStudents;
+    }
+
+    public static void addStudentToList(Student s){
+        students.add(s);
     }
 
     public List<Student> viewPendingAdmission() {

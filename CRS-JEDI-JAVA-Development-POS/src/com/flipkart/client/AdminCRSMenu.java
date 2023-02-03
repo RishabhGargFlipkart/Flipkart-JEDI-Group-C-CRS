@@ -15,8 +15,19 @@ public class AdminCRSMenu {
 
     Scanner scanner =new Scanner(System.in);
     AdminServiceOperation adminService = new AdminServiceOperation();
+    String id,password;
 
-    public void createMenu(String userId){
+    public AdminCRSMenu()
+    {
+        id="Admin";
+        password="Secretpwd";
+    }
+    public void createMenu(String userId,String pwd){
+        if(!userId.equalsIgnoreCase(id)|| !pwd.equalsIgnoreCase(password))
+        {
+            System.out.println("Invalid Admin credentials");
+            return;
+        }
         while(true)
         {
             System.out.println("Welcome to Admin Department");
@@ -85,7 +96,11 @@ public class AdminCRSMenu {
 
     private void approveStudent() {
         List<Student> studentList= adminService.viewPendingAdmission();
-        System.out.println("Enter Student's ID:");
+        System.out.println("Student IDs to be approved:");
+        for (Student s: studentList) {
+            System.out.println(s.getStudentId());
+        }
+        System.out.println("Enter Student's ID to be approved:");
         String studentUserIdApproval = scanner.next();
         adminService.approveStudent(studentUserIdApproval, studentList);
 

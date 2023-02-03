@@ -14,17 +14,56 @@ public class ProfessorCRSMenu {
     ProfessorService professorInterface=new ProfessorServiceOperation();
 
     List<Professor> profDB=new ArrayList<Professor>();
+    public ProfessorCRSMenu() {
+        Professor p1 = new Professor();
+        p1.setUserId("P1");
+        p1.setName("Praneet");
+        p1.setDepartment("CS");
+        p1.setRole("Professor");
+        p1.setPassword("Praneet");
 
+        Professor p2 = new Professor();
+        p2.setUserId("P2");
+        p2.setName("P2");
+        p2.setDepartment("Mech");
+        p2.setRole("Professor");
+        p2.setPassword("Praneet");
 
-    public static void main(String[] args) {
-        Scanner sc= new Scanner(System.in);
-        ProfessorCRSMenu obj = new ProfessorCRSMenu();
-        System.out.println("Enter Professor ID");
-        String profID=sc.next();
-        obj.createMenu(profID);
+        Professor p3 = new Professor();
+        p3.setUserId("P3");
+        p3.setName("P3");
+        p3.setDepartment("ECE");
+        p3.setRole("Professor");
+        p3.setPassword("Praneet");
+
+        profDB.add(p1);
+        profDB.add(p2);
+        profDB.add(p3);
     }
 
-    public void createMenu(String profId) {
+//    public static void main(String[] args) {
+//        Scanner sc= new Scanner(System.in);
+//        ProfessorCRSMenu obj = new ProfessorCRSMenu();
+//        System.out.println("Enter Professor ID");
+//        String profID=sc.next();
+//        obj.createMenu(profID);
+//    }
+
+    public void createMenu(String profId,String pwd) {
+        boolean check = false;
+        for (Professor prof: profDB) {
+            if(prof.getUserId().equalsIgnoreCase(profId)){
+                if(prof.getPassword().equals(pwd)){
+                    check = true;
+                    break;
+                }
+            }
+        }
+        if(check == false){
+            System.out.println("Invalid credentials");
+            return;
+        }
+
         Scanner sc = new Scanner(System.in);
         int userInput;
         System.out.println("---------Professor Menu---------");
