@@ -14,6 +14,15 @@ public class Student extends User{
     //private String studentId;
     private int batch;
     private boolean isApproved;
+    private boolean RegistrationApproved;
+
+    public boolean isRegistrationApproved() {
+            return isGradeCardApproved;
+        }
+
+    public void setRegistrationApproved(boolean gradeCardApproved) {
+        isGradeCardApproved = gradeCardApproved;
+    }
 
     public boolean isGradeCardApproved() {
         return isGradeCardApproved;

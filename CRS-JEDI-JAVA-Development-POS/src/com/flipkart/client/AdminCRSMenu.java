@@ -67,6 +67,9 @@ public class AdminCRSMenu {
                     approveGradeCard();
                     break;
                 case 8:
+                    approveRegistration();
+                    break;
+                case 9:
                     return;
             }
         }
@@ -151,9 +154,19 @@ public class AdminCRSMenu {
         }
         System.out.println("Enter studentId whose grade card you want to approve");
         String studentId = scanner.next();
-        adminService.approveGradeCard(studentId);
+        adminService.approveGradeCard(studentId, studentList);
     }
-
+    public void approveRegistration(){
+        List<Student> studentList= adminService.viewPendingRegistration();
+        System.out.println("Following student's registration is pending");
+        System.out.println("Student Id             Name");
+        for (Student student : studentList) {
+            System.out.println(""+ student.getStudentId()+"              "+ student.getName());
+        }
+        System.out.println("Enter Student's ID to be approved:");
+        String studentUserIdApproval = scanner.next();
+        adminService.approveRegistration(studentUserIdApproval,studentList);
+    }
 }
 
 
