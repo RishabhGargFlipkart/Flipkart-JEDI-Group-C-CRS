@@ -12,7 +12,13 @@ public interface AdminService {
 
     public void addCourse(Course course, List<Course> courseList);
 
+    public void approveGradeCard(String studentId, List<Student> studentList);
+
     public List<Student> viewPendingAdmission();
+
+    public void approveRegistration(String studentId, List<Student> studentList);
+
+    public List<Student> viewPendingRegistration();
 
     public void approveStudent(String studentID, List<Student> studentList);
 
@@ -21,8 +27,6 @@ public interface AdminService {
     public List<Course> viewCourses(int catalogID);
 
     public List<Professor> viewProfessors();
-
-    public void approveGradeCard(String studentId);
 
     public static void addStudentToList(Student s){};
 }

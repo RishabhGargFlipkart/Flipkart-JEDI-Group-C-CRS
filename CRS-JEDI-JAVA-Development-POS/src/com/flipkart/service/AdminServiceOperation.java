@@ -70,6 +70,7 @@ public class AdminServiceOperation implements AdminService {
         student3.setBranchName("ABC");
         student3.setGradeCardApproved(false);
         student3.setName("John");
+        student3.setRegistrationApproved(false);
 
 
         Student student1 = new Student();
@@ -79,6 +80,7 @@ public class AdminServiceOperation implements AdminService {
         student1.setBranchName("ABC");
         student1.setGradeCardApproved(false);
         student1.setName("Jessica");
+        student1.setRegistrationApproved(false);
 
 
         Student student2 = new Student();
@@ -88,6 +90,7 @@ public class AdminServiceOperation implements AdminService {
         student2.setBranchName("ABC");
         student2.setGradeCardApproved(true);
         student2.setName("Virat");
+        student2.setRegistrationApproved(true);
 
         students.add(student1);
         students.add(student2);
@@ -187,8 +190,8 @@ public class AdminServiceOperation implements AdminService {
     }
 
     @Override
-    public void approveGradeCard(String studentId) {
-        for(Student student : students){
+    public void approveGradeCard(String studentId, List<Student> studentList) {
+        for(Student student : studentList){
             if(student.getStudentId().equals(studentId)){
                 student.setGradeCardApproved(true);
                 System.out.println("Grade card of student with Id "+ studentId+ " is approved");
@@ -210,8 +213,31 @@ public class AdminServiceOperation implements AdminService {
         return pendingStudents;
     }
 
+    public List<Student> viewPendingRegistration(){
+        List<Student> pendingStudents = new ArrayList<Student>();
+        for(Student student:students)
+        {
+            if(!student.isRegistrationApproved())
+            {
+                pendingStudents.add(student);
+            }
+        }
+        return pendingStudents;
+    }
+
     public static void addStudentToList(Student s){
         students.add(s);
+    }
+
+    public void approveRegistration(String studentId, List<Student> studentList){
+        for(Student student : studentList){
+            if(student.getStudentId().equals(studentId)){
+                student.setRegistrationApproved(true);
+                System.out.println("Registration of student with Id "+ studentId+ " is approved");
+                return;
+            }
+        }
+        System.out.println("Student not found");
     }
 
 }
