@@ -1,8 +1,5 @@
 package com.flipkart.service;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.EnrolledStudent;
-import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.*;
 import com.flipkart.constant.Grade;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +11,7 @@ public class ProfessorServiceOperation implements ProfessorService {
     List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
 
     List<StudentGrade> studentGrades=new ArrayList<StudentGrade>();
+    List<Professor> professors = new ArrayList<>();
     List<Course>  course = new ArrayList<Course>();
     public ProfessorServiceOperation()
     {
@@ -80,6 +78,8 @@ public class ProfessorServiceOperation implements ProfessorService {
         enrolledStudents.add(enrolledStudent1);
         enrolledStudents.add(enrolledStudent2);
         enrolledStudents.add(enrolledStudent3);
+
+        //Professor data
 
 
         for(Course crs:course)
@@ -182,6 +182,10 @@ public class ProfessorServiceOperation implements ProfessorService {
         return profCourseMap.get(profId);
     }
 
+    public List<Professor> getProfessors(){
+        return professors;
+    }
+
     public boolean assignCourse(String profId,String courseCode)
     {
         int i=0;
@@ -206,4 +210,5 @@ public class ProfessorServiceOperation implements ProfessorService {
         }
         return false;
     }
+
 }

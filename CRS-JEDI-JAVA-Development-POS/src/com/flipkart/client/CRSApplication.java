@@ -67,8 +67,6 @@ public class CRSApplication {
         role=sc.next();
 
         if(role.equalsIgnoreCase("Student")){
-
-
             student.create_menu(userID);
         }
         else if(role.equalsIgnoreCase("Professor")){
