@@ -1,12 +1,5 @@
-/**
- * 
- */
 package com.flipkart.bean;
 
-/**
- * @author rishabh.garg
- *
- */
 public class Professor extends User {
 
 	private String department;
@@ -18,11 +11,11 @@ public class Professor extends User {
 		this.department = department;
 	}
 
-
 	public void display()
 	{
 		System.out.println(this.getUserId()+" "+this.getName()+" "+this.department);
 	}
+  
 	@Override
 	public boolean equals(Object professor){
 		if(this==professor) return true;

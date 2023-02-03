@@ -8,6 +8,9 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static com.flipkart.service.AdminServiceOperation.students;
+
 public class AdminCRSMenu {
 
     Scanner scanner =new Scanner(System.in);
@@ -35,7 +38,8 @@ public class AdminCRSMenu {
             System.out.println("4. add professor");
             System.out.println("5. view courses");
             System.out.println("6. view professors");
-            System.out.println("7. Exit");
+            System.out.println("7. approve grade card");
+            System.out.println("8. Exit");
 
             int option= scanner.nextInt();
 
@@ -60,6 +64,9 @@ public class AdminCRSMenu {
                     viewProfessors();
                     break;
                 case 7:
+                    approveGradeCard();
+                    break;
+                case 8:
                     return;
             }
         }
@@ -131,6 +138,20 @@ public class AdminCRSMenu {
     public void viewProfessors(){
         List<Professor> professorList = new ArrayList<Professor>();
         professorList = adminService.viewProfessors();
+    }
+
+    public void approveGradeCard(){
+        System.out.println("Students whose grade card has to be approved");
+        List<Student> studentList = AdminServiceOperation.students;
+        System.out.println("Student Id             Name");
+        for(Student student: studentList){
+            if(!student.isGradeCardApproved()) {
+                System.out.println(""+ student.getStudentId()+"              "+ student.getName());
+            }
+        }
+        System.out.println("Enter studentId whose grade card you want to approve");
+        String studentId = scanner.next();
+        adminService.approveGradeCard(studentId);
     }
 
 }

@@ -14,6 +14,16 @@ public class Student extends User{
     //private String studentId;
     private int batch;
     private boolean isApproved;
+
+    public boolean isGradeCardApproved() {
+        return isGradeCardApproved;
+    }
+
+    public void setGradeCardApproved(boolean gradeCardApproved) {
+        isGradeCardApproved = gradeCardApproved;
+    }
+
+    private boolean isGradeCardApproved;
     public void setBranchName(String branchName) {
         this.branchName = branchName;
     }
