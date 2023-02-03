@@ -1,13 +1,22 @@
 package com.flipkart.client;
 
+
+import com.flipkart.service.AdminServiceOperation;
+import com.flipkart.bean.Student;
 import java.util.Scanner;
+
+import static com.flipkart.service.AdminServiceOperation.addStudentToList;
 
 public class CRSApplication {
     static boolean loggedin = false;
 
+//    AdminService adminService = new AdminServiceOperation();
+    AdminCRSMenu admin=new AdminCRSMenu();
+    ProfessorCRSMenu prof=new ProfessorCRSMenu();
+    StudentCRSMenu student=new StudentCRSMenu();
+
     public static void main(String[]args){
         Scanner sc = new Scanner(System.in);
-
         CRSApplication crsApplication=new CRSApplication();
         int userInput;
         createMainMenu();
@@ -58,16 +67,15 @@ public class CRSApplication {
         role=sc.next();
 
         if(role.equalsIgnoreCase("Student")){
-            StudentCRSMenu student=new StudentCRSMenu();
-            student.createMenu(userID);
+            student.create_menu(userID);
         }
         else if(role.equalsIgnoreCase("Professor")){
-            ProfessorCRSMenu prof=new ProfessorCRSMenu();
-            prof.createMenu(userID);
+
+            prof.createMenu(userID,password);
         }
         else if(role.equalsIgnoreCase("Admin")){
-            AdminCRSMenu admin=new AdminCRSMenu();
-            admin.createMenu(userID);
+
+            admin.createMenu(userID,password);
         }
         else
             System.out.println("Wrong password");
@@ -84,7 +92,7 @@ public class CRSApplication {
         System.out.println("---------------Student Registration-------------");
         System.out.print("Name:");
         name=sc.nextLine();
-        System.out.print("Email:");
+        System.out.print("ID:");
         userId=sc.next();
         System.out.print("Password:");
         password=sc.next();
@@ -100,6 +108,18 @@ public class CRSApplication {
         address=sc.nextLine();
         System.out.print("Country");
         country=sc.next();
+        System.out.println("Wait for admin approval to login!");
+
+        Student s = new Student();
+        s.setUserId(userId);
+        s.setBatch(batch);
+        s.setName(name);
+        s.setPassword(password);
+        s.setBranchName(branchName);
+        s.setRole("Student");
+        s.setApproved(false);
+        addStudentToList(s);
+
     }
     public void updatePassword(){
         Scanner sc = new Scanner(System.in);

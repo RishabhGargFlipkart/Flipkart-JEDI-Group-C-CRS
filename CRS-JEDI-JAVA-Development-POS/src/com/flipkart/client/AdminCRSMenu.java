@@ -5,14 +5,29 @@ import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.bean.Professor;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static com.flipkart.service.AdminServiceOperation.students;
+
 public class AdminCRSMenu {
 
     Scanner scanner =new Scanner(System.in);
     AdminServiceOperation adminService = new AdminServiceOperation();
+    String id,password;
 
-    public void createMenu(String userId){
+    public AdminCRSMenu()
+    {
+        id="Admin";
+        password="Secretpwd";
+    }
+    public void createMenu(String userId,String pwd){
+        if(!userId.equalsIgnoreCase(id)|| !pwd.equalsIgnoreCase(password))
+        {
+            System.out.println("Invalid Admin credentials");
+            return;
+        }
         while(true)
         {
             System.out.println("Welcome to Admin Department");
@@ -22,7 +37,9 @@ public class AdminCRSMenu {
             System.out.println("3. approve student");
             System.out.println("4. add professor");
             System.out.println("5. view courses");
-            System.out.println("6. Exit");
+            System.out.println("6. view professors");
+            System.out.println("7. approve grade card");
+            System.out.println("8. Exit");
 
             int option= scanner.nextInt();
 
@@ -30,48 +47,61 @@ public class AdminCRSMenu {
             switch(option) {
                 case 1:
                     addCourse();
+                    break;
                 case 2:
                     deleteCourse();
+                    break;
                 case 3:
                     approveStudent();
+                    break;
                 case 4:
                     addProfessor();
+                    break;
                 case 5:
                     viewCourses();
+                    break;
                 case 6:
+                    viewProfessors();
+                    break;
+                case 7:
+                    approveGradeCard();
+                    break;
+                case 8:
                     return;
             }
-
-
-
-
         }
     }
 
     private void addCourse()
     {
-//        List<Course> courseList = adminService.viewCourses(1);
-//        System.out.println("Enter course Id: ");
-//        String courseID=scanner.nextLine();
-//        System.out.println("Enter course name: ");
-//        String courseName= scanner.nextLine();
-//        Course course = new Course(courseID, courseName, null, 10);
-//        adminService.addCourse(course,courseList);
+        System.out.println("List of already existing courses:");
+        List<Course> courseList = adminService.viewCourses(1);
+        System.out.println("Enter new course details");
+        System.out.println("Enter course Id: ");
+        String courseID=scanner.next();
+        System.out.println("Enter course name: ");
+        String courseName= scanner.next();
+        Course course = new Course(courseID, courseName, null, 10);
+        adminService.addCourse(course,courseList);
 
     }
 
     private void deleteCourse() {
         List<Course> courseList = adminService.viewCourses(1);
         System.out.println("Enter course Id: ");
-        String courseID=scanner.nextLine();
+        String courseID=scanner.next();
         adminService.deleteCourse(courseID, courseList);
 
     }
 
     private void approveStudent() {
-        List<Student> studentList= adminService.viewPendingAdmissions();
-        System.out.println("Enter Student's ID:");
-        int studentUserIdApproval = scanner.nextInt();
+        List<Student> studentList= adminService.viewPendingAdmission();
+        System.out.println("Student IDs to be approved:");
+        for (Student s: studentList) {
+            System.out.println(s.getStudentId());
+        }
+        System.out.println("Enter Student's ID to be approved:");
+        String studentUserIdApproval = scanner.next();
         adminService.approveStudent(studentUserIdApproval, studentList);
 
     }
@@ -105,6 +135,24 @@ public class AdminCRSMenu {
         adminService.addProfessor(professor);
     }
 
+    public void viewProfessors(){
+        List<Professor> professorList = new ArrayList<Professor>();
+        professorList = adminService.viewProfessors();
+    }
+
+    public void approveGradeCard(){
+        System.out.println("Students whose grade card has to be approved");
+        List<Student> studentList = AdminServiceOperation.students;
+        System.out.println("Student Id             Name");
+        for(Student student: studentList){
+            if(!student.isGradeCardApproved()) {
+                System.out.println(""+ student.getStudentId()+"              "+ student.getName());
+            }
+        }
+        System.out.println("Enter studentId whose grade card you want to approve");
+        String studentId = scanner.next();
+        adminService.approveGradeCard(studentId);
+    }
 
 }
 

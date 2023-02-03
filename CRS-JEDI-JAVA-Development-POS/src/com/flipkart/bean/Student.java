@@ -9,21 +9,31 @@ package com.flipkart.bean;
  * Student Class
  *
  */
-public class Student {
+public class Student extends User{
     private String branchName;
-    private String studentId;
+    //private String studentId;
     private int batch;
     private boolean isApproved;
+
+    public boolean isGradeCardApproved() {
+        return isGradeCardApproved;
+    }
+
+    public void setGradeCardApproved(boolean gradeCardApproved) {
+        isGradeCardApproved = gradeCardApproved;
+    }
+
+    private boolean isGradeCardApproved;
     public void setBranchName(String branchName) {
         this.branchName = branchName;
     }
 
     public String getStudentId() {
-        return studentId;
+        return this.getUserId();
     }
 
     public void setStudentId(String studentId) {
-        this.studentId = studentId;
+        this.setUserId(studentId);
     }
 
     public int getBatch() {

@@ -1,13 +1,20 @@
 package com.flipkart.bean;
 
 public class Course {
-//    public Course(String courseCode, String courseName, String instructorId, int seats) {
-//        this.courseCode = courseCode;
-//        this.courseName = courseName;
-//        this.instructorId = instructorId;
-//        this.seats = seats;
-//    }
+    public Course(){
 
+    }
+    public Course(String courseCode, String courseName, String instructorId, int seats) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.instructorId = instructorId;
+        this.seats = seats;
+    }
+
+    public void display()
+    {
+        System.out.println(this.courseCode+" "+this.courseName);
+    }
     public String getCourseCode() {
         return courseCode;
     }
@@ -42,6 +49,13 @@ public class Course {
 
     public void setSeats(int seats) {
         this.seats = seats;
+    }
+
+    @Override
+    public boolean equals(Object course){
+        if(this==course) return true;
+        if(!(course instanceof Course)) return false;
+        return this.getCourseCode().equals(((Course)course).getCourseCode());
     }
 
     private int seats = 10;
