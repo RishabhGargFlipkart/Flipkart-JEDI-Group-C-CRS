@@ -4,11 +4,12 @@ public class Course {
     public Course(){
 
     }
-    public Course(String courseCode, String courseName, String instructorId, int seats) {
+    public Course(String courseCode, String courseName, String instructorId, int seats, double fee) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.instructorId = instructorId;
         this.seats = seats;
+        this.fee = fee;
     }
 
     public void display()
@@ -42,6 +43,16 @@ public class Course {
     private String courseCode;
     private String courseName;
     private String instructorId;
+
+    public double getFee() {
+        return fee;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
+    }
+
+    private double fee;
 
     public int getSeats() {
         return seats;

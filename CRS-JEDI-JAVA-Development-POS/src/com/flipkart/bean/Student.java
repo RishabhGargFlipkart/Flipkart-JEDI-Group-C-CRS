@@ -11,38 +11,32 @@ package com.flipkart.bean;
  */
 public class Student extends User{
     private String branchName;
-    //private String studentId;
-    private int batch;
-    private boolean isApproved;
-    private boolean RegistrationApproved;
 
-    public boolean isRegistrationApproved() {
-            return isGradeCardApproved;
-        }
-
-    public void setRegistrationApproved(boolean gradeCardApproved) {
-        isGradeCardApproved = gradeCardApproved;
+    public String getGender() {
+        return gender;
     }
 
-    public boolean isGradeCardApproved() {
-        return isGradeCardApproved;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public void setGradeCardApproved(boolean gradeCardApproved) {
-        isGradeCardApproved = gradeCardApproved;
+    public String getAddress() {
+        return address;
     }
 
-    private boolean isGradeCardApproved;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String gender;
+    private String address;
+
+    public String getBranchName() {
+        return branchName;
+    }
+
     public void setBranchName(String branchName) {
         this.branchName = branchName;
-    }
-
-    public String getStudentId() {
-        return this.getUserId();
-    }
-
-    public void setStudentId(String studentId) {
-        this.setUserId(studentId);
     }
 
     public int getBatch() {
@@ -53,15 +47,33 @@ public class Student extends User{
         this.batch = batch;
     }
 
-    public boolean isApproved() {
-        return isApproved;
+    public boolean isGradeCardApproved() {
+        return isGradeCardApproved;
     }
 
-    public void setApproved(boolean approved) {
-        isApproved = approved;
+    public void setGradeCardApproved(boolean gradeCardApproved) {
+        isGradeCardApproved = gradeCardApproved;
     }
 
-    public String getBranchName(){
-        return branchName;
+    public boolean isRegistrationApproved() {
+        return isRegistrationApproved;
     }
+
+    public void setRegistrationApproved(boolean registrationApproved) {
+        isRegistrationApproved = registrationApproved;
+    }
+
+    public boolean isStudentApproved() {
+        return isStudentApproved;
+    }
+
+    public void setStudentApproved(boolean studentApproved) {
+        isStudentApproved = studentApproved;
+    }
+
+    private int batch;
+    private boolean isGradeCardApproved;
+    private boolean isRegistrationApproved;
+    private boolean isStudentApproved;
+
 }

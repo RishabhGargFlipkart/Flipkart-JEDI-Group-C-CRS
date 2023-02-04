@@ -3,241 +3,122 @@ package com.flipkart.service;
 import java.util.*;
 
 import com.flipkart.bean.*;
+import com.flipkart.dao.AdminDAO;
+import com.flipkart.dao.AdminDAOImpl;
+import com.flipkart.exception.*;
+import com.flipkart.validator.AdminValidator;
 
 public class AdminServiceOperation implements AdminService {
 
-    HashMap<String,List<Course>> profCourseMap=new HashMap<String,List<Course>>();
-    List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+    private static volatile AdminServiceOperation instance = null;
 
-    public static List<Student> students=new ArrayList<>();
-    List<StudentGrade> studentGrades = new ArrayList<StudentGrade>();
+    private AdminServiceOperation(){}
 
-    List<Professor> professorList=new ArrayList<>();
-    List<Course>  course = new ArrayList<Course>();
-    public AdminServiceOperation()
-    {
-        Professor p1=new Professor();
-        p1.setUserId("P1");
-        p1.setName("Praneet");
-        p1.setDepartment("CS");
-        p1.setRole("Professor");
-        p1.setPassword("Praneet");
+	public static AdminServiceOperation getInstance()
+	{
+		if(instance == null)
+		{
+			synchronized(AdminServiceOperation.class){
+				instance = new AdminServiceOperation();
+			}
+		}
+		return instance;
+	}
 
-        Professor p2=new Professor();
-        p2.setUserId("P2");
-        p2.setName("P2");
-        p2.setDepartment("Mech");
-        p2.setRole("Professor");
-        p2.setPassword("Praneet");
+    AdminDAO adminDaoImpl = AdminDAOImpl.getInstance();
 
-        Professor p3=new Professor();
-        p3.setUserId("P3");
-        p3.setName("P3");
-        p3.setDepartment("ECE");
-        p3.setRole("Professor");
-        p3.setPassword("Praneet");
+    public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException{
 
-        professorList.add(p1);
-        professorList.add(p2);
-        professorList.add(p3);
-
-        Course course1 = new Course();
-        course1.setCourseCode("1");
-        course1.setCourseName("DAA");
-        course1.setInstructorId("P1");
-        course1.setSeats(9);
-
-        Course course2 = new Course();
-        course2.setCourseCode("2");
-        course2.setCourseName("DSA");
-        course2.setInstructorId("P2");
-        course2.setSeats(9);
-
-        Course course3 = new Course();
-        course3.setCourseCode("3");
-        course3.setCourseName("OS");
-        course3.setInstructorId("P3");
-        course3.setSeats(9);
-
-        course.add(course1);
-        course.add(course2);
-        course.add(course3);
-
-        Student student3 = new Student();
-        student3.setApproved(false);
-        student3.setStudentId("123");
-        student3.setBatch(2019);
-        student3.setBranchName("ABC");
-        student3.setGradeCardApproved(false);
-        student3.setName("John");
-        student3.setRegistrationApproved(false);
-
-
-        Student student1 = new Student();
-        student1.setApproved(true);
-        student1.setStudentId("234");
-        student1.setBatch(2019);
-        student1.setBranchName("ABC");
-        student1.setGradeCardApproved(false);
-        student1.setName("Jessica");
-        student1.setRegistrationApproved(false);
-
-
-        Student student2 = new Student();
-        student2.setApproved(true);
-        student2.setStudentId("345");
-        student2.setBatch(2019);
-        student2.setBranchName("ABC");
-        student2.setGradeCardApproved(true);
-        student2.setName("Virat");
-        student2.setRegistrationApproved(true);
-
-        students.add(student1);
-        students.add(student2);
-        students.add(student3);
-
-
-        EnrolledStudent enrolledStudent1 = new EnrolledStudent();
-        enrolledStudent1.setCourseCode("1");
-        enrolledStudent1.setCourseName("DAA");
-        enrolledStudent1.setStudentId("123");
-
-        EnrolledStudent enrolledStudent2 = new EnrolledStudent();
-        enrolledStudent2.setCourseCode("2");
-        enrolledStudent2.setCourseName("DSA");
-        enrolledStudent2.setStudentId("234");
-
-        EnrolledStudent enrolledStudent3 = new EnrolledStudent();
-        enrolledStudent3.setCourseCode("3");
-        enrolledStudent3.setCourseName("OS");
-        enrolledStudent3.setStudentId("345");
-
-        enrolledStudents.add(enrolledStudent1);
-        enrolledStudents.add(enrolledStudent2);
-        enrolledStudents.add(enrolledStudent3);
-
-        for(Course crs:course)
-        {
-            if(profCourseMap.containsKey(crs.getInstructorId())) {
-                profCourseMap.get(crs.getInstructorId()).add(crs);
-            }
-            else {
-                ArrayList<Course> temp=new ArrayList<>();
-                temp.add(crs);
-                profCourseMap.put(crs.getInstructorId(),temp);
-            }
+        if(!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
+            System.out.println("courseCode: " + dropCourseCode + " not present in catalog!");
+            throw new CourseNotFoundException(dropCourseCode);
         }
 
-
-    }
-    public void deleteCourse(String courseID, List<Course> courseList){
-        Iterator<Course> courseIterator = courseList.iterator();
-        while (courseIterator.hasNext()) {
-            Course course = courseIterator.next();
-            if((course.getCourseCode().equals(courseID))) {
-                courseIterator.remove();
-                System.out.println("Course "+course.getCourseName()+" deleted.");
-                return;
-            }
+        try {
+            adminDaoImpl.deleteCourse(dropCourseCode);
         }
-        System.out.println("Course not found");
+        catch(CourseNotFoundException | CourseNotDeletedException e) {
+            throw e;
+        }
     }
-    public void addCourse(Course course, List<Course> courseList){
-        if(!courseList.contains(course)){
-            courseList.add(course);
-            System.out.println("Added Course");
-        } else {
-            System.out.println("Course already added");
+    public void addCourse(Course newCourse, List<Course> courseList) throws CourseFoundException {
+        if(!AdminValidator.isValidNewCourse(newCourse, courseList)) {
+            System.out.println("courseCode: " + newCourse.getCourseCode() + " already present in catalog!");
+            throw new CourseFoundException(newCourse.getCourseCode());
+        }
+
+        try {
+            adminDaoImpl.addCourse(newCourse);
+        }
+        catch(CourseFoundException e) {
+            throw e;
         }
     }
 
-    public void approveStudent(String studentID, List<Student> studentList){
-        for(Student student: studentList){
-            if(student.getStudentId().equals(studentID)){
-                student.setApproved(true);
-                System.out.println("Student with student Id: " + studentID+ " is approved");
-                return;
-            }
+    public void approveStudent(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
+        if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
+            //logger.error("studentId: " + studentId + " is already approvet/not-present!");
+            throw new StudentNotFoundForApprovalException(studentId);
         }
-        System.out.println("Invalid Student ID");
+
+        try {
+            adminDaoImpl.approveStudent(studentId);
+        }
+        catch(StudentNotFoundForApprovalException e) {
+            throw e;
+        }
     }
 
-    public void addProfessor(Professor professor){
-        if(professorList.contains(professor))
-        {
-            System.out.println("Professor already exists.");
+    public void addProfessor(Professor professor) throws UserIdAlreadyInUseException, ProfessorNotAddedException {
+        try {
+            adminDaoImpl.addProfessor(professor);
         }
-        else {
-            professorList.add(professor);
-            System.out.println("Professor added");
+        catch(ProfessorNotAddedException | UserIdAlreadyInUseException e) {
+            throw e;
         }
 
     }
 
-    public List<Course> viewCourses(int catalogID) {
-        for(Course c:course)
-        {
-            c.display();
-        }
-        return course;
+    public List<Course> viewCourses() {
+        return adminDaoImpl.viewCourses();
     }
 
     public List<Professor> viewProfessors() {
-        for(Professor professor:professorList) {
-            professor.display();
-        }
-        return professorList;
+        return adminDaoImpl.viewProfessors();
     }
 
     @Override
-    public void approveGradeCard(String studentId, List<Student> studentList) {
-        for(Student student : studentList){
-            if(student.getStudentId().equals(studentId)){
-                student.setGradeCardApproved(true);
-                System.out.println("Grade card of student with Id "+ studentId+ " is approved");
-                return;
-            }
+    public List<Student> viewPendingGradeCard() {
+        return adminDaoImpl.viewPendingGradeCard();
+    }
+
+    @Override
+    public void approveGradeCard(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
+        try {
+            adminDaoImpl.approveStudent(studentId);
         }
-        System.out.println("Student not found");
+        catch(StudentNotFoundForApprovalException e) {
+            throw e;
+        }
     }
 
     public List<Student> viewPendingAdmission() {
-        List<Student> pendingStudents = new ArrayList<Student>();
-        for(Student student:students)
-        {
-            if(!student.isApproved())
-            {
-                pendingStudents.add(student);
-            }
-        }
-        return pendingStudents;
+        return adminDaoImpl.viewPendingAdmission();
     }
 
     public List<Student> viewPendingRegistration(){
-        List<Student> pendingStudents = new ArrayList<Student>();
-        for(Student student:students)
-        {
-            if(!student.isRegistrationApproved())
-            {
-                pendingStudents.add(student);
-            }
-        }
-        return pendingStudents;
+        return adminDaoImpl.viewPendingRegistration();
     }
 
-    public static void addStudentToList(Student s){
-        students.add(s);
+
+    public void approveRegistration(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
+        try {
+            adminDaoImpl.approveStudent(studentId);
+        }
+        catch(StudentNotFoundForApprovalException e) {
+            throw e;
+        }
     }
 
-    public void approveRegistration(String studentId, List<Student> studentList){
-        for(Student student : studentList){
-            if(student.getStudentId().equals(studentId)){
-                student.setRegistrationApproved(true);
-                System.out.println("Registration of student with Id "+ studentId+ " is approved");
-                return;
-            }
-        }
-        System.out.println("Student not found");
-    }
 
 }
