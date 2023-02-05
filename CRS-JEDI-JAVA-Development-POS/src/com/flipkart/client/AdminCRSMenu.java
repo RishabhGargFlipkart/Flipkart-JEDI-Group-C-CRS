@@ -84,7 +84,9 @@ public class AdminCRSMenu {
         String courseID=scanner.next();
         System.out.println("Enter course name: ");
         String courseName= scanner.next();
-        Course course = new Course(courseID, courseName, null, 10);
+        System.out.println("Enter course fees: ");
+        double fees= scanner.nextDouble();
+        Course course = new Course(courseID, courseName, null, 10,fees);
         adminService.addCourse(course,courseList);
 
     }

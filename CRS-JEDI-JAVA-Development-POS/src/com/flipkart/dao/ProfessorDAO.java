@@ -1,14 +1,18 @@
 package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.bean.Professor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ProfessorDAO {
-    public List<Course> getCourses(String profId);
+    public List<Course> getCourses(String profId) throws ClassNotFoundException, SQLException;
 
-    public List<EnrolledStudent> getEnrolledStudent(String profId);
+    public List<EnrolledStudent> getEnrolledStudent(String profId) throws SQLException, ClassNotFoundException;
 
-    public Boolean addGrade(String studentId,String courseCode,String grade);
-    public String getProfessorById(String profId);
+    public boolean addGrade(String studentId,String courseCode,String grade) throws SQLException, ClassNotFoundException;
+
+    public boolean assignCourse(String profId,String courseCode) throws SQLException, ClassNotFoundException;
+    List<Professor> getProfessors() throws SQLException, ClassNotFoundException;
 }

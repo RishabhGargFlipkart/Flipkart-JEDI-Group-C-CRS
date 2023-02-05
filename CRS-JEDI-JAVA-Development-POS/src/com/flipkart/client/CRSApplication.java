@@ -3,6 +3,8 @@ package com.flipkart.client;
 
 import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.bean.Student;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static com.flipkart.service.AdminServiceOperation.addStudentToList;
@@ -10,12 +12,14 @@ import static com.flipkart.service.AdminServiceOperation.addStudentToList;
 public class CRSApplication {
     static boolean loggedin = false;
 
-//    AdminService adminService = new AdminServiceOperation();
     AdminCRSMenu admin=new AdminCRSMenu();
     ProfessorCRSMenu prof=new ProfessorCRSMenu();
     StudentCRSMenu student=new StudentCRSMenu();
 
-    public static void main(String[]args){
+    public CRSApplication() throws SQLException, ClassNotFoundException {
+    }
+
+    public static void main(String[]args) throws SQLException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         CRSApplication crsApplication=new CRSApplication();
         int userInput;
@@ -54,7 +58,7 @@ public class CRSApplication {
         System.out.println(" Enter your option(1 to 4)");
     }
 
-    public void loginUser(){
+    public void loginUser() throws SQLException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         String userID,password,role;
         System.out.println(" ");
@@ -70,7 +74,6 @@ public class CRSApplication {
             student.createMenu(userID);
         }
         else if(role.equalsIgnoreCase("Professor")){
-
             prof.createMenu(userID,password);
         }
         else if(role.equalsIgnoreCase("Admin")){
