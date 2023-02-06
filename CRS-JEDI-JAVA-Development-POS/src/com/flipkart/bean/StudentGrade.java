@@ -5,6 +5,7 @@ public class StudentGrade {
     private String courseID;
     private String courseName;
     private String grade;
+    private int semester;
 
 //    public StudentGrade() {
 //    }
@@ -46,5 +47,13 @@ public class StudentGrade {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 }

@@ -4,12 +4,13 @@ public class Course {
     public Course(){
 
     }
-    public Course(String courseCode, String courseName, String instructorId, int seats,double fee) {
+
+    public Course(String courseCode, String courseName, String instructorId, int seats, double fee) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.instructorId = instructorId;
         this.seats = seats;
-        this.fee=fee;
+        this.fee = fee;
     }
 
     public void display()
