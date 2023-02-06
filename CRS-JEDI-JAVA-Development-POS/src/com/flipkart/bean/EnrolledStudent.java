@@ -28,4 +28,12 @@ public class EnrolledStudent {
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
+
+
+    public EnrolledStudent(){}
+    public EnrolledStudent(String courseCode, String courseName, String studentId) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.studentId = studentId;
+    }
 }

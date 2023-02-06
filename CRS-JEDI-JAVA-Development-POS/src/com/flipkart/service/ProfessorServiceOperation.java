@@ -1,12 +1,16 @@
 package com.flipkart.service;
 import com.flipkart.bean.*;
 import com.flipkart.constant.Grade;
+import com.flipkart.dao.ProfessorDAO;
+import com.flipkart.dao.ProfessorDAOImpl;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ProfessorServiceOperation implements ProfessorService {
     Grade g;
+    ProfessorDAO professorDAO=ProfessorDAOImpl.getInstance();
     HashMap<String,List<Course>> profCourseMap=new HashMap<String,List<Course>>();
     List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
 
@@ -150,36 +154,54 @@ public class ProfessorServiceOperation implements ProfessorService {
 
     public List<EnrolledStudent> viewEnrolledStudents(String profId, String courseCode){
 
-        List<Course> teachingCourses=getCourses(profId);
-        List<EnrolledStudent> ans=new ArrayList<EnrolledStudent>();
-        int check=0;
-        for(Course c: teachingCourses)
+//        List<Course> teachingCourses=getCourses(profId);
+//        List<EnrolledStudent> ans=new ArrayList<EnrolledStudent>();
+//        int check=0;
+//        for(Course c: teachingCourses)
+//        {
+//            if(c.getCourseCode().equalsIgnoreCase(courseCode))
+//            {
+//                check=1;
+//                break;
+//            }
+//        }
+//        if(check==0)
+//        {
+//            System.out.println("This course is not taught by you!");
+//            return ans;
+//        }
+//
+//
+//        for(EnrolledStudent es:enrolledStudents)
+//        {
+//            if(es.getCourseCode().equalsIgnoreCase(courseCode)){
+//                ans.add(es);
+//            }
+//
+//        }
+//        return ans;
+        List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+        try
         {
-            if(c.getCourseCode().equalsIgnoreCase(courseCode))
-            {
-                check=1;
-                break;
-            }
+            enrolledStudents=professorDAO.getEnrolledStudent(profId);
         }
-        if(check==0)
+        catch(Exception ex)
         {
-            System.out.println("This course is not taught by you!");
-            return ans;
+            throw ex;
         }
-
-
-        for(EnrolledStudent es:enrolledStudents)
-        {
-            if(es.getCourseCode().equalsIgnoreCase(courseCode)){
-                ans.add(es);
-            }
-
-        }
-        return ans;
+        return enrolledStudents;
     }
 
     public List<Course> getCourses(String profId){
-        return profCourseMap.get(profId);
+        List<Course> courses=new ArrayList<Course>();
+        try{
+            courses=professorDAO.getCourses(profId);
+        }
+        catch(Exception ex)
+        {
+            throw ex;
+        }
+        return courses;
     }
 
     public List<Professor> getProfessors(){

@@ -4,6 +4,7 @@ public class Course {
     public Course(){
 
     }
+
     public Course(String courseCode, String courseName, String instructorId, int seats, double fee) {
         this.courseCode = courseCode;
         this.courseName = courseName;
