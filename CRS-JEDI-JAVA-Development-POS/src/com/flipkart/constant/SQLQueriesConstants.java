@@ -11,4 +11,7 @@ public class SQLQueriesConstants {
     public static final String GET_COURSES="select * from course where profId=?";
     public static final String GET_ENROLLED_STUDENTS="select course.courseCode,course.courseName,semregistration.studentId from course inner join semregistration on course.courseCode = semregistration.courseCode where course.profId = ? and course.courseCode =? order by course.courseCode";
 
+    public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
+
+    public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount) values(?,?,?,?);";
 }
