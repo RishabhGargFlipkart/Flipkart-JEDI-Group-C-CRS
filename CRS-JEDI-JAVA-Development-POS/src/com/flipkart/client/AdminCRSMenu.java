@@ -81,6 +81,7 @@ public class AdminCRSMenu {
         System.out.println("Enter fee:");
         double fee = scanner.nextDouble();
 
+
         Course course = new Course();
         course.setCourseCode(courseCode);
         course.setCourseName(courseName);

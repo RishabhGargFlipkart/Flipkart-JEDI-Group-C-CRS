@@ -3,8 +3,11 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Professor;
+import com.flipkart.dao.ProfessorDAO;
+import com.flipkart.dao.ProfessorDAOImpl;
 import com.flipkart.service.ProfessorService;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,10 +15,10 @@ import com.flipkart.service.ProfessorServiceOperation;
 
 public class ProfessorCRSMenu {
     ProfessorService professorInterface=new ProfessorServiceOperation();
-
+    ProfessorDAO professorDAO=new ProfessorDAOImpl();
     List<Professor> profDB=new ArrayList<Professor>();
-    public ProfessorCRSMenu() {
-        Professor p1 = new Professor();
+    public ProfessorCRSMenu() throws SQLException, ClassNotFoundException {
+        /*Professor p1 = new Professor();
         p1.setUserId("P1");
         p1.setName("Praneet");
         p1.setDepartment("CS");
@@ -35,10 +38,14 @@ public class ProfessorCRSMenu {
         p3.setDepartment("ECE");
         p3.setRole("Professor");
         p3.setPassword("Praneet");
-
         profDB.add(p1);
         profDB.add(p2);
         profDB.add(p3);
+        */
+
+
+
+
     }
 
 //    public static void main(String[] args) {
@@ -49,16 +56,9 @@ public class ProfessorCRSMenu {
 //        obj.createMenu(profID);
 //    }
 
-    public void createMenu(String profId,String pwd) {
+    public void createMenu(String profId,String pwd) throws SQLException, ClassNotFoundException {
         boolean check = false;
-        for (Professor prof: profDB) {
-            if(prof.getUserId().equalsIgnoreCase(profId)){
-                if(prof.getPassword().equals(pwd)){
-                    check = true;
-                    break;
-                }
-            }
-        }
+        check=professorDAO.getProfessors(profId,pwd);
         if(check == false){
             System.out.println("Invalid credentials");
             return;
@@ -131,7 +131,7 @@ public class ProfessorCRSMenu {
 //    }
 
 
-    public void getCourses(String profId) {
+    public void getCourses(String profId) throws SQLException, ClassNotFoundException {
         List<Course> coursesEnrolled= professorInterface.getCourses(profId);
         System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
         for(Course obj: coursesEnrolled)
@@ -140,8 +140,7 @@ public class ProfessorCRSMenu {
         }
     }
 
-    public void viewEnrolledStudents(String profId,String courseCode)
-    {
+    public void viewEnrolledStudents(String profId,String courseCode) throws SQLException, ClassNotFoundException {
         List<Course> coursesEnrolled=professorInterface.getCourses(profId);
 
 
@@ -158,7 +157,7 @@ public class ProfessorCRSMenu {
 
     }
 
-    public void addGrade(String profId) {
+    public void addGrade(String profId) throws SQLException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
 
         String studentId;
@@ -173,8 +172,7 @@ public class ProfessorCRSMenu {
         professorInterface.addGrade(profId,studentId,courseCode,grade);
 
     }
-    public void assignCourse(String profId)
-    {
+    public void assignCourse(String profId) throws SQLException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the course code you would like to teach:");
         String cc=sc.next();

@@ -6,18 +6,20 @@ import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.exception.*;
 import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.bean.Student;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
 public class CRSApplication {
     static boolean loggedin = false;
     UserDAO userInterface = UserDAOImpl.getInstance();
-
 //    AdminService adminService = new AdminServiceOperation();
 
 
 
     public static void main(String[]args) throws UserNotFoundException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException {
+
         Scanner sc = new Scanner(System.in);
         CRSApplication crsApplication=new CRSApplication();
         int userInput;
