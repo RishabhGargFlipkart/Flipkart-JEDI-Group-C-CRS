@@ -3,7 +3,8 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Professor;
-import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.constant.SQLQueriesProfessor;
+import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtils;
 
 import java.sql.*;
@@ -22,125 +23,166 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         return instance;
     }
     @Override
-    public List<Course> getCourses(String profId) throws ClassNotFoundException, SQLException {
+    public List<Course> getCourses(String profId) throws ClassNotFoundException, NoAssignedCourseException {
         Connection conn = DBUtils.getConnection();
 
         Class.forName("com.mysql.jdbc.Driver");
         List<Course> ans=new ArrayList<Course>();
         try{
-            PreparedStatement statement= conn.prepareStatement(SQLQueriesConstants.GET_COURSES);
+            PreparedStatement statement= conn.prepareStatement(SQLQueriesProfessor.GET_COURSES);
             statement.setString(1,profId);
             ResultSet results=statement.executeQuery();
+            int count=0;
             while(results.next())
             {
+                count++;
                 ans.add(new Course(results.getString("courseCode"),results.getString("courseName"),results.getString("profId"),results.getInt("seats"),results.getDouble("fee")));
             }
+            if(count==0)
+            {
+                throw new NoAssignedCourseException(profId);
+            }
         }
-        catch(SQLException e)
-        {
-            throw e;
-        }
-        finally{
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new NoAssignedCourseException(profId);
+        } finally{
             try{
                 conn.close();
             }
             catch(SQLException e){
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
         return ans;
     }
 
     @Override
-    public List<EnrolledStudent> getEnrolledStudent(String profId, String courseCode) throws SQLException, ClassNotFoundException {
+    public List<EnrolledStudent> getEnrolledStudent(String profId, String courseCode) throws NoEnrolledStudentsException, ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
 
         Class.forName("com.mysql.jdbc.Driver");
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try{
-            PreparedStatement statement= conn.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
+            PreparedStatement statement= conn.prepareStatement(SQLQueriesProfessor.GET_ENROLLED_STUDENTS);
             statement.setString(1, profId);
             statement.setString(2,courseCode);
 
             ResultSet results = statement.executeQuery();
+            int count=0;
             while(results.next())
             {
-                //public EnrolledStudent(String courseCode, String courseName, int studentId)
+                count++;
                 enrolledStudents.add(new EnrolledStudent(results.getString("courseCode"),results.getString("courseName"),results.getString("studentId")));
+            }
+            if(count==0)
+            {
+                throw new NoEnrolledStudentsException(profId, courseCode);
             }
         }
         catch(SQLException e){
-            throw e;
+            System.out.println(e.getMessage());
+            throw new NoEnrolledStudentsException(profId,courseCode);
         }
         finally
         {
             try {
                 conn.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
         return enrolledStudents;
     }
 
     @Override
-    public boolean addGrade(String studentId, String courseCode, String grade) throws SQLException, ClassNotFoundException {
+    public boolean addGrade(String studentId, String courseCode, String grade) throws StudentNotRegistered, GradeAssignedException, ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
 
         Class.forName("com.mysql.jdbc.Driver");
         boolean flag=false;
         try{
-            PreparedStatement statement= conn.prepareStatement(SQLQueriesConstants.ADD_GRADE);
-            statement.setString(1, grade);
-            statement.setString(2,courseCode);
-            statement.setString(3,studentId);
+            PreparedStatement checkStatement=conn.prepareStatement(SQLQueriesProfessor.GET_ASSIGNED_GRADE);
+            checkStatement.setString(1,courseCode);
+            ResultSet resultSet=checkStatement.executeQuery();
+            if(resultSet.next())
+            {
+                String assignedGrade=resultSet.getString("grade");
+                if(assignedGrade==null)
+                {
+                    PreparedStatement statement= conn.prepareStatement(SQLQueriesProfessor.ADD_GRADE);
+                    statement.setString(1, grade);
+                    statement.setString(2,courseCode);
+                    statement.setString(3,studentId);
+                    statement.executeUpdate();
 
-            int rowsAffected= statement.executeUpdate();
-            if(rowsAffected>0) {
-                flag = true;
+                }
+                else{
+                    throw new GradeAssignedException(studentId, courseCode);
+
+                }
+            }
+            else {
+                throw new StudentNotRegistered(studentId,courseCode);
             }
 
+
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally
+            System.out.println(e.getMessage());
+
+        } finally
         {
             try {
                 conn.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+
+                System.out.println(e.getMessage());
             }
         }
         return flag;
     }
 
 
-    public boolean assignCourse(String profId,String courseCode) throws SQLException, ClassNotFoundException {
+    public boolean assignCourse(String profId,String courseCode) throws ProfessorAssignedException, CourseNotFoundException,ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
 
         Class.forName("com.mysql.jdbc.Driver");
         boolean flag=false;
         try{
-            PreparedStatement statement= conn.prepareStatement(SQLQueriesConstants.ASSIGN_COURSE);
-            statement.setString(1, profId);
-            statement.setString(2,courseCode);
+            PreparedStatement checkStatement=conn.prepareStatement(SQLQueriesProfessor.GET_ASSIGNED_PROF);
+            checkStatement.setString(1,courseCode);
+            ResultSet resultSet=checkStatement.executeQuery();
+            if(resultSet.next())
+            {
+                String assignedProfId=resultSet.getString("profId");
+                if(assignedProfId==null)
+                {
+                    PreparedStatement statement= conn.prepareStatement(SQLQueriesProfessor.ASSIGN_COURSE);
+                    statement.setString(1, profId);
+                    statement.setString(2,courseCode);
 
-            int rowsAffected=statement.executeUpdate();
-            if(rowsAffected>0) {
-                flag = true;
+                    int rowsAffected=statement.executeUpdate();
+                    if(rowsAffected>0) {
+                        flag = true;
+                    }
+                }
+                else{
+                    throw new ProfessorAssignedException(courseCode);
+                }
+            }
+            else{
+                throw new CourseNotFoundException(courseCode);
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         finally {
             try {
                 conn.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+
+                System.out.println(e.getMessage());
             }
         }
         return flag;
@@ -157,32 +199,23 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         List<Professor> professors=new ArrayList<>();
 
         try{
-            PreparedStatement statement= conn.prepareStatement(SQLQueriesConstants.GET_PROFS);
+            PreparedStatement statement= conn.prepareStatement(SQLQueriesProfessor.GET_PROFS);
             statement.setString(1,profId);
             statement.setString(2,password);
             ResultSet results = statement.executeQuery();
 
             if (results.next())
                 return true;
-//            while(results.next())
-//            {
-//                Professor professor=new Professor();
-//                professor.setUserId(results.getString("profId"));
-//                professor.setDepartment(results.getString("department"));
-//                professor.setPassword(results.getString("password"));
-//                professors.add(professor);
-//            }
         }
         catch(SQLException e){
-            System.out.println("SQL Exception");
+            System.out.println(e.getMessage());
         }
         finally
         {
             try {
                 conn.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
         return false;
