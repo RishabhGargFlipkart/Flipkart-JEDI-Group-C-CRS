@@ -10,17 +10,14 @@ import java.sql.ResultSet;
 
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.utils.DBUtils;
-import com.flipkart.constant.SQLQueries;
+import com.flipkart.constant.SQLQueriesAdmin;
 import java.sql.SQLException;
 
  import com.flipkart.exception.CourseFoundException;
  import com.flipkart.exception.CourseNotDeletedException;
- import com.flipkart.exception.CourseNotFoundException;
- import com.flipkart.exception.ProfessorNotAddedException;
+import com.flipkart.exception.ProfessorNotAddedException;
  import com.flipkart.exception.StudentNotFoundForApprovalException;
  import com.flipkart.exception.UserIdAlreadyInUseException;
- import com.flipkart.exception.UserNotAddedException;
- import com.flipkart.exception.UserNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +45,7 @@ public class AdminDAOImpl implements AdminDAO{
     public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException{
         statement = null;
         try {
-            String sql = SQLQueries.DELETE_COURSE_QUERY;
+            String sql = SQLQueriesAdmin.DELETE_COURSE_QUERY;
             statement = connection.prepareStatement(sql);
 
             statement.setString(1,courseCode);
@@ -73,7 +70,7 @@ public class AdminDAOImpl implements AdminDAO{
     public void addCourse(Course course) throws CourseFoundException{
         statement = null;
         try{
-            String sql = SQLQueries.ADD_COURSE_QUERY;
+            String sql = SQLQueriesAdmin.ADD_COURSE_QUERY;
             statement = connection.prepareStatement(sql);
             course.setSeats(10);
 
@@ -99,7 +96,7 @@ public class AdminDAOImpl implements AdminDAO{
     public void approveGradeCard(String studentID) throws StudentNotFoundForApprovalException {
         statement = null;
 		try {
-			String sql = SQLQueries.APPROVE_GRADECARD_QUERY;
+			String sql = SQLQueriesAdmin.APPROVE_GRADECARD_QUERY;
 			statement = connection.prepareStatement(sql);
 
 			statement.setString(1,studentID);
@@ -121,7 +118,7 @@ public class AdminDAOImpl implements AdminDAO{
     public void approveRegistration(String studentID) throws StudentNotFoundForApprovalException {
         statement = null;
 		try {
-			String sql = SQLQueries.APPROVE_REGISTRATION_QUERY;
+			String sql = SQLQueriesAdmin.APPROVE_REGISTRATION_QUERY;
 			statement = connection.prepareStatement(sql);
 
 			statement.setString(1,studentID);
@@ -143,7 +140,7 @@ public class AdminDAOImpl implements AdminDAO{
     public void approveStudent(String studentID) throws StudentNotFoundForApprovalException {
         statement = null;
 		try {
-			String sql = SQLQueries.APPROVE_STUDENT_QUERY;
+			String sql = SQLQueriesAdmin.APPROVE_STUDENT_QUERY;
 			statement = connection.prepareStatement(sql);
 
 			statement.setString(1,studentID);
@@ -165,7 +162,7 @@ public class AdminDAOImpl implements AdminDAO{
     public void addProfessor(Professor professor) throws UserIdAlreadyInUseException, ProfessorNotAddedException{
         statement = null;
 		try {
-			String sql = SQLQueries.ADD_PROFESSOR_IN_ADMIN_QUERY;
+			String sql = SQLQueriesAdmin.ADD_PROFESSOR_IN_ADMIN_QUERY;
 			statement = connection.prepareStatement(sql);
 
             professor.setRole("professor");
@@ -176,7 +173,7 @@ public class AdminDAOImpl implements AdminDAO{
 			int row = statement.executeUpdate();
 			System.out.println("User added.");
 
-            sql = SQLQueries.ADD_PROFESSOR_IN_PROFESSOR_QUERY;
+            sql = SQLQueriesAdmin.ADD_PROFESSOR_IN_PROFESSOR_QUERY;
 			statement = connection.prepareStatement(sql);
 
             statement.setString(1, professor.getUserId());
@@ -199,7 +196,7 @@ public class AdminDAOImpl implements AdminDAO{
         List<Course> courseList = new ArrayList<>();
         try {
 
-            String sql = SQLQueries.VIEW_COURSE_QUERY;
+            String sql = SQLQueriesAdmin.VIEW_COURSE_QUERY;
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -229,7 +226,7 @@ public class AdminDAOImpl implements AdminDAO{
         List<Professor> professorList = new ArrayList<>();
         try {
 
-            String sql = SQLQueries.VIEW_PROFESSOR_QUERY;
+            String sql = SQLQueriesAdmin.VIEW_PROFESSOR_QUERY;
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -264,7 +261,7 @@ public class AdminDAOImpl implements AdminDAO{
         List<Student> userList = new ArrayList<Student>();
         try {
 
-            String sql = SQLQueries.VIEW_PENDING_ADMISSION_QUERY;
+            String sql = SQLQueriesAdmin.VIEW_PENDING_ADMISSION_QUERY;
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -297,7 +294,7 @@ public class AdminDAOImpl implements AdminDAO{
         List<Student> userList = new ArrayList<Student>();
         try {
 
-            String sql = SQLQueries.VIEW_PENDING_REGISTRATION_QUERY;
+            String sql = SQLQueriesAdmin.VIEW_PENDING_REGISTRATION_QUERY;
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -330,7 +327,7 @@ public class AdminDAOImpl implements AdminDAO{
         List<Student> userList = new ArrayList<Student>();
         try {
 
-            String sql = SQLQueries.VIEW_PENDING_GRADECARD_QUERY;
+            String sql = SQLQueriesAdmin.VIEW_PENDING_GRADECARD_QUERY;
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 

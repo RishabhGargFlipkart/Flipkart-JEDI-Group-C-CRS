@@ -4,18 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.utils.DBUtils;
-import com.flipkart.constant.SQLQueries;
+import com.flipkart.constant.SQLQueriesAdmin;
 import java.sql.SQLException;
 
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.exception.UserNotFoundException;
 
 public class UserDAOImpl implements UserDAO{
@@ -41,7 +33,7 @@ public class UserDAOImpl implements UserDAO{
         try
         {
             //open db connection
-            PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.VERIFY_CREDENTIALS);
+            PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesAdmin.VERIFY_CREDENTIALS);
             preparedStatement.setString(1,userId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -76,7 +68,7 @@ public class UserDAOImpl implements UserDAO{
     public boolean updatePassword(String userId, String newPassword) {
         Connection connection=DBUtils.getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement(SQLQueries.UPDATE_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement(SQLQueriesAdmin.UPDATE_PASSWORD);
 
             statement.setString(1, newPassword);
             statement.setString(2, userId);

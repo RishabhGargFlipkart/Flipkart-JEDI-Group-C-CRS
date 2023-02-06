@@ -4,19 +4,13 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Professor;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.utils.DBUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorDAOImpl implements ProfessorDAO {
-
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crsdatabase";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "Nidhi@2002"; //root
     private static volatile ProfessorDAOImpl instance=null;
 
     public static ProfessorDAOImpl getInstance(){
@@ -29,8 +23,8 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     }
     @Override
     public List<Course> getCourses(String profId) throws ClassNotFoundException, SQLException {
+        Connection conn = DBUtils.getConnection();
 
-        Connection conn= DriverManager.getConnection(DB_URL,USER,PASS);
         Class.forName("com.mysql.jdbc.Driver");
         List<Course> ans=new ArrayList<Course>();
         try{
@@ -59,8 +53,8 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 
     @Override
     public List<EnrolledStudent> getEnrolledStudent(String profId, String courseCode) throws SQLException, ClassNotFoundException {
+        Connection conn = DBUtils.getConnection();
 
-        Connection conn= DriverManager.getConnection(DB_URL,USER,PASS);
         Class.forName("com.mysql.jdbc.Driver");
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try{
@@ -92,7 +86,8 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 
     @Override
     public boolean addGrade(String studentId, String courseCode, String grade) throws SQLException, ClassNotFoundException {
-        Connection conn= DriverManager.getConnection(DB_URL,USER,PASS);
+        Connection conn = DBUtils.getConnection();
+
         Class.forName("com.mysql.jdbc.Driver");
         boolean flag=false;
         try{
@@ -123,7 +118,8 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 
 
     public boolean assignCourse(String profId,String courseCode) throws SQLException, ClassNotFoundException {
-        Connection conn= DriverManager.getConnection(DB_URL,USER,PASS);
+        Connection conn = DBUtils.getConnection();
+
         Class.forName("com.mysql.jdbc.Driver");
         boolean flag=false;
         try{
@@ -154,8 +150,8 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 
     @Override
     public boolean getProfessors(String profId,String password) throws SQLException, ClassNotFoundException {
+        Connection conn = DBUtils.getConnection();
 
-        Connection conn= DriverManager.getConnection(DB_URL,USER,PASS);
         Class.forName("com.mysql.jdbc.Driver");
 
         List<Professor> professors=new ArrayList<>();

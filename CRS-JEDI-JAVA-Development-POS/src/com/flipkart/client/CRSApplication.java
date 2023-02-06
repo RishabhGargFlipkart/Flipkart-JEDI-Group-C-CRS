@@ -18,7 +18,7 @@ public class CRSApplication {
 
 
 
-    public static void main(String[]args) throws UserNotFoundException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException {
+    public static void main(String[]args) throws UserNotFoundException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, SQLException, ClassNotFoundException {
 
         Scanner sc = new Scanner(System.in);
         CRSApplication crsApplication=new CRSApplication();
@@ -58,7 +58,7 @@ public class CRSApplication {
         System.out.println(" Enter your option(1 to 4)");
     }
 
-    public void loginUser() throws CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, UserNotFoundException {
+    public void loginUser() throws CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, UserNotFoundException, SQLException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         String userId,password,role;
         System.out.println(" ");

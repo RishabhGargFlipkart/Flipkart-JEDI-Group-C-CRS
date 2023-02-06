@@ -1,15 +1,11 @@
 package com.flipkart.client;
-import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.*;
 import com.flipkart.service.AdminService;
 import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.bean.Professor;
-import com.flipkart.constant.SQLQueries;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
