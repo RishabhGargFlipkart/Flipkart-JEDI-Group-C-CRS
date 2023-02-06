@@ -34,4 +34,5 @@ public interface AdminDAO {
     public List<Student> viewPendingAdmission();
     public List<Student> viewPendingRegistration();
     public List<Student> viewPendingGradeCard();
+
 }
