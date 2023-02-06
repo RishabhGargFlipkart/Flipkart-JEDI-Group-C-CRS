@@ -15,6 +15,10 @@ public class Student extends User{
     private int batch;
     private boolean isApproved;
     private boolean RegistrationApproved;
+    private String gender;
+
+
+    private String address;
 
     public boolean isRegistrationApproved() {
             return isGradeCardApproved;
@@ -64,4 +68,21 @@ public class Student extends User{
     public String getBranchName(){
         return branchName;
     }
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+
 }
