@@ -95,7 +95,7 @@ public class AdminServiceOperation implements AdminService {
     @Override
     public void approveGradeCard(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
         try {
-            adminDaoImpl.approveStudent(studentId);
+            adminDaoImpl.approveGradeCard(studentId);
         }
         catch(StudentNotFoundForApprovalException e) {
             throw e;
@@ -113,7 +113,7 @@ public class AdminServiceOperation implements AdminService {
 
     public void approveRegistration(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
         try {
-            adminDaoImpl.approveStudent(studentId);
+            adminDaoImpl.approveRegistration(studentId);
         }
         catch(StudentNotFoundForApprovalException e) {
             throw e;

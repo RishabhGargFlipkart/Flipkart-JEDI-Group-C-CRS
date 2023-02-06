@@ -245,7 +245,10 @@ public class AdminDAOImpl implements AdminDAO{
 
             }
 
-            System.out.println(professorList.size() + " professors in the institute.");
+            for(Professor p:professorList)
+            {
+                System.out.println(p.getUserId());
+            }
 
         }catch(SQLException se) {
 

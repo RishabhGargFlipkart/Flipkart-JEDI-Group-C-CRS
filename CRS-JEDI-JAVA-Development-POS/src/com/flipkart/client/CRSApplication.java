@@ -14,9 +14,8 @@ public class CRSApplication {
     UserDAO userInterface = UserDAOImpl.getInstance();
 
 //    AdminService adminService = new AdminServiceOperation();
-    AdminCRSMenu admin=new AdminCRSMenu();
-    ProfessorCRSMenu prof=new ProfessorCRSMenu();
-    StudentCRSMenu student=new StudentCRSMenu();
+
+
 
     public static void main(String[]args) throws UserNotFoundException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException {
         Scanner sc = new Scanner(System.in);
@@ -72,14 +71,15 @@ public class CRSApplication {
 
         if(loggedin){
             if(role.equalsIgnoreCase("Student")){
+                StudentCRSMenu student = new StudentCRSMenu();
                 student.createMenu(userId);
             }
             else if(role.equalsIgnoreCase("Professor")){
-
+                ProfessorCRSMenu prof = new ProfessorCRSMenu();
                 prof.createMenu(userId,password);
             }
             else if(role.equalsIgnoreCase("Admin")){
-
+                AdminCRSMenu admin=new AdminCRSMenu();
                 admin.createMenu();
             }
         }

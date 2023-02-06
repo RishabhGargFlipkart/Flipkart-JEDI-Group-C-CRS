@@ -30,8 +30,9 @@ public class AdminCRSMenu {
             System.out.println("4. add professor");
             System.out.println("5. view courses");
             System.out.println("6. view professors");
-            System.out.println("7. approve grade card");
-            System.out.println("8. Exit");
+            System.out.println("7. generate grade card");
+            System.out.println("8. approve course registration");
+            System.out.println("9. Exit");
 
             int option= scanner.nextInt();
 
@@ -77,10 +78,14 @@ public class AdminCRSMenu {
         System.out.println("Enter Course Name:");
         String courseName = scanner.next();
 
+        System.out.println("Enter fee:");
+        double fee = scanner.nextDouble();
+
         Course course = new Course();
         course.setCourseCode(courseCode);
         course.setCourseName(courseName);
-        course.setInstructorId("NA");
+        course.setFee(fee);
+        //course.setInstructorId("NA");
         course.setSeats(10);
 
         try {
@@ -163,7 +168,7 @@ public class AdminCRSMenu {
         }
         System.out.println("Enter Student's ID to be generated:");
         String studentUserIdApproval = scanner.next();
-        adminOperation.approveStudent(studentUserIdApproval, studentList);
+        adminOperation.approveGradeCard(studentUserIdApproval, studentList);
 
     }
     public void approveRegistration() throws StudentNotFoundForApprovalException {
