@@ -15,7 +15,7 @@ import com.flipkart.service.ProfessorServiceOperation;
 
 public class ProfessorCRSMenu {
     ProfessorService professorInterface=new ProfessorServiceOperation();
-
+    ProfessorDAO professorDAO=new ProfessorDAOImpl();
     List<Professor> profDB=new ArrayList<Professor>();
     public ProfessorCRSMenu() throws SQLException, ClassNotFoundException {
         /*Professor p1 = new Professor();
@@ -43,8 +43,7 @@ public class ProfessorCRSMenu {
         profDB.add(p3);
         */
 
-        ProfessorDAO professorDAO=new ProfessorDAOImpl();
-        profDB=professorDAO.getProfessors();
+
 
 
     }
@@ -59,14 +58,7 @@ public class ProfessorCRSMenu {
 
     public void createMenu(String profId,String pwd) throws SQLException, ClassNotFoundException {
         boolean check = false;
-        for (Professor prof: profDB) {
-            if(prof.getUserId().equalsIgnoreCase(profId)){
-                if(prof.getPassword().equals(pwd)){
-                    check = true;
-                    break;
-                }
-            }
-        }
+        check=professorDAO.getProfessors(profId,pwd);
         if(check == false){
             System.out.println("Invalid credentials");
             return;

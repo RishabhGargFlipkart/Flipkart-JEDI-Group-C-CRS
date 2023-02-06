@@ -195,7 +195,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try
         {
-            enrolledStudents=professorDAO.getEnrolledStudent(profId);
+            enrolledStudents=professorDAO.getEnrolledStudent(profId,courseCode);
         }
         catch(Exception ex)
         {
@@ -216,9 +216,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         return courses;
     }
 
-    public List<Professor> getProfessors() throws SQLException, ClassNotFoundException {
-        return professorDAO.getProfessors();
-    }
+
 
     public boolean assignCourse(String profId,String courseCode) throws SQLException, ClassNotFoundException {
         /*

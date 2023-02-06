@@ -4,7 +4,6 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Professor;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.utils.DBUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         }
         catch(SQLException e)
         {
-            System.out.println("SQL Exception");
+            throw e;
         }
         finally{
             try{
@@ -59,7 +58,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     }
 
     @Override
-    public List<EnrolledStudent> getEnrolledStudent(String profId) throws SQLException, ClassNotFoundException {
+    public List<EnrolledStudent> getEnrolledStudent(String profId, String courseCode) throws SQLException, ClassNotFoundException {
 
         Connection conn= DriverManager.getConnection(DB_URL,USER,PASS);
         Class.forName("com.mysql.jdbc.Driver");
@@ -67,6 +66,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         try{
             PreparedStatement statement= conn.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
             statement.setString(1, profId);
+            statement.setString(2,courseCode);
 
             ResultSet results = statement.executeQuery();
             while(results.next())
@@ -76,7 +76,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
             }
         }
         catch(SQLException e){
-            System.out.println("SQL Exception");
+            throw e;
         }
         finally
         {
@@ -150,8 +150,10 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         return flag;
 
     }
+
+
     @Override
-    public List<Professor> getProfessors() throws SQLException, ClassNotFoundException {
+    public boolean getProfessors(String profId,String password) throws SQLException, ClassNotFoundException {
 
         Connection conn= DriverManager.getConnection(DB_URL,USER,PASS);
         Class.forName("com.mysql.jdbc.Driver");
@@ -160,15 +162,20 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 
         try{
             PreparedStatement statement= conn.prepareStatement(SQLQueriesConstants.GET_PROFS);
+            statement.setString(1,profId);
+            statement.setString(2,password);
             ResultSet results = statement.executeQuery();
-            while(results.next())
-            {
-                Professor professor=new Professor();
-                professor.setUserId(results.getString("profId"));
-                professor.setDepartment(results.getString("department"));
-                professor.setPassword(results.getString("password"));
-                professors.add(professor);
-            }
+
+            if (results.next())
+                return true;
+//            while(results.next())
+//            {
+//                Professor professor=new Professor();
+//                professor.setUserId(results.getString("profId"));
+//                professor.setDepartment(results.getString("department"));
+//                professor.setPassword(results.getString("password"));
+//                professors.add(professor);
+//            }
         }
         catch(SQLException e){
             System.out.println("SQL Exception");
@@ -182,6 +189,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
                 e.printStackTrace();
             }
         }
-        return professors;
+        return false;
     }
 }
