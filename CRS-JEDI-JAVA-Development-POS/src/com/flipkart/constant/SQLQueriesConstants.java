@@ -12,7 +12,7 @@ public class SQLQueriesConstants {
     public static final String VIEW_COURSE_QUERY = "select courseCode, courseName, professorId from Course where catalogId = ?";
     public static final String VIEW_PROFESSOR_QUERY = "select userId, name, gender, department, designation, address, country from Professor natural join User";
 
-    public static final String ADD_STUDENT="insert into student (studentId,batch,branchName,loginApproved,gradeCardApproved,regApproved,gender,address) values (?,?,?,?,?,?,?,?)";
+    public static final String ADD_STUDENT="insert into student (studentId,batch,branchName,loginApproved,gradeCardApproved,regApproved,gender,address,isPaid) values (?,?,?,?,?,?,?,?,?)";
     public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
     public static final String GET_ROLE="select role from user where userId = ? ";
     public static final String IS_APPROVED="select loginApproved from student where studentId = ? ";
@@ -37,6 +37,13 @@ public class SQLQueriesConstants {
     public static final String INSERT_NOTIFICATION = "insert into notification (notificationId,message,refId) values (?,?,?)";
     public static final String INSERT_CARD="insert into card (refId,cardNo,cardType,cvv) values (?,?,?,?)";
     public static final String INSERT_PAYMENT = "insert into payment (refId,studentId,amount,typeOfPayment,bank) values (?,?,?,?,?)";
+    public static final String INSERT_NET_BANKING="insert into netbanking (refId,accountNo,IFSC) values (?,?,?)";
+    public static final String INSERT_CHEQUE = "insert into cheque (refId,chequeNo) values (?,?)";
+    public static String INSERT_UPI = "insert into upi (refId,upiId,serviceProvider) values (? ,? ,?)";
+
+    public static final String UPDATE_ISPAID="update student set isPaid=true where studentId=?";
+
+    public static final String GET_STUDENT="select * from student where studentId=?";
 }
 
 

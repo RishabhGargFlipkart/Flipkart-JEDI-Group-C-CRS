@@ -41,5 +41,16 @@ public class PaymentDAOImpl implements PaymentDAO{
             System.out.println(e.getMessage());
         }
     }
-
+    public void isPaid(String studentId){
+        try{
+            String sql=SQLQueriesConstants.UPDATE_ISPAID;
+            statement=connection.prepareStatement(sql);
+            statement.setString(1,studentId);
+            statement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
 }
