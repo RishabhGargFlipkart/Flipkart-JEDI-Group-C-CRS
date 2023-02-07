@@ -59,14 +59,16 @@ public class ProfessorCRSMenu {
 
     public void createMenu(String profId,String pwd) throws SQLException, ClassNotFoundException {
         boolean check = false;
-        check=professorDAO.getProfessors(profId,pwd);
-        if(check == false){
+        check = professorDAO.getProfessors(profId, pwd);
+        if (check == false) {
             System.out.println("Invalid credentials");
             return;
         }
 
         Scanner sc = new Scanner(System.in);
-        while(true){
+
+        int userInput;
+        while (true) {
             System.out.println("---------Professor Menu---------");
             System.out.println("1. View Your Courses");
             System.out.println("2. View Enrolled Students");
@@ -74,37 +76,39 @@ public class ProfessorCRSMenu {
             System.out.println("4. Assign a course");
             System.out.println("5. Logout");
             System.out.println("---------------------------------");
-            int userInput = sc.nextInt();
 
-                switch (userInput) {
-                    case 1:
-                        //view all the courses taught by the professor
-                        getCourses(profId);
-                        break;
-                    case 2:
-                        //view all the enrolled students for the course
-                        System.out.println("Enter Course Code:");
-                        String courseCode=sc.next();
-                        viewEnrolledStudents(profId,courseCode);
-                        break;
+            userInput = sc.nextInt();
 
-                    case 3:
-                        //add grade for a student
-                        addGrade(profId);
-                        break;
-                    case 4:
-                        assignCourse(profId);
-                        break;
-                    case 5:
-                        //logout from the system
-                        //CRSApplication.loggedin = false;
-                        return;
-                    default:
-                        System.out.println("Invalid Input");
-                }
+            switch (userInput) {
+                case 1:
+                    //view all the courses taught by the professor
+                    getCourses(profId);
+                    break;
+                case 2:
+                    //view all the enrolled students for the course
+                    System.out.println("Enter Course Code:");
+                    String courseCode = sc.next();
+                    viewEnrolledStudents(profId, courseCode);
+                    break;
+
+                case 3:
+                    //add grade for a student
+                    addGrade(profId);
+                    break;
+                case 4:
+                    assignCourse(profId);
+                    break;
+                case 5:
+                    //logout from the system
+                    //CRSApplication.loggedin = false;
+                    return;
+                default:
+                    System.out.println("Invalid Input");
             }
+        }
 
     }
+
 
 //    public void generateDB()
 //    {
