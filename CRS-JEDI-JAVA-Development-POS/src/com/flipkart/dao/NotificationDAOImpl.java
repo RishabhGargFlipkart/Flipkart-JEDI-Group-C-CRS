@@ -30,6 +30,12 @@ public class NotificationDAOImpl implements NotificationDAO{
         }
         return instance;
     }
+
+    /**
+     * @param refId
+     * @param notifId
+     * @throws SQLException
+     */
     @Override
     public void sendNotification(int refId,int notifId) throws SQLException{
         Connection connection=DBUtils.getConnection();

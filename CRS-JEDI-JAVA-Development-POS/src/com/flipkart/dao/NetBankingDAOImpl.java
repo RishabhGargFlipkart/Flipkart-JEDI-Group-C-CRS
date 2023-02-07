@@ -25,6 +25,12 @@ public class NetBankingDAOImpl implements NetBankingDAO{
 
     private PreparedStatement statement = null;
     Connection connection = DBUtils.getConnection();
+
+    /**
+     * @param refId
+     * @param accountNo
+     * @param ifsc
+     */
     @Override
     public void addTransaction(int refId, int accountNo, String ifsc) {
         try{

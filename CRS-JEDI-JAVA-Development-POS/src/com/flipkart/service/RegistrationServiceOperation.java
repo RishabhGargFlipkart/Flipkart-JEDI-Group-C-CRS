@@ -31,6 +31,17 @@ public class RegistrationServiceOperation implements RegistrationService{
     }
 
     RegistrationDAO registrationDaoInterface = RegistrationDAOImpl.getInstance();
+
+    /**
+     * @param courseCode
+     * @param studentId
+     * @param availableCourseList
+     * @return
+     * @throws CourseNotFoundException
+     * @throws CourseLimitExceedException
+     * @throws SeatNotAvailableException
+     * @throws SQLException
+     */
     @Override
     public boolean addCourse(String courseCode, String studentId,List<Course> availableCourseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException
     {
@@ -57,6 +68,14 @@ public class RegistrationServiceOperation implements RegistrationService{
 
     }
 
+    /**
+     * @param courseCode
+     * @param studentId
+     * @param registeredCourseList
+     * @return
+     * @throws CourseNotFoundException
+     * @throws SQLException
+     */
     @Override
     public boolean dropCourse(String courseCode, String studentId,List<Course> registeredCourseList) throws CourseNotFoundException, SQLException {
         if(!StudentValidator.isRegistered(courseCode, studentId, registeredCourseList))
@@ -68,34 +87,71 @@ public class RegistrationServiceOperation implements RegistrationService{
 
     }
 
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<StudentGrade> viewGradeCard(String studentId) throws SQLException {
         return registrationDaoInterface.viewGradeCard(studentId);
     }
+
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     public List<Course> viewCourses(String studentId) throws SQLException {
         return registrationDaoInterface.viewCourses(studentId);
     }
 
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Course> viewRegisteredCourses(String studentId) throws SQLException {
         return registrationDaoInterface.viewRegisteredCourses(studentId);
     }
 
 
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public double calculateFee(String studentId) throws SQLException {
         return registrationDaoInterface.calculateFee(studentId);
     }
+
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean getRegistrationStatus(String studentId) throws SQLException  {
         return registrationDaoInterface.getRegistrationStatus(studentId);
     }
+
+    /**
+     * @param studentId
+     * @throws SQLException
+     */
     @Override
     public void setRegistrationStatus(String studentId) throws SQLException {
         registrationDaoInterface.setRegistrationStatus(studentId);
 
     }
 
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean getLoginStatus(String studentId) throws SQLException {
 

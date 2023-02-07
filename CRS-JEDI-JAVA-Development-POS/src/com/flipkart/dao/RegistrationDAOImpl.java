@@ -30,6 +30,13 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         }
         return instance;
     }
+
+    /**
+     * @param courseCode
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean addCourse(String courseCode, String studentId) throws SQLException {
 
@@ -60,6 +67,12 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         }
         return false;
     }
+
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int numOfRegisteredCourses(String studentId) throws SQLException {
 
@@ -96,6 +109,12 @@ public class RegistrationDAOImpl implements RegistrationDAO{
 
         return count;
     }
+
+    /**
+     * @param courseCode
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean seatAvailable(String courseCode) throws SQLException {
 
@@ -121,6 +140,13 @@ public class RegistrationDAOImpl implements RegistrationDAO{
 
         return true;
     }
+
+    /**
+     * @param courseCode
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean isRegistered(String courseCode, String studentId) throws SQLException {
 
@@ -153,6 +179,13 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         return check;
 
     }
+
+    /**
+     * @param courseCode
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean dropCourse(String courseCode, String studentId) throws SQLException {
 
@@ -189,6 +222,12 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         return false;
 
     }
+
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public double calculateFee(String studentId) throws SQLException
     {
@@ -218,6 +257,12 @@ public class RegistrationDAOImpl implements RegistrationDAO{
 
         return fee;
     }
+
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<StudentGrade> viewGradeCard(String studentId) throws SQLException {
         Connection conn = DBUtils.getConnection();
@@ -258,6 +303,11 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         return grade_List;
     }
 
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Course> viewCourses(String studentId) throws SQLException {
 
@@ -295,6 +345,12 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         return availableCourseList;
 
     }
+
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Course> viewRegisteredCourses(String studentId) throws SQLException {
 
@@ -325,6 +381,12 @@ public class RegistrationDAOImpl implements RegistrationDAO{
 
         return registeredCourseList;
     }
+
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean getRegistrationStatus(String studentId) throws SQLException
     {
@@ -353,6 +415,10 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         return status;
     }
 
+    /**
+     * @param studentId
+     * @throws SQLException
+     */
     @Override
     public void setRegistrationStatus(String studentId) throws SQLException
     {
@@ -377,6 +443,11 @@ public class RegistrationDAOImpl implements RegistrationDAO{
 
     }
 
+    /**
+     * @param studentId
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean getLoginStatus(String studentId) throws SQLException {
         Connection conn = DBUtils.getConnection();

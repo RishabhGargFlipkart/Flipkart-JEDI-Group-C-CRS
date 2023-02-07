@@ -30,6 +30,11 @@ public class NotificationServiceOperation implements NotificationService {
         }
         return instance;
     }
+
+    /**
+     * @param refId
+     * @param notifId
+     */
     @Override
     public void sendNotification(int refId,int notifId) {
         try
@@ -43,6 +48,10 @@ public class NotificationServiceOperation implements NotificationService {
         }
     }
 
+    /**
+     * @param notificationId
+     * @return
+     */
     @Override
     public UUID getReferenceID(int notificationId) {
         return null;

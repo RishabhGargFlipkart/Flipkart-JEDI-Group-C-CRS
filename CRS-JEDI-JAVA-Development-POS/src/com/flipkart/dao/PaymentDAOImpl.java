@@ -23,6 +23,14 @@ public class PaymentDAOImpl implements PaymentDAO{
 
     private PreparedStatement statement = null;
     Connection connection = DBUtils.getConnection();
+
+    /**
+     * @param refId
+     * @param studentId
+     * @param amount
+     * @param type
+     * @param bank
+     */
     @Override
     public void addPayment(int refId,String studentId, double amount, String type, String bank) {
 
@@ -41,6 +49,10 @@ public class PaymentDAOImpl implements PaymentDAO{
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * @param studentId
+     */
     public void isPaid(String studentId){
         try{
             String sql=SQLQueriesConstants.UPDATE_ISPAID;

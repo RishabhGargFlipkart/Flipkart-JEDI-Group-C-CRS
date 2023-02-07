@@ -28,6 +28,11 @@ public class StudentDAOImpl implements StudentDAO {
         }
         return instance;
     }
+
+    /**
+     * @param student
+     * @throws StudentNotRegisteredException
+     */
     @Override
     public void addStudent(Student student) throws StudentNotRegisteredException {
         Connection connection=DBUtils.getConnection();
@@ -79,6 +84,11 @@ public class StudentDAOImpl implements StudentDAO {
             }
         }
     }
+
+    /**
+     * @param userId
+     * @return
+     */
     @Override
     public int getStudentId(String userId) {
         Connection connection=DBUtils.getConnection();
@@ -100,6 +110,11 @@ public class StudentDAOImpl implements StudentDAO {
 
         return 0;
     }
+
+    /**
+     * @param studentId
+     * @return
+     */
     @Override
     public boolean isApproved(int studentId) {
         Connection connection=DBUtils.getConnection();
@@ -121,6 +136,11 @@ public class StudentDAOImpl implements StudentDAO {
 
         return false;
     }
+
+    /**
+     * @param studentId
+     * @return
+     */
     public boolean checkIsPaid(String studentId){
         Connection connection=DBUtils.getConnection();
         Student s=new Student();

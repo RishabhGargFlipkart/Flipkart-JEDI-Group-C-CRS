@@ -25,6 +25,16 @@ public class StudentServiceOperation implements StudentService {
         return instance;
     }
 
+    /**
+     * @param name
+     * @param userId
+     * @param password
+     * @param gender
+     * @param batch
+     * @param branch
+     * @param address
+     * @throws StudentNotRegisteredException
+     */
     @Override
     public void register(String name, String userId, String password, String gender, int batch, String branch, String address) throws StudentNotRegisteredException {
         try {
@@ -49,11 +59,19 @@ public class StudentServiceOperation implements StudentService {
         }
     }
 
+    /**
+     * @param userId
+     * @return
+     */
     @Override
     public int getStudentId(String userId) {
         return studentDaoInterface.getStudentId(userId);
     }
 
+    /**
+     * @param studentId
+     * @return
+     */
     @Override
     public boolean isApproved(int studentId) {
         return studentDaoInterface.isApproved(studentId);
