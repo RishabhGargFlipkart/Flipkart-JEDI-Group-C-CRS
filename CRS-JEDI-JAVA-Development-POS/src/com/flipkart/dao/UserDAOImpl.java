@@ -26,7 +26,14 @@ public class UserDAOImpl implements UserDAO{
         }
         return instance;
     }
-    
+
+    /**
+     * This method verifies if the user with userId exists and logs in the user if he/she enters the correct password.
+     * @param userId
+     * @param password
+     * @return
+     * @throws UserNotFoundException
+     */
     @Override
     public boolean verifyCredentials(String userId, String password) throws UserNotFoundException{
         Connection connection = DBUtils.getConnection();
@@ -64,6 +71,12 @@ public class UserDAOImpl implements UserDAO{
         return false;
     }
 
+    /**
+     * This method updates the password corresponding to the user with the given userId.
+     * @param userId
+     * @param newPassword
+     * @return
+     */
     @Override
     public boolean updatePassword(String userId, String newPassword) {
         Connection connection=DBUtils.getConnection();
