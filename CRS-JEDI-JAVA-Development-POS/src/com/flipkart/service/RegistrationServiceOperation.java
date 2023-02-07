@@ -9,64 +9,92 @@ import com.flipkart.data.CourseList;
 import com.flipkart.data.GradeCard;
 import com.flipkart.data.StudentBucket;
 import com.flipkart.data.IsRegistered;
+import com.flipkart.dao.RegistrationDAO;
+import com.flipkart.dao.RegistrationDAOImpl;
 public class RegistrationServiceOperation implements RegistrationService{
-    CourseList cl = new CourseList();
-    boolean is_registered = false;
-    public boolean addCourse(String courseCode,String studentId,List<Course> courseList){
+    private static volatile RegistrationServiceOperation instance = null;
 
-        courseList = cl.getCourseList();
-        for(Course c:StudentBucket.studentBucket)
-        {
-            if(c.getCourseCode().equalsIgnoreCase(courseCode))
-            {
-                return false;
+    private RegistrationServiceOperation() {
+
+    }
+    public static RegistrationServiceOperation getInstance() {
+        if (instance == null) {
+            synchronized (RegistrationServiceOperation.class) {
+                instance = new RegistrationServiceOperation();
             }
         }
-        for(Course c:courseList)
-        {
-            if(c.getCourseCode().equalsIgnoreCase(courseCode))
-            {
-                StudentBucket.studentBucket.add(c);
-                return true;
-            }
-        }
-        return false;
+        return instance;
     }
 
-    public boolean dropCourse(String CourseCode,String studentId,List<Course> registeredCourseList){
-        for(Course c:StudentBucket.studentBucket)
+    RegistrationDAO registrationDaoInterface = RegistrationDAOImpl.getInstance();
+    @Override
+    public boolean addCourse(String courseCode, String studentId,List<Course> availableCourseList)
+    {
+        if (registrationDaoInterface.numOfRegisteredCourses(studentId) >= 6)
         {
-            if(c.getCourseCode().equalsIgnoreCase(CourseCode))
-            {
-                StudentBucket.studentBucket.remove(c);
-                return true;
-            }
+//            throw new CourseLimitExceedException(6);
         }
-        return false;
+        else if (registrationDaoInterface.isRegistered(courseCode, studentId))
+        {
+            return false;
+        }
+//        else if (!registrationDaoInterface.seatAvailable(courseCode))
+//        {
+//            throw new SeatNotAvailableException(courseCode);
+//        }
+//        else if(!StudentValidator.isValidCourseCode(courseCode, availableCourseList))
+//        {
+//            throw new CourseNotFoundException(courseCode);
+//        }
+
+
+
+        return registrationDaoInterface.addCourse(courseCode, studentId);
+
     }
 
-    public List<StudentGrade> viewGradeCard(String studentId){
-        return GradeCard.gradeCard;
+    @Override
+    public boolean dropCourse(String courseCode, String studentId,List<Course> registeredCourseList)  {
+//        if(!StudentValidator.isRegistered(courseCode, studentId, registeredCourseList))
+//        {
+//            throw new CourseNotFoundException(courseCode);
+//        }
+
+        return registrationDaoInterface.dropCourse(courseCode, studentId);
+
     }
-    public List<Course> viewCourses(){
-        return CourseList.courseList;
+
+    @Override
+    public List<StudentGrade> viewGradeCard(String studentId) {
+        return registrationDaoInterface.viewGradeCard(studentId);
+    }
+    public List<Course> viewCourses(String studentId){
+        return registrationDaoInterface.viewCourses(studentId);
     }
 
     @Override
     public List<Course> viewRegisteredCourses(String studentId) {
-        System.out.println(StudentBucket.studentBucket.size());
-        return StudentBucket.studentBucket;
+        return registrationDaoInterface.viewRegisteredCourses(studentId);
     }
 
 
-    public double calculateFee(String studentId){
-        return 0.0;
+    @Override
+    public double calculateFee(String studentId) {
+        return registrationDaoInterface.calculateFee(studentId);
     }
-    public boolean getRegistrationStatus(String studentId){
-        return IsRegistered.isRegistered;
+    @Override
+    public boolean getRegistrationStatus(String studentId)  {
+        return registrationDaoInterface.getRegistrationStatus(studentId);
     }
-    public boolean setRegistrationStatus(String studentId)  {
-        IsRegistered.isRegistered = true;
-        return IsRegistered.isRegistered;
+    @Override
+    public void setRegistrationStatus(String studentId) {
+        registrationDaoInterface.setRegistrationStatus(studentId);
+
+    }
+
+    @Override
+    public boolean getLoginStatus(String studentId) {
+
+        return registrationDaoInterface.getLoginStatus(studentId);
     }
 }

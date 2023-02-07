@@ -13,7 +13,8 @@ public class DBUtils {
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "Nidhi@2002";
+    static final String PASS = "rishabh123";
+
 
     private static Connection connection = null;
     public static Connection getConnection()

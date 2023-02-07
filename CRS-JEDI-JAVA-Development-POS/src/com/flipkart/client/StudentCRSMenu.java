@@ -1,5 +1,9 @@
 package com.flipkart.client;
 import com.flipkart.bean.Course;
+import com.flipkart.dao.CardDAO;
+import com.flipkart.dao.CardDAOImpl;
+import com.flipkart.dao.PaymentDAO;
+import com.flipkart.dao.PaymentDAOImpl;
 import com.flipkart.service.ProfessorService;
 import com.flipkart.service.ProfessorServiceOperation;
 import com.flipkart.service.RegistrationService;
@@ -8,116 +12,138 @@ import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.service.NotificationService;
 import com.flipkart.service.NotificationServiceOperation;
 import com.flipkart.constant.NotificationType;
-import com.flipkart.bean.Professor;
 import java.util.Scanner;
 import java.util.List;
 import com.flipkart.bean.StudentGrade;
-import com.flipkart.data.Professors;
-import com.flipkart.data.CourseList;
-import com.flipkart.data.IsRegistered;
 public class StudentCRSMenu {
-    Scanner sc=new Scanner(System.in);
-    private boolean is_registered;
-    RegistrationService registrationService = new RegistrationServiceOperation();
-    ProfessorServiceOperation professorService = new ProfessorServiceOperation();
-    NotificationService notificationService = new NotificationServiceOperation();
-    Professors professors = new Professors();
+    Scanner sc = new Scanner(System.in);
+    RegistrationService registrationInterface = RegistrationServiceOperation.getInstance();
+    ProfessorService professorInterface = new ProfessorServiceOperation();
+    NotificationService notificationInterface=NotificationServiceOperation.getInstance();
+    private boolean is_registered,is_loggedin;
     public void createMenu(String studentId)
     {
+
         int choice;
-        is_registered = getRegistrationStatus(studentId);
-        System.out.println("*****************************");
-        System.out.println("**********Student Menu*********");
-        System.out.println("*****************************");
-        System.out.println("1. Course Registration");
-        System.out.println("2. Add Course");
-        System.out.println("3. Drop Course");
-        System.out.println("4. View Course");
-        System.out.println("5. View Registered Courses");
-        System.out.println("6. View grade card");
-        System.out.println("7. Make Payment");
-        System.out.println("8. Logout");
-        System.out.println("*****************************");
-        choice=sc.nextInt();
-        switch(choice){
-            case 1:
-                registerCourses(studentId);
-                break;
-            case 2:
-                addCourse(studentId);
-                break;
-            case 3:
-                dropCourse(studentId);
-                break;
-            case 4:
-                viewCourse(studentId);
-                break;
-            case 5:
-                viewRegisteredCourse(studentId);
-                break;
-
-            case 6:
-                viewGradeCard(studentId);
-                break;
-
-            case 7:
-                make_payment(studentId);
-                break;
-
-            case 8:
-                return;
-
-            default:
-                System.out.println("***** Wrong Choice *****");
+        is_loggedin = getLoginStatus(studentId);
+        is_registered=getRegistrationStatus(studentId);
+        if(!is_loggedin)
+        {
+            System.out.println("Registration is not approved. Wait for Admin approval.");
+            return;
         }
+        while(true) {
+            System.out.println("*****************************");
+            System.out.println("**********Student Menu*********");
+            System.out.println("*****************************");
+            System.out.println("1. Course Registration");
+            System.out.println("2. Add Course");
+            System.out.println("3. Drop Course");
+            System.out.println("4. View Course");
+            System.out.println("5. View Registered Courses");
+            System.out.println("6. View grade card");
+            System.out.println("7. Make Payment");
+            System.out.println("8. Logout");
+            System.out.println("*****************************");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    registerCourses(studentId);
+                    break;
+                case 2:
+                    addCourse(studentId);
+                    break;
+                case 3:
+                    dropCourse(studentId);
+                    break;
+                case 4:
+                    viewCourse(studentId);
+                    break;
+                case 5:
+                    viewRegisteredCourse(studentId);
+                    break;
 
+                case 6:
+                    viewGradeCard(studentId);
+                    break;
+
+                case 7:
+                    make_payment(studentId);
+                    break;
+
+                case 8:
+                    return;
+
+                default:
+                    System.out.println("***** Wrong Choice *****");
+            }
+        }
 
     }
     private void registerCourses(String studentId)
     {
-        int count = 0;
-        while(count<3)
+        if(is_registered)
         {
-            if(is_registered)
-            {
-                System.out.println("Registration is already completed");
-                return;
-            }
-            List<Course> courseList = viewCourse(studentId);
-            if(courseList == null)
-            {
-                return;
-            }
-            System.out.println("Enter Course Code :");
-            String courseCode = sc.next();
-            if(registrationService.addCourse(courseCode,studentId,courseList)) //parameters need to be added in addCourse
-            {
-                System.out.println("Course " + courseCode + " registered sucessfully.");
-            }
-            else
-            {
-                System.out.println(" You have already registered for Course : " + courseCode);
-            }
-            count++;
+            System.out.println(" Registration is already completed");
+            return;
         }
-        System.out.println("Registration Successful.");
+
+        int count = 0;
+        while(count < 6)
+        {
+            try
+            {
+                List<Course> courseList=viewCourse(studentId);
+
+                if(courseList==null)
+                    return;
+
+                System.out.println("Enter Course Code : " + (count+1));
+                String courseCode = sc.next();
+
+                if(registrationInterface.addCourse(courseCode,studentId,courseList))
+                {
+                    System.out.println("Course " + courseCode + " registered sucessfully.");
+                    count++;
+                }
+                else
+                {
+                    System.out.println(" You have already registered for Course : " + courseCode);
+                }
+            }
+            catch(Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        System.out.println("Registration Successful");
         is_registered = true;
-        IsRegistered.isRegistered = true;
-        registrationService.setRegistrationStatus(studentId);
+
+        try
+        {
+            registrationInterface.setRegistrationStatus(studentId);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
     }
     private void addCourse(String studentId)
     {
-        if(registrationService.getRegistrationStatus(studentId))
+        if(is_registered)
         {
             List<Course> availableCourseList=viewCourse(studentId);
 
             if(availableCourseList==null)
                 return;
 
-
-                System.out.println("Enter Course Code :" );
+            try
+            {
+                System.out.println("Enter Course Code : " );
                 String courseCode = sc.next();
-                if(registrationService.addCourse(courseCode, studentId,availableCourseList))
+                if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
                 {
                     System.out.println(" You have successfully registered for Course : " + courseCode);
                 }
@@ -125,7 +151,11 @@ public class StudentCRSMenu {
                 {
                     System.out.println(" You have already registered for Course : " + courseCode);
                 }
-
+            }
+            catch(Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
         }
         else
         {
@@ -134,7 +164,15 @@ public class StudentCRSMenu {
     }
     private boolean getRegistrationStatus(String studentId)
     {
-        return registrationService.getRegistrationStatus(studentId);
+        try
+        {
+            return registrationInterface.getRegistrationStatus(studentId);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
     private void dropCourse(String studentId)
     {
@@ -142,15 +180,23 @@ public class StudentCRSMenu {
         {
             List<Course> registeredCourseList=viewRegisteredCourse(studentId);
 
-            if(registeredCourseList==null){
+            if(registeredCourseList==null)
                 return;
-            }
-
 
             System.out.println("Enter the Course Code : ");
             String courseCode = sc.next();
-            registrationService.dropCourse(courseCode, studentId,registeredCourseList);
-            System.out.println("You have successfully dropped Course : " + courseCode);
+
+            try
+            {
+                registrationInterface.dropCourse(courseCode, studentId,registeredCourseList);
+                System.out.println("You have successfully dropped Course : " + courseCode);
+
+            }
+            catch (Exception e)
+            {
+
+                System.out.println(e.getMessage());
+            }
         }
         else
         {
@@ -160,8 +206,16 @@ public class StudentCRSMenu {
 
     private List<Course> viewCourse(String studentId)
     {
-        List<Course> course_available = null;
-        course_available = registrationService.viewCourses();
+        List<Course> course_available=null;
+        try
+        {
+            course_available = registrationInterface.viewCourses(studentId);
+        }
+        catch (Exception e)
+        {
+
+            System.out.println(e.getMessage());
+        }
 
 
         if(course_available.isEmpty())
@@ -169,11 +223,11 @@ public class StudentCRSMenu {
             System.out.println("NO COURSE AVAILABLE");
             return null;
         }
+
+
         System.out.println(String.format("%-20s %-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
-        if(course_available == null) return null;
         for(Course obj : course_available)
         {
-            if(obj == null) continue;
             System.out.println(String.format("%-20s %-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId(), obj.getSeats()));
         }
 
@@ -182,8 +236,15 @@ public class StudentCRSMenu {
     private List<Course> viewRegisteredCourse(String studentId)
     {
         List<Course> course_registered=null;
+        try
+        {
+            course_registered = registrationInterface.viewRegisteredCourses(studentId);
+        }
+        catch (Exception e)
+        {
 
-            course_registered = registrationService.viewRegisteredCourses(studentId);
+            System.out.println(e.getMessage());
+        }
 
         if(course_registered.isEmpty())
         {
@@ -195,17 +256,7 @@ public class StudentCRSMenu {
 
         for(Course obj : course_registered)
         {
-            String id = obj.getInstructorId();
-            Professor prof = null;
-            for(Professor p: Professors.professors)
-            {
-                if(p.getUserId().equalsIgnoreCase(id))
-                {
-                    prof = p;
-
-                }
-            }
-            System.out.println(String.format("%-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),prof.getName()));
+            System.out.println(String.format("%-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId()));
         }
 
         return course_registered;
@@ -214,9 +265,15 @@ public class StudentCRSMenu {
     private void viewGradeCard(String studentId)
     {
         List<StudentGrade> grade_card=null;
+        try
+        {
+            grade_card = registrationInterface.viewGradeCard(studentId);
+        }
+        catch (Exception e)
+        {
 
-            grade_card = registrationService.viewGradeCard(studentId);
-
+            System.out.println(e.getMessage());
+        }
 
         System.out.println(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
 
@@ -228,16 +285,33 @@ public class StudentCRSMenu {
 
         for(StudentGrade obj : grade_card)
         {
-           System.out.println(String.format("%-20s %-20s %-20s",obj.getCourseID(), obj.getCourseName(),obj.getGrade()));
+            System.out.println(String.format("%-20s %-20s %-20s",obj.getCourseID(), obj.getCourseName(),obj.getGrade()));
         }
     }
-    private void make_payment(String studentId)
+
+    private boolean getLoginStatus(String studentId)
     {
+        try
+        {
+            return registrationInterface.getLoginStatus(studentId);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    private void make_payment(String studentId) {
         double fee =0.0;
+        try
+        {
+            fee=registrationInterface.calculateFee(studentId);
+        }
+        catch (Exception e)
+        {
 
-            fee=registrationService.calculateFee(studentId);
-
-
+            System.out.println(e.getMessage());
+        }
 
         if(fee == 0.0)
         {
@@ -254,23 +328,55 @@ public class StudentCRSMenu {
                 System.out.println("Select Mode of Payment:");
 
                 int index = 1;
-
                 for(ModeOfPayment mode : ModeOfPayment.values())
                 {
                     System.out.println(index + " " + mode);
                     index = index + 1;
                 }
+                int c=sc.nextInt();
+                ModeOfPayment mode = ModeOfPayment.getModeofPayment(c);
 
-                ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
+                int refId=0;
+                if(c==1)
+                {
+                    System.out.println("Enter type of Card(Debit/Credit)");
+                    String type=sc.next();
+                    System.out.println(type);
+                    if((!type.equalsIgnoreCase("Debit")) &&(!type.equalsIgnoreCase("Credit")))
+                    {
+                        System.out.println("Enter valid card type, either debit or credit");
+                        return;
+                    }
+                    System.out.println("Enter Card number: ");
+                    int cardno=sc.nextInt();
+                    System.out.println("Enter cvv");
+                    int cvv=sc.nextInt();
+                    System.out.println("Enter name of the bank");
+                    String bank=sc.next();
+
+                    PaymentDAO paymentDAO= PaymentDAOImpl.getInstance();
+                    refId=paymentDAO.addPayment(studentId,fee,"CARD",bank);
+                    CardDAO cardDAO= CardDAOImpl.getInstance();
+                    cardDAO.addCard(refId,cardno,type,cvv);
+                    System.out.println("Payment done");
+
+
+
+                }
 
                 if(mode == null)
                     System.out.println("Invalid Input");
                 else
                 {
+                    try
+                    {
+                        notificationInterface.sendNotification( refId);
+                    }
+                    catch (Exception e)
+                    {
 
-                    notificationService.sendNotification(String.valueOf(NotificationType.PAYMENT), studentId, mode, fee);
-
-
+                        System.out.println(e.getMessage());
+                    }
                 }
 
             }
