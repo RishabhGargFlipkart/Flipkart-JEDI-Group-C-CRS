@@ -11,6 +11,12 @@ package com.flipkart.bean;
  */
 public class Student extends User{
     private String branchName;
+    private int batch;
+    private boolean isGradeCardApproved;
+    private boolean isRegistrationApproved;
+    private boolean isStudentApproved;
+    private String gender;
+    private String address;
 
     public String getGender() {
         return gender;
@@ -27,9 +33,6 @@ public class Student extends User{
     public void setAddress(String address) {
         this.address = address;
     }
-
-    private String gender;
-    private String address;
 
     public String getBranchName() {
         return branchName;
@@ -70,10 +73,5 @@ public class Student extends User{
     public void setStudentApproved(boolean studentApproved) {
         isStudentApproved = studentApproved;
     }
-
-    private int batch;
-    private boolean isGradeCardApproved;
-    private boolean isRegistrationApproved;
-    private boolean isStudentApproved;
 
 }
