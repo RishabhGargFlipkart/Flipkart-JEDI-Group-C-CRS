@@ -1,24 +1,18 @@
 package com.flipkart.constant;
 
-public class SQLQueriesConstants {
 
-    public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";
-    public static final String ADD_COURSE_QUERY = "insert into Course(courseCode, courseName, catalogId) values (?, ?, ?)";
-    public static final String VIEW_PENDING_ADMISSION_QUERY = "select userId, name, password, role, gender, address, country, studentId from student natural join user where isApproved = 0";
-    public static final String APPROVE_STUDENT_QUERY = "update Student set isApproved = 1 where studentId = ?";
-    public static final String ADD_USER_QUERY = "insert into User(userid, name, role, password) values (?, ?, ?, ?)";
-    public static final String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";
-    public static final String ASSIGN_COURSE_QUERY = "update Course set professorId = ? where courseCode = ?";
-    public static final String VIEW_COURSE_QUERY = "select courseCode, courseName, professorId from Course where catalogId = ?";
-    public static final String VIEW_PROFESSOR_QUERY = "select userId, name, gender, department, designation, address, country from Professor natural join User";
+    //Professor Queries
+public class SQLQueriesProfessor {
 
-    public static final String ADD_STUDENT="insert into student (studentId,batch,branchName,loginApproved,gradeCardApproved,regApproved,gender,address) values (?,?,?,?,?,?,?,?)";
-    public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
-    public static final String GET_ROLE="select role from user where userId = ? ";
-    public static final String IS_APPROVED="select loginApproved from student where studentId = ? ";
-    public static final String GET_STUDENT_ID="select studentId from student where studentId = ? ";
-    public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
-    public static final String GET_PROF_NAME = "select name from user where userId = ?";
+    // Student Queries
+    public static final String ADD_GRADE="update semregistration set grade=? where courseCode=? and studentId=?";
+
+    public static final String GET_ASSIGNED_GRADE="select * from semregistration where courseCode=? and studentId=?";
+    public static final String ASSIGN_COURSE="update course set profId=? where courseCode=?";
+    public static final String GET_PROFS="select * from professor INNER JOIN user ON professor.profId=user.userId where professor.profId=? and user.password=? " ;
+    public static final String GET_COURSES="select * from course where profId=?";
+    public static final String GET_ASSIGNED_PROF="select * from course where courseCode=?";
+    public static final String GET_ENROLLED_STUDENTS="select course.courseCode,course.courseName,semregistration.studentId from course inner join semregistration on course.courseCode = semregistration.courseCode where course.profId = ? and course.courseCode =? order by course.courseCode";
 
     //Registration Queries
     public static final String ADD_COURSE="insert into semregistration (studentId,courseCode, grade, semester) values ( ? , ?, ?, ? )";
@@ -38,6 +32,3 @@ public class SQLQueriesConstants {
     public static final String INSERT_CARD="insert into card (refId,cardNo,cardType,cvv) values (?,?,?,?)";
     public static final String INSERT_PAYMENT = "insert into payment (studentId,amount,typeOfPayment,bank) values (?,?,?,?)";
 }
-
-
-  

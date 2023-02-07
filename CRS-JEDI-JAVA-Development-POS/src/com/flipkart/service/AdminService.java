@@ -9,27 +9,77 @@ import com.flipkart.exception.*;
 import java.util.List;
 
 public interface AdminService {
+    /**
+     * This method finds the course with the given courseId and deletes it if it exists.
+     * @param courseID
+     * @param courseList
+     * @throws CourseNotFoundException
+     * @throws CourseNotDeletedException
+     */
     public void deleteCourse(String courseID, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException;
 
+    /**
+     * This method adds a new course to the course catalog.
+     * @param course
+     * @param courseList
+     * @throws CourseFoundException
+     */
     public void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
 
+    /**
+     * This method adds a new course to the course catalog.
+     * @param studentId
+     * @param studentList
+     * @throws StudentNotFoundForApprovalException
+     */
     public void approveGradeCard(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 
+    /**
+     * @return list of students whose login needs to be approved.
+     */
     public List<Student> viewPendingAdmission();
 
+    /**
+     * This method approves the course package of the student with the given studentId.
+     * @param studentId
+     * @param studentList
+     * @throws StudentNotFoundForApprovalException
+     */
     public void approveRegistration(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 
+    /**
+     * @return list of students whose course registration package needs to be approved.
+     */
     public List<Student> viewPendingRegistration();
 
+    /**
+     * This method approves the login for the newly registered student with the given studentId.
+     * @param studentID
+     * @param studentList
+     * @throws StudentNotFoundForApprovalException
+     */
     public void approveStudent(String studentID, List<Student> studentList) throws StudentNotFoundForApprovalException;
 
+    /**
+     * This method add a new Professor to the database using the details passed as Professor object.
+     * @param professor
+     * @throws UserIdAlreadyInUseException
+     * @throws ProfessorNotAddedException
+     */
     public void addProfessor(Professor professor) throws UserIdAlreadyInUseException, ProfessorNotAddedException;
 
+    /**
+     * @return List of courses in the catalog.
+     */
     public List<Course> viewCourses();
 
+    /**
+     * @return list of existing professors.
+     */
     public List<Professor> viewProfessors();
 
+    /**
+     * @return list of students whose grade cards needs to be generated.
+     */
     public List<Student> viewPendingGradeCard();
-
-    public static void addStudentToList(Student s){};
 }

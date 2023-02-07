@@ -3,6 +3,7 @@ import com.flipkart.bean.*;
 import com.flipkart.constant.Grade;
 import com.flipkart.dao.ProfessorDAO;
 import com.flipkart.dao.ProfessorDAOImpl;
+import com.flipkart.exception.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class ProfessorServiceOperation implements ProfessorService {
 
     }
 
-    public String addGrade(String profId, String studentId, String courseCode, String grade) throws SQLException, ClassNotFoundException {
+    public String addGrade(String profId, String studentId, String courseCode, String grade) throws ClassNotFoundException, StudentNotRegistered, GradeAssignedException {
         /*
         List<Course> teachingCourses=getCourses(profId);
         List<EnrolledStudent> enrolledStudents1=new ArrayList<EnrolledStudent>();
@@ -157,14 +158,14 @@ public class ProfessorServiceOperation implements ProfessorService {
             else {
                 System.out.println("Grade is not added. Try again with valid details.");
             }
-        } catch (Exception ex) {
+        } catch (StudentNotRegistered | GradeAssignedException | ClassNotFoundException ex) {
             throw ex;
         }
         return null;
 
     }
 
-    public List<EnrolledStudent> viewEnrolledStudents(String profId, String courseCode) throws SQLException, ClassNotFoundException {
+    public List<EnrolledStudent> viewEnrolledStudents(String profId, String courseCode) throws ClassNotFoundException, NoEnrolledStudentsException {
 
 //        List<Course> teachingCourses=getCourses(profId);
 //        List<EnrolledStudent> ans=new ArrayList<EnrolledStudent>();
@@ -197,19 +198,19 @@ public class ProfessorServiceOperation implements ProfessorService {
         {
             enrolledStudents=professorDAO.getEnrolledStudent(profId,courseCode);
         }
-        catch(Exception ex)
+        catch(ClassNotFoundException | NoEnrolledStudentsException ex)
         {
             throw ex;
         }
         return enrolledStudents;
     }
 
-    public List<Course> getCourses(String profId) throws SQLException, ClassNotFoundException {
+    public List<Course> getCourses(String profId) throws NoAssignedCourseException, ClassNotFoundException {
         List<Course> courses=new ArrayList<Course>();
         try{
             courses=professorDAO.getCourses(profId);
         }
-        catch(Exception ex)
+        catch(ClassNotFoundException | NoAssignedCourseException ex)
         {
             throw ex;
         }
@@ -218,7 +219,7 @@ public class ProfessorServiceOperation implements ProfessorService {
 
 
 
-    public boolean assignCourse(String profId,String courseCode) throws SQLException, ClassNotFoundException {
+    public boolean assignCourse(String profId,String courseCode) throws ClassNotFoundException, CourseNotFoundException, ProfessorAssignedException {
         /*
         int i=0;
         for(Course crs: course)
@@ -246,7 +247,7 @@ public class ProfessorServiceOperation implements ProfessorService {
          try{
              return professorDAO.assignCourse(profId,courseCode);
          }
-         catch (Exception ex)
+         catch (ProfessorAssignedException | CourseNotFoundException ex)
          {
              throw ex;
          }
