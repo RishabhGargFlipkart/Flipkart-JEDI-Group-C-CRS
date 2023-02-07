@@ -31,11 +31,11 @@ public class NotificationServiceOperation implements NotificationService {
         return instance;
     }
     @Override
-    public int sendNotification(NotificationType type, String studentId,ModeOfPayment modeOfPayment,double amount) {
+    public int sendNotification(int refId) {
         int notificationId=0;
         try
         {
-            notificationId=notificationDaoInterface.sendNotification(type, studentId,modeOfPayment,amount);
+            notificationId=notificationDaoInterface.sendNotification( refId);
 
         }
         catch(Exception ex)

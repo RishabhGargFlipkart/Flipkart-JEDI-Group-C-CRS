@@ -1,6 +1,8 @@
 package com.flipkart.client;
 
 
+import com.flipkart.dao.StudentDAO;
+import com.flipkart.dao.StudentDAOImpl;
 import com.flipkart.dao.UserDAO;
 import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.exception.*;
@@ -13,6 +15,7 @@ import java.util.Scanner;
 
 public class CRSApplication {
     static boolean loggedin = false;
+    StudentDAO studentDAO=StudentDAOImpl.getInstance();
     UserDAO userInterface = UserDAOImpl.getInstance();
 //    AdminService adminService = new AdminServiceOperation();
 
@@ -73,6 +76,7 @@ public class CRSApplication {
 
         if(loggedin){
             if(role.equalsIgnoreCase("Student")){
+
                 StudentCRSMenu student = new StudentCRSMenu();
                 student.createMenu(userId);
             }
@@ -106,7 +110,18 @@ public class CRSApplication {
         System.out.print("Password:");
         password=sc.next();
         System.out.print("Gender: \t 1: Male \t 2.Female\t 3.Other");
-        gender=sc.next();
+        int g=sc.nextInt();
+        if(g==1)
+            gender="Male";
+        else if(g==2)
+            gender="Female";
+        else if(g==3)
+            gender="Other";
+        else
+        {
+            System.out.println("Enter correct option");
+            return;
+        }
         sc.nextLine();
         System.out.print("Branch:");
         branchName=sc.nextLine();
@@ -127,7 +142,8 @@ public class CRSApplication {
         s.setRole("Student");
         s.setGender(gender);
         s.setAddress(address);
-        //int newStudentId=studentDAO.addStudent(s);
+
+        studentDAO.addStudent(s);
 
     }
     public void updatePassword(){

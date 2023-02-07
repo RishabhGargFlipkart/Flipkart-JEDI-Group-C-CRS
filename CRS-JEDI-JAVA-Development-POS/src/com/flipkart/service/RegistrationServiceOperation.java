@@ -69,7 +69,7 @@ public class RegistrationServiceOperation implements RegistrationService{
         return registrationDaoInterface.viewGradeCard(studentId);
     }
     public List<Course> viewCourses(String studentId){
-        return CourseList.courseList;
+        return registrationDaoInterface.viewCourses(studentId);
     }
 
     @Override
@@ -90,5 +90,11 @@ public class RegistrationServiceOperation implements RegistrationService{
     public void setRegistrationStatus(String studentId) {
         registrationDaoInterface.setRegistrationStatus(studentId);
 
+    }
+
+    @Override
+    public boolean getLoginStatus(String studentId) {
+
+        return registrationDaoInterface.getLoginStatus(studentId);
     }
 }

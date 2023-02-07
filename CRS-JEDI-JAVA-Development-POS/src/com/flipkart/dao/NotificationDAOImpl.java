@@ -31,41 +31,22 @@ public class NotificationDAOImpl implements NotificationDAO{
         return instance;
     }
     @Override
-    public int sendNotification(NotificationType type, String studentId,ModeOfPayment modeOfPayment,double amount) {
+    public int sendNotification(int refId) {
         int notificationId=0;
         Connection connection=DBUtils.getConnection();
         try
         {
             //INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
-            PreparedStatement ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION,Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, studentId);
-            ps.setString(2,type.toString());
-            if(type==NotificationType.PAYMENT)
-            {
-                //insert into payment, get reference id and add here
-                UUID referenceId=addPayment(studentId, modeOfPayment,amount);
-                ps.setString(3, referenceId.toString());
-                System.out.println("Payment successful, Reference ID: "+referenceId);
-            }
-            else
-                ps.setString(3,"");
+            PreparedStatement ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION);
+            ps.setString(1, "Payment Successful");
+            ps.setInt(2,refId);
+
 
             ps.executeUpdate();
             ResultSet results=ps.getGeneratedKeys();
-            if(results.next())
-                notificationId=results.getInt(1);
 
-            switch(type)
-            {
-                case REGISTRATION:
-                    System.out.println("Registration successfull. Administration will verify the details and approve it!");
-                    break;
-                case REGISTRATION_APPROVAL:
-                    System.out.println("Student with id "+studentId+" has been approved!");
-                    break;
-                case PAYMENT:
-                    System.out.println("Student with id "+studentId+" fee has been paid");
-            }
+
+
 
         }
         catch(Exception ex)

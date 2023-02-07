@@ -1,5 +1,9 @@
 package com.flipkart.client;
 import com.flipkart.bean.Course;
+import com.flipkart.dao.CardDAO;
+import com.flipkart.dao.CardDAOImpl;
+import com.flipkart.dao.PaymentDAO;
+import com.flipkart.dao.PaymentDAOImpl;
 import com.flipkart.service.ProfessorService;
 import com.flipkart.service.ProfessorServiceOperation;
 import com.flipkart.service.RegistrationService;
@@ -14,58 +18,66 @@ import com.flipkart.bean.StudentGrade;
 public class StudentCRSMenu {
     Scanner sc = new Scanner(System.in);
     RegistrationService registrationInterface = RegistrationServiceOperation.getInstance();
-    ProfessorService professorInterface = ProfessorServiceOperation.getInstance();
+    ProfessorService professorInterface = new ProfessorServiceOperation();
     NotificationService notificationInterface=NotificationServiceOperation.getInstance();
-    private boolean is_registered;
+    private boolean is_registered,is_loggedin;
     public void createMenu(String studentId)
     {
+
         int choice;
-        is_registered = getRegistrationStatus(studentId);
-        System.out.println("*****************************");
-        System.out.println("**********Student Menu*********");
-        System.out.println("*****************************");
-        System.out.println("1. Course Registration");
-        System.out.println("2. Add Course");
-        System.out.println("3. Drop Course");
-        System.out.println("4. View Course");
-        System.out.println("5. View Registered Courses");
-        System.out.println("6. View grade card");
-        System.out.println("7. Make Payment");
-        System.out.println("8. Logout");
-        System.out.println("*****************************");
-        choice=sc.nextInt();
-        switch(choice){
-            case 1:
-                registerCourses(studentId);
-                break;
-            case 2:
-                addCourse(studentId);
-                break;
-            case 3:
-                dropCourse(studentId);
-                break;
-            case 4:
-                viewCourse(studentId);
-                break;
-            case 5:
-                viewRegisteredCourse(studentId);
-                break;
-
-            case 6:
-                viewGradeCard(studentId);
-                break;
-
-            case 7:
-                make_payment(studentId);
-                break;
-
-            case 8:
-                return;
-
-            default:
-                System.out.println("***** Wrong Choice *****");
+        is_loggedin = getLoginStatus(studentId);
+        is_registered=getRegistrationStatus(studentId);
+        if(!is_loggedin)
+        {
+            System.out.println("Registration is not approved. Wait for Admin approval.");
+            return;
         }
+        while(true) {
+            System.out.println("*****************************");
+            System.out.println("**********Student Menu*********");
+            System.out.println("*****************************");
+            System.out.println("1. Course Registration");
+            System.out.println("2. Add Course");
+            System.out.println("3. Drop Course");
+            System.out.println("4. View Course");
+            System.out.println("5. View Registered Courses");
+            System.out.println("6. View grade card");
+            System.out.println("7. Make Payment");
+            System.out.println("8. Logout");
+            System.out.println("*****************************");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    registerCourses(studentId);
+                    break;
+                case 2:
+                    addCourse(studentId);
+                    break;
+                case 3:
+                    dropCourse(studentId);
+                    break;
+                case 4:
+                    viewCourse(studentId);
+                    break;
+                case 5:
+                    viewRegisteredCourse(studentId);
+                    break;
 
+                case 6:
+                    viewGradeCard(studentId);
+                    break;
+
+                case 7:
+                    make_payment(studentId);
+                    break;
+
+                case 8:
+                    return;
+
+                default:
+                    System.out.println("***** Wrong Choice *****");
+            }
+        }
 
     }
     private void registerCourses(String studentId)
@@ -244,7 +256,7 @@ public class StudentCRSMenu {
 
         for(Course obj : course_registered)
         {
-            System.out.println(String.format("%-20s %-20s",obj.getCourseCode(), obj.getCourseName()));
+            System.out.println(String.format("%-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId()));
         }
 
         return course_registered;
@@ -275,6 +287,19 @@ public class StudentCRSMenu {
         {
             System.out.println(String.format("%-20s %-20s %-20s",obj.getCourseID(), obj.getCourseName(),obj.getGrade()));
         }
+    }
+
+    private boolean getLoginStatus(String studentId)
+    {
+        try
+        {
+            return registrationInterface.getLoginStatus(studentId);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
     private void make_payment(String studentId) {
         double fee =0.0;
@@ -308,8 +333,36 @@ public class StudentCRSMenu {
                     System.out.println(index + " " + mode);
                     index = index + 1;
                 }
+                int c=sc.nextInt();
+                ModeOfPayment mode = ModeOfPayment.getModeofPayment(c);
 
-                ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
+                int refId=0;
+                if(c==1)
+                {
+                    System.out.println("Enter type of Card(Debit/Credit)");
+                    String type=sc.next();
+                    System.out.println(type);
+                    if((!type.equalsIgnoreCase("Debit")) &&(!type.equalsIgnoreCase("Credit")))
+                    {
+                        System.out.println("Enter valid card type, either debit or credit");
+                        return;
+                    }
+                    System.out.println("Enter Card number: ");
+                    int cardno=sc.nextInt();
+                    System.out.println("Enter cvv");
+                    int cvv=sc.nextInt();
+                    System.out.println("Enter name of the bank");
+                    String bank=sc.next();
+
+                    PaymentDAO paymentDAO= PaymentDAOImpl.getInstance();
+                    refId=paymentDAO.addPayment(studentId,fee,"CARD",bank);
+                    CardDAO cardDAO= CardDAOImpl.getInstance();
+                    cardDAO.addCard(refId,cardno,type,cvv);
+                    System.out.println("Payment done");
+
+
+
+                }
 
                 if(mode == null)
                     System.out.println("Invalid Input");
@@ -317,7 +370,7 @@ public class StudentCRSMenu {
                 {
                     try
                     {
-                        notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
+                        notificationInterface.sendNotification( refId);
                     }
                     catch (Exception e)
                     {

@@ -37,21 +37,23 @@ public class StudentDAOImpl implements StudentDAO {
             preparedStatement.setString(2, student.getName());
             preparedStatement.setString(3, student.getRole());
             preparedStatement.setString(4, student.getPassword());
-            preparedStatement.setString(5, student.getGender());
-            preparedStatement.setString(6, student.getAddress());
+//            preparedStatement.setString(5, student.getGender());
+//            preparedStatement.setString(6, student.getAddress());
             int rowsAffected=preparedStatement.executeUpdate();
             if(rowsAffected==1)
             {
                 //add the student record
                 //"insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
                 PreparedStatement preparedStatementStudent;
-                preparedStatementStudent=connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT,Statement.RETURN_GENERATED_KEYS);
+                preparedStatementStudent=connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT);
                 preparedStatementStudent.setString(1,student.getUserId());
-                preparedStatementStudent.setString(2, student.getBranchName());
-                preparedStatementStudent.setInt(3, student.getBatch());
+                preparedStatementStudent.setString(3, student.getBranchName());
+                preparedStatementStudent.setInt(2, student.getBatch());
                 preparedStatementStudent.setBoolean(4, false);
                 preparedStatementStudent.setBoolean(5, false);
                 preparedStatementStudent.setBoolean(6, false);
+                preparedStatementStudent.setString(7, student.getGender());
+                preparedStatementStudent.setString(8, student.getAddress());
                 preparedStatementStudent.executeUpdate();
                 ResultSet results=preparedStatementStudent.getGeneratedKeys();
                 if(results.next())

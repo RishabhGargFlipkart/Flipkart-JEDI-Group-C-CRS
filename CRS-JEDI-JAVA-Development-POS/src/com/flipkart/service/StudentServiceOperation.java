@@ -27,10 +27,9 @@ public class StudentServiceOperation implements StudentService {
     public void register(String name, String userId, String password, String gender, int batch, String branch, String address) {
         try {
             Student newStudent = new Student();
-            newStudent.setStudentId(userId);
+            newStudent.setUserId(userId);
             newStudent.setUserId(userId);
             newStudent.setName(name);
-            newStudent.setApproved(false);
             newStudent.setGradeCardApproved(false);
             newStudent.setRegistrationApproved(false);
             newStudent.setBatch(batch);

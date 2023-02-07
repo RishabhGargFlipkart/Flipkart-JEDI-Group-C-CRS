@@ -33,6 +33,8 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             stmt = conn.prepareStatement(SQLQueriesConstants.ADD_COURSE);
             stmt.setString(1, studentId);
             stmt.setString(2, courseCode);
+            stmt.setString(3, "NA");
+            stmt.setInt(4,1);
 
             stmt.executeUpdate();
 
@@ -190,7 +192,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         }
         catch(SQLException e)
         {
-            System.out.println(e.getErrorCode());
             System.out.println(e.getMessage());
         }
         catch(Exception e)
@@ -246,7 +247,7 @@ public class RegistrationDAOImpl implements RegistrationDAO{
     }
 
     @Override
-    public List<Course> viewCourses(String studentId) throws SQLException {
+    public List<Course> viewCourses(String studentId) {
 
         List<Course> availableCourseList = new ArrayList<>();
         Connection conn = DBUtils.getConnection();
@@ -254,14 +255,12 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         try
         {
             stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_AVAILABLE_COURSES);
-            stmt.setString(1, studentId);
-            stmt.setBoolean(2, true);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 availableCourseList.add(new Course(rs.getString("courseCode"),
                         rs.getString("courseName"),
-                        rs.getString("instructorId"), rs.getInt("seats"),rs.getDouble("fee")));
+                        rs.getString("profId"), rs.getInt("seats"),rs.getDouble("fee")));
 
             }
 
@@ -275,11 +274,11 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            stmt.close();
-            conn.close();
-        }
+//        finally
+//        {
+//            stmt.close();
+//            conn.close();
+//        }
 
         return availableCourseList;
 
@@ -297,8 +296,8 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                registeredCourseList.add(new Course(rs.getString("courseCode"), rs.getString("courseName"),
-                        rs.getString("professorId"), rs.getInt("seats"),rs.getDouble("fee")));
+                registeredCourseList.add(new Course(rs.getString("courseCode"), rs.getString("courseName"),rs.getString("profid"),
+                        rs.getInt("Seats"), rs.getDouble("fee")));
             }
         }
         catch (SQLException e)
@@ -364,6 +363,33 @@ public class RegistrationDAOImpl implements RegistrationDAO{
 //            conn.close();
 //        }
 
+    }
+
+    @Override
+    public boolean getLoginStatus(String studentId) {
+        Connection conn = DBUtils.getConnection();
+        boolean status = false;
+        try
+        {
+            stmt = conn.prepareStatement(SQLQueriesConstants.IS_APPROVED);
+            stmt.setString(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            status = rs.getBoolean(1);
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+
+        }
+//        finally
+//        {
+//            stmt.close();
+//            conn.close();
+//        }
+
+        return status;
     }
 
 }

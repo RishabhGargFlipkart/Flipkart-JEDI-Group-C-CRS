@@ -11,7 +11,7 @@ public interface RegistrationDAO {
 
     public boolean dropCourse(String courseCode, String studentId);
 
-    public List<Course> viewCourses(String studentId) throws SQLException;
+    public List<Course> viewCourses(String studentId);
 
     public List<Course> viewRegisteredCourses(String studentId);
 
@@ -35,5 +35,6 @@ public interface RegistrationDAO {
 
 
     public void setRegistrationStatus(String studentId);
+    public boolean getLoginStatus(String studentId);
 
 }

@@ -7,5 +7,5 @@ import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 
 public interface NotificationDAO {
-    public int sendNotification(NotificationType type,String studentId,ModeOfPayment modeOfPayment,double amount);
+    public int sendNotification(int refId);
 }
