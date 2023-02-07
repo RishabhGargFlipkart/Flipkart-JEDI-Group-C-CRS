@@ -31,19 +31,18 @@ public class NotificationDAOImpl implements NotificationDAO{
         return instance;
     }
     @Override
-    public int sendNotification(int refId) {
-        int notificationId=0;
+    public void sendNotification(int refId,int notifId) {
         Connection connection=DBUtils.getConnection();
         try
         {
             //INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
             PreparedStatement ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION);
-            ps.setString(1, "Payment Successful");
-            ps.setInt(2,refId);
+            ps.setInt(1,notifId);
+            ps.setString(2, "Payment Successful");
+            ps.setInt(3,refId);
 
 
             ps.executeUpdate();
-            ResultSet results=ps.getGeneratedKeys();
 
 
 
@@ -53,7 +52,6 @@ public class NotificationDAOImpl implements NotificationDAO{
         {
             System.out.println(ex);
         }
-        return notificationId;
     }
     public UUID addPayment(String studentId, ModeOfPayment modeOfPayment,double amount)
     {

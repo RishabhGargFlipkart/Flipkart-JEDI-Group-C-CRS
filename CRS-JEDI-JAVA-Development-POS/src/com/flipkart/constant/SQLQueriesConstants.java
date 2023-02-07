@@ -34,9 +34,9 @@ public class SQLQueriesConstants {
     public static final String VIEW_REGISTERED_COURSES=" select course.courseCode,course.courseName,course.profId,course.seats,course.fee from course,semregistration where semregistration.studentId=? and semregistration.courseCode=course.courseCode";
     public static final String GET_REGISTRATION_STATUS=" select regApproved from student where studentId = ? ";
     public static final String SET_REGISTRATION_STATUS="update student set regApproved = true  where studentId=?";
-    public static final String INSERT_NOTIFICATION = "insert into notification(message,refId) values (?,?)";
+    public static final String INSERT_NOTIFICATION = "insert into notification (notificationId,message,refId) values (?,?,?)";
     public static final String INSERT_CARD="insert into card (refId,cardNo,cardType,cvv) values (?,?,?,?)";
-    public static final String INSERT_PAYMENT = "insert into payment (studentId,amount,typeOfPayment,bank) values (?,?,?,?)";
+    public static final String INSERT_PAYMENT = "insert into payment (refId,studentId,amount,typeOfPayment,bank) values (?,?,?,?,?)";
 }
 
 

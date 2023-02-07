@@ -1,4 +1,5 @@
 package com.flipkart.client;
+import java.util.Random;
 import com.flipkart.bean.Course;
 import com.flipkart.dao.CardDAO;
 import com.flipkart.dao.CardDAOImpl;
@@ -16,6 +17,7 @@ import java.util.Scanner;
 import java.util.List;
 import com.flipkart.bean.StudentGrade;
 public class StudentCRSMenu {
+    Random rand=new Random();
     Scanner sc = new Scanner(System.in);
     RegistrationService registrationInterface = RegistrationServiceOperation.getInstance();
     ProfessorService professorInterface = new ProfessorServiceOperation();
@@ -323,6 +325,7 @@ public class StudentCRSMenu {
             System.out.println("Your total fee  = " + fee);
             System.out.println("Want to continue Fee Payment(y/n)");
             String ch = sc.next();
+            int refId=rand.nextInt(Integer.SIZE - 1);
             if(ch.equals("y"))
             {
                 System.out.println("Select Mode of Payment:");
@@ -336,7 +339,7 @@ public class StudentCRSMenu {
                 int c=sc.nextInt();
                 ModeOfPayment mode = ModeOfPayment.getModeofPayment(c);
 
-                int refId=0;
+
                 if(c==1)
                 {
                     System.out.println("Enter type of Card(Debit/Credit)");
@@ -355,29 +358,31 @@ public class StudentCRSMenu {
                     String bank=sc.next();
 
                     PaymentDAO paymentDAO= PaymentDAOImpl.getInstance();
-                    refId=paymentDAO.addPayment(studentId,fee,"CARD",bank);
+                    paymentDAO.addPayment(refId,studentId,fee,"CARD",bank);
                     CardDAO cardDAO= CardDAOImpl.getInstance();
                     cardDAO.addCard(refId,cardno,type,cvv);
+                    int notifId=rand.nextInt(Integer.SIZE-1);
+                    notificationInterface.sendNotification( refId,notifId);
                     System.out.println("Payment done");
 
 
 
                 }
 
-                if(mode == null)
-                    System.out.println("Invalid Input");
-                else
-                {
-                    try
-                    {
-                        notificationInterface.sendNotification( refId);
-                    }
-                    catch (Exception e)
-                    {
-
-                        System.out.println(e.getMessage());
-                    }
-                }
+//                if(mode == null)
+//                    System.out.println("Invalid Input");
+//                else
+//                {
+//                    try
+//                    {
+//
+//                    }
+//                    catch (Exception e)
+//                    {
+//
+//                        System.out.println(e.getMessage());
+//                    }
+//                }
 
             }
 
