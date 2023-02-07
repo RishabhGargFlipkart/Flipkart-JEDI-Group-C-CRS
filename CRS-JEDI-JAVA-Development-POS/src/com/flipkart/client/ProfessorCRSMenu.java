@@ -65,44 +65,43 @@ public class ProfessorCRSMenu {
         }
 
         Scanner sc = new Scanner(System.in);
-        int userInput;
-        System.out.println("---------Professor Menu---------");
-        System.out.println("1. View Your Courses");
-        System.out.println("2. View Enrolled Students");
-        System.out.println("3. Add grade");
-        System.out.println("4. Assign a course");
-        System.out.println("5. Logout");
-        System.out.println("---------------------------------");
-        userInput=sc.nextInt();
-        while (userInput != 5) {
-            switch (userInput) {
-                case 1:
-                    //view all the courses taught by the professor
-                    getCourses(profId);
-                    break;
-                case 2:
-                    //view all the enrolled students for the course
-                    System.out.println("Enter Course Code:");
-                    String courseCode=sc.next();
-                    viewEnrolledStudents(profId,courseCode);
-                    break;
+        while(true){
+            System.out.println("---------Professor Menu---------");
+            System.out.println("1. View Your Courses");
+            System.out.println("2. View Enrolled Students");
+            System.out.println("3. Add grade");
+            System.out.println("4. Assign a course");
+            System.out.println("5. Logout");
+            System.out.println("---------------------------------");
+            int userInput = sc.nextInt();
 
-                case 3:
-                    //add grade for a student
-                    addGrade(profId);
-                    break;
-                case 4:
-                    assignCourse(profId);
-                    break;
-                case 5:
-                    //logout from the system
-                    //CRSApplication.loggedin = false;
-                    return;
-                default:
-                    System.out.println("Invalid Input");
+                switch (userInput) {
+                    case 1:
+                        //view all the courses taught by the professor
+                        getCourses(profId);
+                        break;
+                    case 2:
+                        //view all the enrolled students for the course
+                        System.out.println("Enter Course Code:");
+                        String courseCode=sc.next();
+                        viewEnrolledStudents(profId,courseCode);
+                        break;
+
+                    case 3:
+                        //add grade for a student
+                        addGrade(profId);
+                        break;
+                    case 4:
+                        assignCourse(profId);
+                        break;
+                    case 5:
+                        //logout from the system
+                        //CRSApplication.loggedin = false;
+                        return;
+                    default:
+                        System.out.println("Invalid Input");
+                }
             }
-            userInput=sc.nextInt();
-        }
 
     }
 
