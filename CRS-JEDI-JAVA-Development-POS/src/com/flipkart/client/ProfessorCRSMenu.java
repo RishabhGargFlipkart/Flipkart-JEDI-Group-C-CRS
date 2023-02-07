@@ -58,23 +58,24 @@ public class ProfessorCRSMenu {
 
     public void createMenu(String profId,String pwd) throws SQLException, ClassNotFoundException {
         boolean check = false;
-        check=professorDAO.getProfessors(profId,pwd);
-        if(check == false){
+        check = professorDAO.getProfessors(profId, pwd);
+        if (check == false) {
             System.out.println("Invalid credentials");
             return;
         }
 
         Scanner sc = new Scanner(System.in);
         int userInput;
-        System.out.println("---------Professor Menu---------");
-        System.out.println("1. View Your Courses");
-        System.out.println("2. View Enrolled Students");
-        System.out.println("3. Add grade");
-        System.out.println("4. Assign a course");
-        System.out.println("5. Logout");
-        System.out.println("---------------------------------");
-        userInput=sc.nextInt();
-        while (userInput != 5) {
+        while (true) {
+            System.out.println("---------Professor Menu---------");
+            System.out.println("1. View Your Courses");
+            System.out.println("2. View Enrolled Students");
+            System.out.println("3. Add grade");
+            System.out.println("4. Assign a course");
+            System.out.println("5. Logout");
+            System.out.println("---------------------------------");
+            userInput = sc.nextInt();
+
             switch (userInput) {
                 case 1:
                     //view all the courses taught by the professor
@@ -83,8 +84,8 @@ public class ProfessorCRSMenu {
                 case 2:
                     //view all the enrolled students for the course
                     System.out.println("Enter Course Code:");
-                    String courseCode=sc.next();
-                    viewEnrolledStudents(profId,courseCode);
+                    String courseCode = sc.next();
+                    viewEnrolledStudents(profId, courseCode);
                     break;
 
                 case 3:
@@ -101,10 +102,9 @@ public class ProfessorCRSMenu {
                 default:
                     System.out.println("Invalid Input");
             }
-            userInput=sc.nextInt();
         }
-
     }
+
 
 //    public void generateDB()
 //    {
