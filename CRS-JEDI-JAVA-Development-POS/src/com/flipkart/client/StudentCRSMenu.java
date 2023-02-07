@@ -216,18 +216,23 @@ public class StudentCRSMenu {
             System.out.println(e.getMessage());
         }
 
-
-        if(course_available.isEmpty())
-        {
+        try {
+            if (course_available.isEmpty()) {
+                System.out.println("NO COURSE AVAILABLE");
+                return null;
+            }
+        } catch (NullPointerException e) {
             System.out.println("NO COURSE AVAILABLE");
-            return null;
         }
 
 
         System.out.println(String.format("%-20s %-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
-        for(Course obj : course_available)
-        {
-            System.out.println(String.format("%-20s %-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId(), obj.getSeats()));
+        try {
+            for (Course obj : course_available) {
+                System.out.println(String.format("%-20s %-20s %-20s %-20s", obj.getCourseCode(), obj.getCourseName(), obj.getInstructorId(), obj.getSeats()));
+            }
+        } catch (NullPointerException e) {
+            System.out.println("NO COURSE AVAILABLE");
         }
 
         return course_available;

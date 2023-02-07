@@ -4,6 +4,8 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.StudentDAO;
 import com.flipkart.dao.StudentDAOImpl;
 
+import com.flipkart.exception.StudentNotRegisteredException;
+
 public class StudentServiceOperation implements StudentService {
 
     private static volatile StudentServiceOperation instance = null;
@@ -24,7 +26,7 @@ public class StudentServiceOperation implements StudentService {
     }
 
     @Override
-    public void register(String name, String userId, String password, String gender, int batch, String branch, String address) {
+    public void register(String name, String userId, String password, String gender, int batch, String branch, String address) throws StudentNotRegisteredException {
         try {
             Student newStudent = new Student();
             newStudent.setUserId(userId);
@@ -40,8 +42,10 @@ public class StudentServiceOperation implements StudentService {
             newStudent.setAddress(address);
             studentDaoInterface.addStudent(newStudent);
 
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        }
+        catch(StudentNotRegisteredException ex)
+        {
+            throw ex;
         }
     }
 

@@ -98,7 +98,7 @@ public class CRSApplication {
     public void registerStudent(){
         Scanner sc = new Scanner(System.in);
 
-        String userId,name,password,address,country,branchName;
+        String userId,name,password,address,branchName;
         String gender;
         int batch;
 
@@ -143,7 +143,12 @@ public class CRSApplication {
         s.setGender(gender);
         s.setAddress(address);
 
-        studentDAO.addStudent(s);
+        try {
+            studentDAO.addStudent(s);
+        }
+        catch (StudentNotRegisteredException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
     public void updatePassword(){

@@ -7,6 +7,12 @@ import com.flipkart.utils.DBUtils;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
+
+import com.flipkart.exception.CourseLimitExceedException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.SeatNotAvailableException;
+
 public class RegistrationDAOImpl implements RegistrationDAO{
     private static volatile RegistrationDAOImpl instance=null;
     private PreparedStatement stmt = null;
@@ -25,7 +31,7 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         return instance;
     }
     @Override
-    public boolean addCourse(String courseCode, String studentId) {
+    public boolean addCourse(String courseCode, String studentId) throws SQLException {
 
         Connection conn = DBUtils.getConnection();
         try
@@ -47,15 +53,15 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println(e.getMessage());
         }
-//        finally
-//        {
-////            stmt.close();
-////            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
         return false;
     }
     @Override
-    public int numOfRegisteredCourses(String studentId) {
+    public int numOfRegisteredCourses(String studentId) throws SQLException {
 
         Connection conn = DBUtils.getConnection();
 
@@ -71,21 +77,27 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             return count;
 
         }
+        catch (SQLException se)
+        {
+
+            System.out.println(se.getMessage());
+
+        }
         catch (Exception e)
         {
 
             System.out.println(e.getMessage());
         }
-//        finally
-//        {
-////            stmt.close();
-////            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
         return count;
     }
     @Override
-    public boolean seatAvailable(String courseCode) {
+    public boolean seatAvailable(String courseCode) throws SQLException {
 
         Connection conn = DBUtils.getConnection();
         try
@@ -101,16 +113,16 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         catch (SQLException e) {
             e.printStackTrace();
         }
-//        finally
-//        {
-////            stmt.close();
-////            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
         return true;
     }
     @Override
-    public boolean isRegistered(String courseCode, String studentId) {
+    public boolean isRegistered(String courseCode, String studentId) throws SQLException {
 
         Connection conn = DBUtils.getConnection();
 
@@ -132,17 +144,17 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             System.out.println(e.getClass());
             System.out.println(e.getMessage());
         }
-//        finally
-//        {
-//            stmt.close();
-//            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
         return check;
 
     }
     @Override
-    public boolean dropCourse(String courseCode, String studentId) {
+    public boolean dropCourse(String courseCode, String studentId) throws SQLException {
 
         Connection conn = DBUtils.getConnection();
 
@@ -166,19 +178,19 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println("Exception found" + e.getMessage());
         }
-//        finally
-//        {
-//
-//            stmt.close();
-//            conn.close();
-//        }
+        finally
+        {
+
+            stmt.close();
+            conn.close();
+        }
 
 
         return false;
 
     }
     @Override
-    public double calculateFee(String studentId)
+    public double calculateFee(String studentId) throws SQLException
     {
         Connection conn = DBUtils.getConnection();
         double fee = 0;
@@ -190,24 +202,24 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             rs.next();
             fee = rs.getDouble(1);
         }
-        catch(SQLException e)
+        catch(SQLException se)
         {
-            System.out.println(e.getMessage());
+            System.out.println(se.getMessage());
         }
         catch(Exception e)
         {
             System.out.println(e.getMessage());
         }
-//        finally
-//        {
-//            stmt.close();
-//            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
         return fee;
     }
     @Override
-    public List<StudentGrade> viewGradeCard(String studentId) {
+    public List<StudentGrade> viewGradeCard(String studentId) throws SQLException {
         Connection conn = DBUtils.getConnection();
         List<StudentGrade> grade_List = new ArrayList<>();
         try
@@ -228,26 +240,26 @@ public class RegistrationDAOImpl implements RegistrationDAO{
                 grade_List.add(obj);
             }
         }
-        catch(SQLException e)
+        catch(SQLException se)
         {
-            System.out.println(e.getMessage());
+            System.out.println(se.getMessage());
         }
         catch(Exception e)
         {
             System.out.println(e.getMessage());
         }
-//        finally
-//        {
-//            stmt.close();
-//            conn.close();
-//
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+
+        }
 
         return grade_List;
     }
 
     @Override
-    public List<Course> viewCourses(String studentId) {
+    public List<Course> viewCourses(String studentId) throws SQLException {
 
         List<Course> availableCourseList = new ArrayList<>();
         Connection conn = DBUtils.getConnection();
@@ -266,25 +278,25 @@ public class RegistrationDAOImpl implements RegistrationDAO{
 
 
         }
-        catch (SQLException e)
+        catch (SQLException se)
         {
-            System.out.println(e.getMessage());
+            System.out.println(se.getMessage());
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
-//        finally
-//        {
-//            stmt.close();
-//            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
         return availableCourseList;
 
     }
     @Override
-    public List<Course> viewRegisteredCourses(String studentId) {
+    public List<Course> viewRegisteredCourses(String studentId) throws SQLException {
 
         Connection conn = DBUtils.getConnection();
         List<Course> registeredCourseList = new ArrayList<>();
@@ -305,16 +317,16 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             System.out.println(e.getMessage());
 
         }
-//        finally
-//        {
-//            stmt.close();
-//            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
         return registeredCourseList;
     }
     @Override
-    public boolean getRegistrationStatus(String studentId)
+    public boolean getRegistrationStatus(String studentId) throws SQLException
     {
         Connection conn = DBUtils.getConnection();
         boolean status = false;
@@ -332,17 +344,17 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             System.out.println(e.getMessage());
 
         }
-//        finally
-//        {
-//            stmt.close();
-//            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
         return status;
     }
 
     @Override
-    public void setRegistrationStatus(String studentId)
+    public void setRegistrationStatus(String studentId) throws SQLException
     {
         Connection conn = DBUtils.getConnection();
         try
@@ -357,16 +369,16 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             System.out.println(e.getMessage());
 
         }
-//        finally
-//        {
-//            stmt.close();
-//            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
     }
 
     @Override
-    public boolean getLoginStatus(String studentId) {
+    public boolean getLoginStatus(String studentId) throws SQLException {
         Connection conn = DBUtils.getConnection();
         boolean status = false;
         try
@@ -383,11 +395,11 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             System.out.println(e.getMessage());
 
         }
-//        finally
-//        {
-//            stmt.close();
-//            conn.close();
-//        }
+        finally
+        {
+            stmt.close();
+            conn.close();
+        }
 
         return status;
     }

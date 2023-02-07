@@ -31,11 +31,10 @@ public class NotificationDAOImpl implements NotificationDAO{
         return instance;
     }
     @Override
-    public void sendNotification(int refId,int notifId) {
+    public void sendNotification(int refId,int notifId) throws SQLException{
         Connection connection=DBUtils.getConnection();
         try
         {
-            //INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
             PreparedStatement ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION);
             ps.setInt(1,notifId);
             ps.setString(2, "Payment Successful");
@@ -48,12 +47,12 @@ public class NotificationDAOImpl implements NotificationDAO{
 
 
         }
-        catch(Exception ex)
+        catch(SQLException ex)
         {
-            System.out.println(ex);
+            throw ex;
         }
     }
-    public UUID addPayment(String studentId, ModeOfPayment modeOfPayment,double amount)
+    public UUID addPayment(String studentId, ModeOfPayment modeOfPayment,double amount) throws SQLException
     {
         UUID referenceId;
         referenceId=UUID.randomUUID();
@@ -70,9 +69,9 @@ public class NotificationDAOImpl implements NotificationDAO{
             statement.executeUpdate();
             //check if record is added
         }
-        catch(Exception ex)
+        catch(SQLException ex)
         {
-            System.out.println(ex);
+            throw ex;
         }
         return referenceId;
     }
