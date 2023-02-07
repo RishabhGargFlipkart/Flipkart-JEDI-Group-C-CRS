@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 public class DBUtils {
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crsdatabase";
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
 
     //  Database credentials
     static final String USER = "root";

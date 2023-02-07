@@ -1,9 +1,7 @@
 package com.flipkart.client;
+import java.util.Random;
 import com.flipkart.bean.Course;
-import com.flipkart.dao.CardDAO;
-import com.flipkart.dao.CardDAOImpl;
-import com.flipkart.dao.PaymentDAO;
-import com.flipkart.dao.PaymentDAOImpl;
+import com.flipkart.dao.*;
 import com.flipkart.service.ProfessorService;
 import com.flipkart.service.ProfessorServiceOperation;
 import com.flipkart.service.RegistrationService;
@@ -16,6 +14,7 @@ import java.util.Scanner;
 import java.util.List;
 import com.flipkart.bean.StudentGrade;
 public class StudentCRSMenu {
+    Random rand=new Random();
     Scanner sc = new Scanner(System.in);
     RegistrationService registrationInterface = RegistrationServiceOperation.getInstance();
     ProfessorService professorInterface = new ProfessorServiceOperation();
@@ -312,10 +311,18 @@ public class StudentCRSMenu {
 
             System.out.println(e.getMessage());
         }
+        StudentDAO studentDAO=StudentDAOImpl.getInstance();
+        boolean is_paid=studentDAO.checkIsPaid(studentId);
 
         if(fee == 0.0)
         {
             System.out.println("You have not  registered for any courses yet");
+            return;
+        }
+        else if(is_paid)
+        {
+            System.out.println("You have already paid the fee");
+            return;
         }
         else
         {
@@ -323,6 +330,10 @@ public class StudentCRSMenu {
             System.out.println("Your total fee  = " + fee);
             System.out.println("Want to continue Fee Payment(y/n)");
             String ch = sc.next();
+
+            int refId=rand.nextInt(Integer.SIZE - 1);
+            int notifId=rand.nextInt(Integer.SIZE-1);
+
             if(ch.equals("y"))
             {
                 System.out.println("Select Mode of Payment:");
@@ -335,8 +346,7 @@ public class StudentCRSMenu {
                 }
                 int c=sc.nextInt();
                 ModeOfPayment mode = ModeOfPayment.getModeofPayment(c);
-
-                int refId=0;
+                PaymentDAO paymentDAO= PaymentDAOImpl.getInstance();
                 if(c==1)
                 {
                     System.out.println("Enter type of Card(Debit/Credit)");
@@ -354,31 +364,55 @@ public class StudentCRSMenu {
                     System.out.println("Enter name of the bank");
                     String bank=sc.next();
 
-                    PaymentDAO paymentDAO= PaymentDAOImpl.getInstance();
-                    refId=paymentDAO.addPayment(studentId,fee,"CARD",bank);
+
+                    paymentDAO.addPayment(refId,studentId,fee,"CARD",bank);
                     CardDAO cardDAO= CardDAOImpl.getInstance();
                     cardDAO.addCard(refId,cardno,type,cvv);
-                    System.out.println("Payment done");
-
-
+                    notificationInterface.sendNotification( refId,notifId);
 
                 }
-
-                if(mode == null)
-                    System.out.println("Invalid Input");
-                else
+                else if(c == 2)
                 {
-                    try
-                    {
-                        notificationInterface.sendNotification( refId);
-                    }
-                    catch (Exception e)
-                    {
+                    System.out.println("Enter cheque number:");
+                    String chequeNo = sc.next();
+                    System.out.println("Enter name of the bank:");
+                    String bank=sc.next();
+                    paymentDAO.addPayment(refId, studentId,fee,"CHEQUE",bank);
+                    ChequeDAO chequeDAO = ChequeDAOImpl.getInstance();
+                    chequeDAO.addCheque(refId,chequeNo);
 
-                        System.out.println(e.getMessage());
-                    }
                 }
+                else if(c == 3)
+                {
+                    System.out.println("Enter UPI ID:");
+                    String upiID = sc.next();
+                    System.out.println("Enter service provider:");
+                    String service = sc.next();
+                    System.out.println("Enter name of the bank:");
+                    String bank=sc.next();
+                    paymentDAO.addPayment(refId,studentId,fee,"UPI",bank);
+                    UpiDAOImpl upiDAO = UpiDAOImpl.getInstance();
+                    upiDAO.addUPI(refId,upiID,service);
+                }
+                else if(c==4) {
+                    System.out.println("Enter Account number: ");
+                    int accountno=sc.nextInt();
+                    System.out.println("Enter IFSC Code");
+                    String ifsc=sc.next();
+                    System.out.println("Enter name of the bank");
+                    String bank=sc.next();
+                    paymentDAO.addPayment(refId,studentId,fee,"NET_BANKING",bank);
+                    NetBankingDAO netBankingDAO= NetBankingDAOImpl.getInstance();
+                    netBankingDAO.addTransaction(refId,accountno,ifsc);
+                    notificationInterface.sendNotification( refId,notifId);
 
+                } else if (c==5) {
+                    System.out.println("Please pay in cash");
+                    paymentDAO.addPayment(refId,studentId,fee,"CASH","NA");
+                    notificationInterface.sendNotification(refId,notifId);
+                }
+                paymentDAO.isPaid(studentId);
+                System.out.println("Payment done");
             }
 
         }

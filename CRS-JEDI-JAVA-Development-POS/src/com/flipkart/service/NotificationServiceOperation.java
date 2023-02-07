@@ -31,18 +31,16 @@ public class NotificationServiceOperation implements NotificationService {
         return instance;
     }
     @Override
-    public int sendNotification(int refId) {
-        int notificationId=0;
+    public void sendNotification(int refId,int notifId) {
         try
         {
-            notificationId=notificationDaoInterface.sendNotification( refId);
+            notificationDaoInterface.sendNotification( refId,notifId);
 
         }
         catch(Exception ex)
         {
             System.out.println("Error occured "+ex.getMessage());
         }
-        return notificationId;
     }
 
     @Override

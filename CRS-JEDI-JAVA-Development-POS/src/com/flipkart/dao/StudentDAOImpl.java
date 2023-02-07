@@ -54,6 +54,7 @@ public class StudentDAOImpl implements StudentDAO {
                 preparedStatementStudent.setBoolean(6, false);
                 preparedStatementStudent.setString(7, student.getGender());
                 preparedStatementStudent.setString(8, student.getAddress());
+                preparedStatementStudent.setBoolean(9,false);
                 preparedStatementStudent.executeUpdate();
                 ResultSet results=preparedStatementStudent.getGeneratedKeys();
                 if(results.next())
@@ -118,5 +119,19 @@ public class StudentDAOImpl implements StudentDAO {
 
         return false;
     }
-
+    public boolean checkIsPaid(String studentId){
+        Connection connection=DBUtils.getConnection();
+        Student s=new Student();
+        try{
+            PreparedStatement statement=connection.prepareStatement(SQLQueriesConstants.GET_STUDENT);
+            statement.setString(1,studentId);
+            ResultSet rs=statement.executeQuery();
+            if(rs.next())
+                return rs.getBoolean("isPaid");
+        }catch(SQLException  e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }
