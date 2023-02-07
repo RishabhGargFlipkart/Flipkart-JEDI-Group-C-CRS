@@ -2,7 +2,7 @@ package com.flipkart.exception;
 
 import java.sql.SQLException;
 
-public class NoAssignedCourseException extends SQLException{
+public class NoAssignedCourseException extends Exception{
     public NoAssignedCourseException(String profId) {
         this.profId = profId;
     }

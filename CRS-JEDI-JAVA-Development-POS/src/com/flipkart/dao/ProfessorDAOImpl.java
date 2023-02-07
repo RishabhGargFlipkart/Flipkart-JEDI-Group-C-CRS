@@ -104,6 +104,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         try{
             PreparedStatement checkStatement=conn.prepareStatement(SQLQueriesProfessor.GET_ASSIGNED_GRADE);
             checkStatement.setString(1,courseCode);
+            checkStatement.setString(2,studentId);
             ResultSet resultSet=checkStatement.executeQuery();
             if(resultSet.next())
             {
