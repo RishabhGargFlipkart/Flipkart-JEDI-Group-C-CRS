@@ -4,21 +4,21 @@ import com.flipkart.constant.Grade;
 import com.flipkart.dao.ProfessorDAO;
 import com.flipkart.dao.ProfessorDAOImpl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ProfessorServiceOperation implements ProfessorService {
     Grade g;
-    ProfessorDAO professorDAO=ProfessorDAOImpl.getInstance();
-    HashMap<String,List<Course>> profCourseMap=new HashMap<String,List<Course>>();
-    List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
-
-    List<StudentGrade> studentGrades=new ArrayList<StudentGrade>();
+    ProfessorDAO professorDAO = ProfessorDAOImpl.getInstance();
+    HashMap<String, List<Course>> profCourseMap = new HashMap<String, List<Course>>();
+    List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
+    List<StudentGrade> studentGrades = new ArrayList<StudentGrade>();
     List<Professor> professors = new ArrayList<>();
-    List<Course>  course = new ArrayList<Course>();
-    public ProfessorServiceOperation()
-    {
+    List<Course> course = new ArrayList<Course>();
+
+    public ProfessorServiceOperation() {
         Course course1 = new Course();
         course1.setCourseCode("1");
         course1.setCourseName("DAA");
@@ -86,23 +86,21 @@ public class ProfessorServiceOperation implements ProfessorService {
         //Professor data
 
 
-        for(Course crs:course)
-        {
-            if(profCourseMap.containsKey(crs.getInstructorId())) {
+        for (Course crs : course) {
+            if (profCourseMap.containsKey(crs.getInstructorId())) {
                 profCourseMap.get(crs.getInstructorId()).add(crs);
-            }
-            else {
-                ArrayList<Course> temp=new ArrayList<>();
+            } else {
+                ArrayList<Course> temp = new ArrayList<>();
                 temp.add(crs);
-                profCourseMap.put(crs.getInstructorId(),temp);
+                profCourseMap.put(crs.getInstructorId(), temp);
             }
         }
 
 
     }
 
-    public String addGrade(String profId, String studentId, String courseCode,String grade){
-
+    public String addGrade(String profId, String studentId, String courseCode, String grade) throws SQLException, ClassNotFoundException {
+        /*
         List<Course> teachingCourses=getCourses(profId);
         List<EnrolledStudent> enrolledStudents1=new ArrayList<EnrolledStudent>();
         int check=0;
@@ -149,10 +147,24 @@ public class ProfessorServiceOperation implements ProfessorService {
         s.setCourseName(c);
         studentGrades.add(s);
         System.out.println("Grade added");
+
+         */
+        try {
+            if (professorDAO.addGrade(studentId, courseCode, grade)) {
+                System.out.println("Student grade added");
+                return null;
+            }
+            else {
+                System.out.println("Grade is not added. Try again with valid details.");
+            }
+        } catch (Exception ex) {
+            throw ex;
+        }
         return null;
+
     }
 
-    public List<EnrolledStudent> viewEnrolledStudents(String profId, String courseCode){
+    public List<EnrolledStudent> viewEnrolledStudents(String profId, String courseCode) throws SQLException, ClassNotFoundException {
 
 //        List<Course> teachingCourses=getCourses(profId);
 //        List<EnrolledStudent> ans=new ArrayList<EnrolledStudent>();
@@ -183,7 +195,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try
         {
-            enrolledStudents=professorDAO.getEnrolledStudent(profId);
+            enrolledStudents=professorDAO.getEnrolledStudent(profId,courseCode);
         }
         catch(Exception ex)
         {
@@ -192,7 +204,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         return enrolledStudents;
     }
 
-    public List<Course> getCourses(String profId){
+    public List<Course> getCourses(String profId) throws SQLException, ClassNotFoundException {
         List<Course> courses=new ArrayList<Course>();
         try{
             courses=professorDAO.getCourses(profId);
@@ -204,12 +216,10 @@ public class ProfessorServiceOperation implements ProfessorService {
         return courses;
     }
 
-    public List<Professor> getProfessors(){
-        return professors;
-    }
 
-    public boolean assignCourse(String profId,String courseCode)
-    {
+
+    public boolean assignCourse(String profId,String courseCode) throws SQLException, ClassNotFoundException {
+        /*
         int i=0;
         for(Course crs: course)
         {
@@ -231,6 +241,16 @@ public class ProfessorServiceOperation implements ProfessorService {
             i++;
         }
         return false;
+        */
+
+         try{
+             return professorDAO.assignCourse(profId,courseCode);
+         }
+         catch (Exception ex)
+         {
+             throw ex;
+         }
+
     }
 
 }
