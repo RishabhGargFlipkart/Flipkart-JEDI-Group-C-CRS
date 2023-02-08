@@ -1,4 +1,5 @@
 package com.flipkart.client;
+import java.util.InputMismatchException;
 import java.util.Random;
 import com.flipkart.bean.Course;
 import com.flipkart.dao.*;
@@ -23,7 +24,7 @@ public class StudentCRSMenu {
     public void createMenu(String studentId)
     {
 
-        int choice;
+        int choice = 0;
         is_loggedin = getLoginStatus(studentId);
         is_registered=getRegistrationStatus(studentId);
         if(!is_loggedin)
@@ -44,7 +45,11 @@ public class StudentCRSMenu {
             System.out.println("7. Make Payment");
             System.out.println("8. Logout");
             System.out.println("*****************************");
-            choice = sc.nextInt();
+            try {
+                choice = sc.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Enter integer");
+            }
             switch (choice) {
                 case 1:
                     registerCourses(studentId);
@@ -216,18 +221,23 @@ public class StudentCRSMenu {
             System.out.println(e.getMessage());
         }
 
-
-        if(course_available.isEmpty())
-        {
+        try {
+            if (course_available.isEmpty()) {
+                System.out.println("NO COURSE AVAILABLE");
+                return null;
+            }
+        } catch (NullPointerException e) {
             System.out.println("NO COURSE AVAILABLE");
-            return null;
         }
 
 
         System.out.println(String.format("%-20s %-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
-        for(Course obj : course_available)
-        {
-            System.out.println(String.format("%-20s %-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId(), obj.getSeats()));
+        try {
+            for (Course obj : course_available) {
+                System.out.println(String.format("%-20s %-20s %-20s %-20s", obj.getCourseCode(), obj.getCourseName(), obj.getInstructorId(), obj.getSeats()));
+            }
+        } catch (NullPointerException e) {
+            System.out.println("NO COURSE AVAILABLE");
         }
 
         return course_available;
@@ -329,7 +339,13 @@ public class StudentCRSMenu {
 
             System.out.println("Your total fee  = " + fee);
             System.out.println("Want to continue Fee Payment(y/n)");
-            String ch = sc.next();
+            String ch = "";
+            try {
+                ch = sc.next();
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Enter y/n");
+            }
 
             int refId=rand.nextInt(Integer.SIZE - 1);
             int notifId=rand.nextInt(Integer.SIZE-1);

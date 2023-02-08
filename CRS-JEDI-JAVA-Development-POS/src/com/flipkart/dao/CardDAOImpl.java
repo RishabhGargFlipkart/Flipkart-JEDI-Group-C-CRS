@@ -25,6 +25,13 @@ public class CardDAOImpl implements CardDAO{
 
     private PreparedStatement statement = null;
     Connection connection = DBUtils.getConnection();
+
+    /**
+     * @param refId
+     * @param cardNo
+     * @param type
+     * @param cvv
+     */
     @Override
     public void addCard(int refId, int cardNo, String type, int cvv) {
         try{

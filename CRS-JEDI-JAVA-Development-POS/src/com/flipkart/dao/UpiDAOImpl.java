@@ -24,6 +24,12 @@ public class UpiDAOImpl {
     }
     private PreparedStatement statement = null;
     Connection connection = DBUtils.getConnection();
+
+    /**
+     * @param refId
+     * @param upiId
+     * @param serviceProvider
+     */
     public void addUPI(int refId,String upiId,String serviceProvider){
         try {
             String sql= SQLQueriesConstants.INSERT_UPI;

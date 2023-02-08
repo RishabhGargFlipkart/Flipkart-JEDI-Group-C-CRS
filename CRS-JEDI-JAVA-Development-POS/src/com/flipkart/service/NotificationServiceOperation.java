@@ -30,6 +30,11 @@ public class NotificationServiceOperation implements NotificationService {
         }
         return instance;
     }
+
+    /**
+     * @param refId
+     * @param notifId
+     */
     @Override
     public void sendNotification(int refId,int notifId) {
         try
@@ -37,12 +42,16 @@ public class NotificationServiceOperation implements NotificationService {
             notificationDaoInterface.sendNotification( refId,notifId);
 
         }
-        catch(Exception ex)
+        catch(SQLException ex)
         {
-            System.out.println("Error occured "+ex.getMessage());
+            System.out.println("Error occurred "+ex.getMessage());
         }
     }
 
+    /**
+     * @param notificationId
+     * @return
+     */
     @Override
     public UUID getReferenceID(int notificationId) {
         return null;

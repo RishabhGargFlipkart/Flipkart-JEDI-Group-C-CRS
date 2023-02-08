@@ -24,6 +24,11 @@ public class ChequeDAOImpl implements ChequeDAO {
     }
     private PreparedStatement statement = null;
     Connection connection = DBUtils.getConnection();
+
+    /**
+     * @param refId
+     * @param chequeNo
+     */
     @Override
     public void addCheque(int refId,String chequeNo) {
         try {

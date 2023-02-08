@@ -9,9 +9,8 @@ public interface UserDAO {
      * @param password
      * @return
      * @throws UserNotFoundException
-     * @throws UserNotFoundException
      */
-    public boolean verifyCredentials(String userId,String password) throws UserNotFoundException, UserNotFoundException;
+    public boolean verifyCredentials(String userId,String password) throws UserNotFoundException;
 
     /**
      * This method updates the password corresponding to the user with the given userId.
