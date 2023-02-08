@@ -1,6 +1,9 @@
 package com.flipkart.constant;
 
 
+/**
+ * Class containing queries related to Professor
+ */
     //Professor Queries
 public class SQLQueriesProfessor {
 

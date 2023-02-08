@@ -7,8 +7,15 @@ import com.flipkart.bean.StudentGrade;
 
 import com.flipkart.exception.CourseNotFoundException;
 
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Interface for Registration Dao Operations
+ *
+ */
+
 public interface RegistrationDAO {
     /**
+     * This methods adds a course for registration and add/drop window
      * @param courseCode
      * @param studentId
      * @return
@@ -18,6 +25,7 @@ public interface RegistrationDAO {
 
 
     /**
+     * This method drops a course to remove from registration
      * @param courseCode
      * @param studentId
      * @return
@@ -26,6 +34,7 @@ public interface RegistrationDAO {
     public boolean dropCourse(String courseCode, String studentId) throws SQLException;
 
     /**
+     * This method displays all available courses for registration
      * @param studentId
      * @return
      * @throws SQLException
@@ -33,6 +42,7 @@ public interface RegistrationDAO {
     public List<Course> viewCourses(String studentId) throws SQLException;
 
     /**
+     * This method displays the registered courses
      * @param studentId
      * @return
      * @throws SQLException
@@ -41,6 +51,7 @@ public interface RegistrationDAO {
 
 
     /**
+     * This method displays the grade card after approval from admin
      * @param studentId
      * @return
      * @throws SQLException
@@ -49,6 +60,7 @@ public interface RegistrationDAO {
 
 
     /**
+     * This method calculates the payment fee for registration
      * @param studentId
      * @return
      * @throws SQLException
@@ -57,6 +69,7 @@ public interface RegistrationDAO {
 
 
     /**
+     * This method displays the number of seats available for registration of course
      * @param courseCode
      * @return
      * @throws SQLException
@@ -65,6 +78,7 @@ public interface RegistrationDAO {
 
 
     /**
+     * This method displays the number of registered courses
      * @param studentId
      * @return
      * @throws SQLException
@@ -73,6 +87,7 @@ public interface RegistrationDAO {
 
 
     /**
+     * This method returns whether student is registered
      * @param courseCode
      * @param studentId
      * @return
@@ -82,6 +97,7 @@ public interface RegistrationDAO {
 
 
     /**
+     * This method passes the registration status
      * @param studentId
      * @return
      * @throws SQLException
@@ -90,12 +106,14 @@ public interface RegistrationDAO {
 
 
     /**
+     * This method sets the registration status
      * @param studentId
      * @throws SQLException
      */
     public void setRegistrationStatus(String studentId) throws SQLException;
 
     /**
+     * This method returns the login status
      * @param studentId
      * @return
      * @throws SQLException

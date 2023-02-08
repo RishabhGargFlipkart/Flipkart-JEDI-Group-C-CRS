@@ -8,8 +8,8 @@ import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
 
 /**
- * 
- * @author
+ *
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Class for Student Validator 
  * 
  */
@@ -41,7 +41,7 @@ public class StudentValidator {
 	 * Method to validate if couseCode is valid or not
 	 * @param courseCode
 	 * @param availableCourseList
-	 * @return couseCode is valid or not
+	 * @return boolean
 	 */
 	public static boolean isValidCourseCode(String courseCode,List<Course>availableCourseList) 
 	{

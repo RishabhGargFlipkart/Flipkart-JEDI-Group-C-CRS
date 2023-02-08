@@ -147,4 +147,21 @@ public class StudentDAOImpl implements StudentDAO {
         }
         return false;
     }
+
+    public boolean checkIsGradeCard(String studentId)
+    {
+        Connection connection=DBUtils.getConnection();
+        Student s=new Student();
+        try{
+            PreparedStatement statement=connection.prepareStatement(SQLQueriesConstants.GET_STUDENT);
+            statement.setString(1,studentId);
+            ResultSet rs=statement.executeQuery();
+            if(rs.next())
+                return rs.getBoolean("gradeCardApproved");
+        }catch(SQLException  e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }

@@ -1,5 +1,8 @@
 package com.flipkart.constant;
 
+/**
+ * Class containing queries relating to student
+ */
 public class SQLQueriesConstants {
     public static final String ADD_USER_QUERY = "insert into User(userid, name, role, password) values (?, ?, ?, ?)";
     public static final String ADD_STUDENT="insert into student (studentId,batch,branchName,loginApproved,gradeCardApproved,regApproved,gender,address,isPaid) values (?,?,?,?,?,?,?,?,?)";

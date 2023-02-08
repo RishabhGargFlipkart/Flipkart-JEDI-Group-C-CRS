@@ -146,7 +146,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         }
         s.setCourseName(c);
         studentGrades.add(s);
-        System.out.println("Grade added");
+        System.out.println("GradeConstant added");
 
          */
         try {
@@ -155,7 +155,7 @@ public class ProfessorServiceOperation implements ProfessorService {
                 return null;
             }
             else {
-                System.out.println("Grade is not added. Try again with valid details.");
+                System.out.println("GradeConstant is not added. Try again with valid details.");
             }
         } catch (StudentNotRegistered | GradeAssignedException | ClassNotFoundException ex) {
             throw ex;
@@ -196,6 +196,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         try
         {
             enrolledStudents=professorDAO.getEnrolledStudent(profId,courseCode);
+
         }
         catch(ClassNotFoundException | NoEnrolledStudentsException ex)
         {

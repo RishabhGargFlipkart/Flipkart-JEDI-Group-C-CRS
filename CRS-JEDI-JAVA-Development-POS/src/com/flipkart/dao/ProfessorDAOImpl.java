@@ -66,6 +66,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
             while(results.next())
             {
                 count++;
+//                System.out.println(results.getString("courseCode")+" "+results.getString("courseName")+" "+results.getString("studentId"));
                 enrolledStudents.add(new EnrolledStudent(results.getString("courseCode"),results.getString("courseName"),results.getString("studentId")));
             }
             if(count==0)
@@ -95,13 +96,14 @@ public class ProfessorDAOImpl implements ProfessorDAO {
             if(resultSet.next())
             {
                 String assignedGrade=resultSet.getString("grade");
-                if(assignedGrade==null)
+                if(assignedGrade.equals("NA"))
                 {
                     PreparedStatement statement= conn.prepareStatement(SQLQueriesProfessor.ADD_GRADE);
                     statement.setString(1, grade);
                     statement.setString(2,courseCode);
                     statement.setString(3,studentId);
                     statement.executeUpdate();
+                    flag=true;
 
                 }
                 else{

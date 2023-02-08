@@ -2,15 +2,15 @@ package com.flipkart.exception;
 import com.flipkart.constant.ColourConstant;
 
 /**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Exception to check if user is approved by administration
- * @author JEDI-03
  *
  */
 public class UserNotApprovedException extends Exception{
 	private String userId;
 	
 	/**
-	 * Constructor
+	 * Constructor to set userId
 	 * @param userId
 	 */
 	public UserNotApprovedException(String userId) {
@@ -19,7 +19,7 @@ public class UserNotApprovedException extends Exception{
 
 	/**
 	 * Getter for userId
-	 * @return
+	 * @return userId
 	 */
 	public String getUserId() {
 		return userId;

@@ -2,13 +2,17 @@ package com.flipkart.exception;
 import com.flipkart.constant.ColourConstant;
 
 /**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Exception to check if the professor is not added successfully by admin
- * @author JEDI-03
  *
  */
 public class ProfessorNotAddedException extends Exception{
 	private String professorId;
-	
+
+	/**
+	 * Constructor
+	 * @param professorId
+	 */
 	public ProfessorNotAddedException(String professorId) {
 		this.professorId = professorId;
 	}

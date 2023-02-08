@@ -1,9 +1,11 @@
 package com.flipkart.exception;
 import com.flipkart.constant.ColourConstant;
 
+
+
 /**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Exception to check if seats are available for course registration
- * @author JEDI-03
  *
  */
 public class SeatNotAvailableException extends Exception{

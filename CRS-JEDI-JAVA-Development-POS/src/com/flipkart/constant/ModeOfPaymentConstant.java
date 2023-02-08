@@ -1,10 +1,19 @@
 package com.flipkart.constant;
 
-
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Enumeration class for modes of payment
+ *
+ */
 public enum ModeOfPaymentConstant {
 
     CARD,CHEQUE,UPI,NET_BANKING,CASH;
 
+    /**
+     * selects the mode of payment
+     * @param value
+     * @return mode of payment
+     */
     public static ModeOfPaymentConstant getModeofPayment(int value)
     {
         switch(value)

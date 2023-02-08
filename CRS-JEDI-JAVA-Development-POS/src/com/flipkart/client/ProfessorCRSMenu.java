@@ -16,6 +16,9 @@ import java.util.Scanner;
 import com.flipkart.service.ProfessorServiceOperation;
 import java.util.*;
 
+/**
+ * Class for Professor CRS Menu
+ */
 public class ProfessorCRSMenu {
     ProfessorService professorInterface=new ProfessorServiceOperation();
     ProfessorDAO professorDAO=new ProfessorDAOImpl();
@@ -59,6 +62,13 @@ public class ProfessorCRSMenu {
 //        obj.createMenu(profID);
 //    }
 
+    /**
+     * Method to create professor menu
+     * @param profId
+     * @param pwd
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void createMenu(String profId,String pwd) throws SQLException, ClassNotFoundException {
         boolean check = false;
         check = professorDAO.getProfessors(profId, pwd);
@@ -150,6 +160,10 @@ public class ProfessorCRSMenu {
 //    }
 
 
+    /**
+     * Method to get list courses
+     * @param profId
+     */
     public void getCourses(String profId) {
         List<Course> coursesEnrolled=new ArrayList<>();
         try {
@@ -169,6 +183,11 @@ public class ProfessorCRSMenu {
         System.out.println(fmt);
     }
 
+    /**
+     * Method to view enrolled students
+     * @param profId
+     * @param courseCode
+     */
     public void viewEnrolledStudents(String profId,String courseCode) {
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try {
@@ -184,11 +203,16 @@ public class ProfessorCRSMenu {
         System.out.println(ColourConstant.ANSI_BLUE+"\033[1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tStudents enrolled\033[0m"+ColourConstant.ANSI_RESET);
         for(EnrolledStudent obj: enrolledStudents)
         {
+
             fmt.format("%14s %14s %17s\n", obj.getCourseCode(), obj.getCourseName(),obj.getStudentId());
         }
         System.out.println(fmt);
     }
 
+    /**
+     * Method to add grade for a student
+     * @param profId
+     */
     public void addGrade(String profId) {
         Scanner sc = new Scanner(System.in);
 
@@ -210,6 +234,11 @@ public class ProfessorCRSMenu {
         }
 
     }
+
+    /**
+     * Method to assign a course
+     * @param profId
+     */
     public void assignCourse(String profId) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the course code you would like to teach:");
