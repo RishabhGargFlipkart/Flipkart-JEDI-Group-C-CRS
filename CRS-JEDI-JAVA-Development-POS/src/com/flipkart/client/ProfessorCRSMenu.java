@@ -3,6 +3,7 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Professor;
+import com.flipkart.constant.ColourConstant;
 import com.flipkart.dao.ProfessorDAO;
 import com.flipkart.dao.ProfessorDAOImpl;
 import com.flipkart.exception.*;
@@ -159,7 +160,7 @@ public class ProfessorCRSMenu {
             System.out.println(e.getMessage());
         }
         Formatter fmt=new Formatter();
-        System.out.println("\033[1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tNo. of students enrolled\033[0m");
+        System.out.println(ColourConstant.ANSI_BLUE+"\033[1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tNo. of students enrolled\033[0m"+ColourConstant.ANSI_RESET);
         //System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
         for(Course obj: coursesEnrolled)
         {
@@ -180,7 +181,7 @@ public class ProfessorCRSMenu {
             return;
         Formatter fmt=new Formatter();
         //System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
-        System.out.println("\033[1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tStudents enrolled\033[0m");
+        System.out.println(ColourConstant.ANSI_BLUE+"\033[1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tStudents enrolled\033[0m"+ColourConstant.ANSI_RESET);
         for(EnrolledStudent obj: enrolledStudents)
         {
             fmt.format("%14s %14s %17s\n", obj.getCourseCode(), obj.getCourseName(),obj.getStudentId());

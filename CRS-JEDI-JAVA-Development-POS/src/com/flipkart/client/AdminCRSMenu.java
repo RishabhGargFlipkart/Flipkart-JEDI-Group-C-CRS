@@ -1,6 +1,7 @@
 package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.ColourConstant;
 import com.flipkart.exception.*;
 import com.flipkart.service.AdminService;
 import com.flipkart.service.AdminServiceOperation;
@@ -128,9 +129,9 @@ public class AdminCRSMenu {
 
         List<Student> studentApprovedList = adminOperation.viewCompletedAdmission();
         System.out.println("Student IDs already approved:");
-        fmt1.format("\033[1m%15s %15s\n", "Student Id", "Name\033[0m");
+        fmt1.format(ColourConstant.ANSI_BLUE+"\033[1m%15s %19s\n", "Student Id", "Name\033[0m"+ ColourConstant.ANSI_RESET);
         for (Student s: studentApprovedList) {
-            fmt1.format("%14s %17s\n", s.getUserId(), s.getName());
+            fmt1.format("%14s %14s\n", s.getUserId(), s.getName());
         }
         System.out.println(fmt1);
         System.out.println("---------------------------------------------------------------------------------------------------");
@@ -139,9 +140,9 @@ public class AdminCRSMenu {
         Formatter fmt = new Formatter();
         List<Student> studentList= adminOperation.viewPendingAdmission();
         System.out.println("Student IDs to be approved:");
-        fmt.format("\033[1m%15s %15s\n", "Student Id", "Name\033[0m");
+        fmt.format(ColourConstant.ANSI_BLUE +"\033[1m%15s %19s\n", "Student Id", "Name\033[0m"+ ColourConstant.ANSI_RESET);
         for (Student s: studentList) {
-            fmt.format("%14s %17s\n", s.getUserId(), s.getName());
+            fmt.format("%14s %14s\n", s.getUserId(), s.getName());
         }
         System.out.println(fmt);
         System.out.println("---------------------------------------------------------------------------------------------------");
@@ -171,7 +172,7 @@ public class AdminCRSMenu {
         }
 
         Formatter fmt = new Formatter();
-        fmt.format("\033[1m%15s %15s %20s\n", "COURSE CODE", "COURSE NAME", "INSTRUCTOR ID\033[0m");
+        fmt.format(ColourConstant.ANSI_BLUE +"\033[1m%15s %15s %20s\n", "COURSE CODE", "COURSE NAME", "INSTRUCTOR ID\033[0m"+ColourConstant.ANSI_RESET);
         for (Course course: courseList) {
             fmt.format("%14s %14s %17s\n", course.getCourseCode(),course.getCourseName(),course.getInstructorId());
         }
@@ -179,7 +180,7 @@ public class AdminCRSMenu {
         return courseList;
     }
 
-    private void addProfessor() throws UserIdAlreadyInUseException, ProfessorNotAddedException {
+    private void addProfessor() {
 
         Professor professor = new Professor();
 
@@ -216,9 +217,7 @@ public class AdminCRSMenu {
         List<Student> studentList= adminOperation.viewPendingGradeCard();
         System.out.println("Students wanting grade card approval:");
         Formatter fmt = new Formatter();
-        fmt.format("\033[1m%15s %15s\n", "Student Id", "Name\033[0m");
-        //System.out.println("\033[0;1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tINSTRUCTOR\033[0m");
-        //System.out.println("STUDENT ID\t\tSTUDENT NAME");
+        fmt.format(ColourConstant.ANSI_BLUE +"\033[1m%15s %15s\n", "Student Id", "Name\033[0m"+ColourConstant.ANSI_RESET);
         for (Student s: studentList) {
             fmt.format("%14s %17s\n", s.getUserId(), s.getName());
         }
@@ -238,16 +237,15 @@ public class AdminCRSMenu {
 
 
     }
-    public void approveRegistration() throws StudentNotFoundForApprovalException {
+    public void approveRegistration() {
         List<Student> studentList= adminOperation.viewPendingRegistration();
         System.out.println("Following student's registration is pending");
 
 
         Formatter fmt = new Formatter();
-        fmt.format("\033[0;1m%15s %15s\n", "Student Id", "Name\033[0m");
+        fmt.format(ColourConstant.ANSI_BLUE +"\033[0;1m%14s %14s\n", "Student Id", "Name\033[0m"+ColourConstant.ANSI_RESET);
         for (Student s: studentList) {
-            fmt.format("%14s %17s\n", s.getUserId(), s.getName());
-            //System.out.println(""+ s.getUserId()+"\t\t\t"+ s.getName());
+            fmt.format("%14s %14s\n", s.getUserId(), s.getName());
         }
         System.out.println(fmt);
         if(studentList.isEmpty())
