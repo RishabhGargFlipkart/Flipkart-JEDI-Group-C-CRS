@@ -1,14 +1,17 @@
 package com.flipkart.exception;
 
-
 /**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Exception to check if course is available in catalog
- * @author JEDI-03
  *
  */
 public class CourseNotFoundException extends Exception{
 	private String courseCode;
-	
+
+	/**
+	 * Constructor
+	 * @param courseCode
+	 */
 	public CourseNotFoundException(String courseCode)
 	{	
 		this.courseCode = courseCode;

@@ -8,6 +8,11 @@ import com.flipkart.exception.*;
 
 import java.util.List;
 
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Interface for Admin Dao Operations
+ *
+ */
 public interface AdminService {
     /**
      * This method finds the course with the given courseId and deletes it if it exists.
@@ -27,20 +32,22 @@ public interface AdminService {
     public void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
 
     /**
-     * This method adds a new course to the course catalog.
+     * Method to approve grade card
      * @param studentId
      * @param studentList
      * @throws StudentNotFoundForApprovalException
      */
     public void approveGradeCard(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 
+
     /**
-     * @return list of students whose login needs to be approved.
+     * Method to view pending admissions
+     * @return List
      */
     public List<Student> viewPendingAdmission();
 
     /**
-     * This method approves the course package of the student with the given studentId.
+     * Method to approve registration
      * @param studentId
      * @param studentList
      * @throws StudentNotFoundForApprovalException
@@ -48,6 +55,7 @@ public interface AdminService {
     public void approveRegistration(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 
     /**
+     * Method to view pending registration
      * @return list of students whose course registration package needs to be approved.
      */
     public List<Student> viewPendingRegistration();
@@ -69,16 +77,19 @@ public interface AdminService {
     public void addProfessor(Professor professor) throws UserIdAlreadyInUseException, ProfessorNotAddedException;
 
     /**
+     * Method to view courses
      * @return List of courses in the catalog.
      */
     public List<Course> viewCourses();
 
     /**
+     * Method to view professors
      * @return list of existing professors.
      */
     public List<Professor> viewProfessors();
 
     /**
+     * Method to view pending grade cards
      * @return list of students whose grade cards needs to be generated.
      */
     public List<Student> viewPendingGradeCard();

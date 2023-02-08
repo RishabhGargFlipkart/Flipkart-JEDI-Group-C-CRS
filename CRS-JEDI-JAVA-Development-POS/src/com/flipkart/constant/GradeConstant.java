@@ -1,6 +1,11 @@
 package com.flipkart.constant;
 
-public enum Grade {
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Enumeration class for letter grades
+ *
+ */
+public enum GradeConstant {
 
 
         A(10),
@@ -12,7 +17,7 @@ public enum Grade {
         D(4),
         E(3);
         final private int value;
-        private Grade(int value)
+        private GradeConstant(int value)
         {
             this.value=value;
         }
@@ -22,6 +27,10 @@ public enum Grade {
             return this.value;
         }
 
+    /**
+     * converts the grade to string
+     * @return grade string
+     */
     @Override
     public String toString() {
         final String name=name();

@@ -7,14 +7,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Interface for Admin Dao Operations
+ *
+ */
 public class DBUtils {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/crs_database";
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "manan123";
+    static final String PASS = "rishabh123";
     private static Connection connection = null;
+
+    /**
+     * Constructor to return singleton connection
+     * @return Connection
+     */
     public static Connection getConnection()
     {
         if (connection != null)

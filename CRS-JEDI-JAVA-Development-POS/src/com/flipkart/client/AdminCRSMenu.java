@@ -10,12 +10,25 @@ import java.util.List;
 import java.util.*;
 import java.util.Scanner;
 
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Class for Admin CRS Menu
+ */
 public class AdminCRSMenu {
 
     Scanner scanner =new Scanner(System.in);
     AdminService adminOperation = AdminServiceOperation.getInstance();
 
 
+    /**
+     * Method to create admin menu
+     * @throws StudentNotFoundForApprovalException
+     * @throws UserIdAlreadyInUseException
+     * @throws ProfessorNotAddedException
+     * @throws CourseNotDeletedException
+     * @throws CourseNotFoundException
+     * @throws CourseFoundException
+     */
     public void createMenu() throws StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException {
         while(true)
         {
@@ -82,6 +95,9 @@ public class AdminCRSMenu {
         }
     }
 
+    /**
+     * Method to add course
+     */
     private void addCourse() {
         List<Course> courseList = viewCourses();
 
@@ -110,6 +126,9 @@ public class AdminCRSMenu {
         }
     }
 
+    /**
+     * Method to delete course
+     */
     private void deleteCourse() {
         List<Course> courseList = adminOperation.viewCourses();
         System.out.println("Enter course Id: ");
@@ -123,6 +142,9 @@ public class AdminCRSMenu {
 
     }
 
+    /**
+     * Method to approve student
+     */
     private void approveStudent(){
 
         List<Student> studentList= adminOperation.viewPendingAdmission();
@@ -149,6 +171,10 @@ public class AdminCRSMenu {
 
     }
 
+    /**
+     * Method to view courses
+     * @return List of courses
+     */
     private List<Course> viewCourses() {
         List<Course> courseList = adminOperation.viewCourses();
         if(courseList.size() == 0) {
@@ -166,6 +192,11 @@ public class AdminCRSMenu {
         return courseList;
     }
 
+    /**
+     * Method to add professor
+     * @throws UserIdAlreadyInUseException
+     * @throws ProfessorNotAddedException
+     */
     private void addProfessor() throws UserIdAlreadyInUseException, ProfessorNotAddedException {
 
         Professor professor = new Professor();
@@ -195,6 +226,10 @@ public class AdminCRSMenu {
 		}
     }
 
+    /**
+     * Method to view professors
+     * @return list of professors
+     */
     public List<Professor> viewProfessors(){
         return adminOperation.viewProfessors();
     }
@@ -209,6 +244,7 @@ public class AdminCRSMenu {
         for (Student s: studentList) {
             fmt.format("%14s %17s\n", s.getUserId(), s.getName());
         }
+        System.out.println(fmt);
         if(studentList.isEmpty())
         {
             System.out.println("No pending Gradecard approval.\n");
@@ -221,10 +257,12 @@ public class AdminCRSMenu {
         }catch(StudentNotFoundForApprovalException e){
             System.out.println(e.getMessage());
         }
-
-
-
     }
+
+    /**
+     * Method to approve registration
+     * @throws StudentNotFoundForApprovalException
+     */
     public void approveRegistration() throws StudentNotFoundForApprovalException {
         List<Student> studentList= adminOperation.viewPendingRegistration();
         System.out.println("Following student's registration is pending");

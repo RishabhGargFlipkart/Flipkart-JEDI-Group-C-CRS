@@ -1,13 +1,17 @@
 package com.flipkart.exception;
 
 /**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Exception to check if user cannot be added
- * @author JEDI-03
  *
  */
 public class UserNotAddedException extends Exception{
 	private String userId;
-	
+
+	/**
+	 * Constructor to set userId
+	 * @param userId
+	 */
 	public UserNotAddedException(String userId) {
 		this.userId = userId;
 	}

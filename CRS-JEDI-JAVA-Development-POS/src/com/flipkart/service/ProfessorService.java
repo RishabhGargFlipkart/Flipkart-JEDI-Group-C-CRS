@@ -8,6 +8,11 @@ import com.flipkart.exception.*;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Interface for Admin Dao Operations
+ *
+ */
 public interface ProfessorService {
     /**
      * method to add grade to a specified student course

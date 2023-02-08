@@ -15,11 +15,32 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
+/**
+ * Class for main menu of CRS Application
+ */
 public class CRSApplication {
     static boolean loggedin = false;
     StudentDAO studentDAO=StudentDAOImpl.getInstance();
     UserDAO userInterface = UserDAOImpl.getInstance();
 
+    /**
+     * Main method of the application
+     * @param args
+     * @throws UserNotFoundException
+     * @throws CourseNotDeletedException
+     * @throws CourseNotFoundException
+     * @throws CourseFoundException
+     * @throws UserIdAlreadyInUseException
+     * @throws StudentNotFoundForApprovalException
+     * @throws ProfessorNotAddedException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @throws NoEnrolledStudentsException
+     * @throws StudentNotRegistered
+     * @throws GradeAssignedException
+     * @throws NoAssignedCourseException
+     * @throws ProfessorAssignedException
+     */
     public static void main(String[]args) throws UserNotFoundException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, SQLException, ClassNotFoundException, NoEnrolledStudentsException, StudentNotRegistered, GradeAssignedException, NoAssignedCourseException, ProfessorAssignedException {
 
         Scanner sc = new Scanner(System.in);
@@ -71,6 +92,9 @@ public class CRSApplication {
         }
     }
 
+    /**
+     * Method to create menu
+     */
     public static void createMainMenu(){
         System.out.println("\033[0;1m-------------Welcome to Course Registration System! Choose from the options given below-------------\033[0m");
         System.out.println("             1. Login");
@@ -81,6 +105,17 @@ public class CRSApplication {
         System.out.println("\033[0;1m Enter your option(1 to 4)\033[0m");
     }
 
+    /**
+     * Method to login user
+     * @throws CourseNotDeletedException
+     * @throws CourseNotFoundException
+     * @throws CourseFoundException
+     * @throws UserIdAlreadyInUseException
+     * @throws StudentNotFoundForApprovalException
+     * @throws ProfessorNotAddedException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void loginUser() throws CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, SQLException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         String userId,password,role;
@@ -122,6 +157,9 @@ public class CRSApplication {
 
     }
 
+    /**
+     * Method for student registration
+     */
     public void registerStudent(){
         Scanner sc = new Scanner(System.in);
 
@@ -178,6 +216,10 @@ public class CRSApplication {
         }
 
     }
+
+    /**
+     * Method to update password
+     */
     public void updatePassword(){
         Scanner sc=new Scanner(System.in);
         String userId,newPassword;

@@ -2,15 +2,11 @@ package com.flipkart.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.UUID;
 
-import com.flipkart.constant.ModeOfPayment;
-import com.flipkart.constant.NotificationType;
+import com.flipkart.constant.ModeOfPaymentConstant;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.service.NotificationServiceOperation;
 import com.flipkart.utils.DBUtils;
 
 public class NotificationDAOImpl implements NotificationDAO{
@@ -58,7 +54,7 @@ public class NotificationDAOImpl implements NotificationDAO{
             throw ex;
         }
     }
-    public UUID addPayment(String studentId, ModeOfPayment modeOfPayment,double amount) throws SQLException
+    public UUID addPayment(String studentId, ModeOfPaymentConstant modeOfPaymentConstant, double amount) throws SQLException
     {
         UUID referenceId;
         referenceId=UUID.randomUUID();
@@ -69,7 +65,7 @@ public class NotificationDAOImpl implements NotificationDAO{
             //INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.INSERT_PAYMENT);
             statement.setString(1, studentId);
-            statement.setString(2, modeOfPayment.toString());
+            statement.setString(2, modeOfPaymentConstant.toString());
             statement.setString(3,referenceId.toString());
             statement.setDouble(4, amount);
             statement.executeUpdate();

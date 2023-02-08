@@ -3,9 +3,11 @@
  */
 package com.flipkart.exception;
 
+
+
 /**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Exception to check if the maximum number of registered courses is exceeded
- * @author JEDI-03
  *
  */
 public class CourseLimitExceedException extends Exception{

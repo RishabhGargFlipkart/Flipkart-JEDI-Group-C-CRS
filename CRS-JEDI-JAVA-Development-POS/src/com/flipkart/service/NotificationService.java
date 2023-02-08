@@ -1,16 +1,21 @@
 package com.flipkart.service;
 import java.util.UUID;
-import com.flipkart.constant.ModeOfPayment;
-import com.flipkart.constant.NotificationType;
 
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Interface for Admin Dao Operations
+ *
+ */
 public interface NotificationService {
     /**
+     * Method to send notification
      * @param refId
      * @param notifId
      */
     public void sendNotification( int refId,int notifId);
 
     /**
+     * Method to get reference id
      * @param notificationID
      * @return
      */

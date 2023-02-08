@@ -4,14 +4,19 @@
 package com.flipkart.exception;
 
 /**
- * Exception course is  not assigned to professor
- * @author JEDI-03
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Exception course is not assigned to professor
  *
  */
 public class CourseNotAssignedToProfessorException extends Exception{
 	private String courseCode;
 	private String professorId;
-	
+
+	/**
+	 * Constructor
+	 * @param courseCode
+	 * @param professorId
+	 */
 	public CourseNotAssignedToProfessorException(String courseCode, String professorId) {
 		this.courseCode = courseCode;
 		this.professorId = professorId;

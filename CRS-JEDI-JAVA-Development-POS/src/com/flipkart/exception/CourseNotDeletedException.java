@@ -3,14 +3,20 @@
  */
 package com.flipkart.exception;
 
+
+
 /**
- * Exception course is deleted from catalog
- * @author JEDI-03
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Exception if course cannot be deleted
  *
  */
 public class CourseNotDeletedException extends Exception{
 private String courseCode;
-	
+
+	/**
+	 * Constructor
+	 * @param courseCode
+	 */
 	public CourseNotDeletedException(String courseCode)
 	{	
 		this.courseCode = courseCode;

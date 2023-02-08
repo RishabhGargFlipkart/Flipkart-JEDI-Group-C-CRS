@@ -7,13 +7,17 @@ import com.flipkart.service.ProfessorService;
 import com.flipkart.service.ProfessorServiceOperation;
 import com.flipkart.service.RegistrationService;
 import com.flipkart.service.RegistrationServiceOperation;
-import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.ModeOfPaymentConstant;
 import com.flipkart.service.NotificationService;
 import com.flipkart.service.NotificationServiceOperation;
-import com.flipkart.constant.NotificationType;
+
 import java.util.Scanner;
 import java.util.List;
 import com.flipkart.bean.StudentGrade;
+
+/**
+ * Class for student CRS Menu
+ */
 public class StudentCRSMenu {
     Random rand=new Random();
     Scanner sc = new Scanner(System.in);
@@ -21,6 +25,11 @@ public class StudentCRSMenu {
     ProfessorService professorInterface = new ProfessorServiceOperation();
     NotificationService notificationInterface=NotificationServiceOperation.getInstance();
     private boolean is_registered,is_loggedin;
+
+    /**
+     * Method to create student menu
+     * @param studentId
+     */
     public void createMenu(String studentId)
     {
 
@@ -84,6 +93,11 @@ public class StudentCRSMenu {
         }
 
     }
+
+    /**
+     * Method to register courses
+     * @param studentId
+     */
     private void registerCourses(String studentId)
     {
         if(is_registered)
@@ -134,6 +148,11 @@ public class StudentCRSMenu {
         }
 
     }
+
+    /**
+     * Method to add a course to registered courses
+     * @param studentId
+     */
     private void addCourse(String studentId)
     {
         if(is_registered)
@@ -166,6 +185,12 @@ public class StudentCRSMenu {
             System.out.println("Please complete registration");
         }
     }
+
+    /**
+     * Method to get registration status
+     * @param studentId
+     * @return boolean
+     */
     private boolean getRegistrationStatus(String studentId)
     {
         try
@@ -178,6 +203,11 @@ public class StudentCRSMenu {
         }
         return false;
     }
+
+    /**
+     * Method to drop registered course
+     * @param studentId
+     */
     private void dropCourse(String studentId)
     {
         if(is_registered)
@@ -208,6 +238,11 @@ public class StudentCRSMenu {
         }
     }
 
+    /**
+     * Method to view courses
+     * @param studentId
+     * @return list of courses
+     */
     private List<Course> viewCourse(String studentId)
     {
         List<Course> course_available=null;
@@ -242,6 +277,12 @@ public class StudentCRSMenu {
 
         return course_available;
     }
+
+    /**
+     * Method to view registered courses
+     * @param studentId
+     * @return list of courses
+     */
     private List<Course> viewRegisteredCourse(String studentId)
     {
         List<Course> course_registered=null;
@@ -271,8 +312,19 @@ public class StudentCRSMenu {
         return course_registered;
     }
 
+    /**
+     * Method to view grade card
+     * @param studentId
+     */
     private void viewGradeCard(String studentId)
     {
+        StudentDAO studentDAO=StudentDAOImpl.getInstance();
+        Boolean isGradeCardApproved=studentDAO.checkIsGradeCard(studentId);
+        if(!isGradeCardApproved)
+        {
+            System.out.println("GradeConstant Card is not approved. Please contact the Admin.");
+            return;
+        }
         List<StudentGrade> grade_card=null;
         try
         {
@@ -298,6 +350,11 @@ public class StudentCRSMenu {
         }
     }
 
+    /**
+     * Method to get login status
+     * @param studentId
+     * @return boolean
+     */
     private boolean getLoginStatus(String studentId)
     {
         try
@@ -310,6 +367,11 @@ public class StudentCRSMenu {
         }
         return false;
     }
+
+    /**
+     * method to make payment
+     * @param studentId
+     */
     private void make_payment(String studentId) {
         double fee =0.0;
         try
@@ -355,13 +417,13 @@ public class StudentCRSMenu {
                 System.out.println("Select Mode of Payment:");
 
                 int index = 1;
-                for(ModeOfPayment mode : ModeOfPayment.values())
+                for(ModeOfPaymentConstant mode : ModeOfPaymentConstant.values())
                 {
                     System.out.println(index + " " + mode);
                     index = index + 1;
                 }
                 int c=sc.nextInt();
-                ModeOfPayment mode = ModeOfPayment.getModeofPayment(c);
+                ModeOfPaymentConstant mode = ModeOfPaymentConstant.getModeofPayment(c);
                 PaymentDAO paymentDAO= PaymentDAOImpl.getInstance();
                 if(c==1)
                 {

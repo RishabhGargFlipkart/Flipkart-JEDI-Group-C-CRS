@@ -1,5 +1,8 @@
 package com.flipkart.constant;
 
+/**
+ * Class for queries related to Admin
+ */
 public class SQLQueriesAdmin {
     //AdminDao Queries
 	public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";

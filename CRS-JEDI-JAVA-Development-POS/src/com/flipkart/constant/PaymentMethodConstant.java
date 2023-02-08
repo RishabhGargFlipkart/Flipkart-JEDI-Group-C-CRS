@@ -1,6 +1,11 @@
 package com.flipkart.constant;
 
-public enum PaymentMethod {
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Enumeration class for Payment methods
+ *
+ */
+public enum PaymentMethodConstant {
     UPI("UPI"),
     Cash("Cash"),
     Cheque("Cheque"),
@@ -8,7 +13,7 @@ public enum PaymentMethod {
     Card("Card");
 
     final private String value;
-    private PaymentMethod(String value)
+    private PaymentMethodConstant(String value)
     {
         this.value=value;
     }

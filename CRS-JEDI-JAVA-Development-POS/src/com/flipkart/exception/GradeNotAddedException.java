@@ -1,8 +1,8 @@
 package com.flipkart.exception;
 
 /**
- * Exception to check if student has been alloted grade by professor
- * @author JEDI-03
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Exception to check if student has been allotted grade by professor
  *
  */
 public class GradeNotAddedException extends Exception{

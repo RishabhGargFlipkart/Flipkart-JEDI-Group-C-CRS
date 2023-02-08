@@ -14,6 +14,12 @@ import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.exception.UserNotFoundException;
 
+/**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
+ * Interface for Admin Dao Operations
+ *
+ */
+
 public interface AdminDAO {
     /**
      * This method finds the course with the given courseId and deletes it if it exists.

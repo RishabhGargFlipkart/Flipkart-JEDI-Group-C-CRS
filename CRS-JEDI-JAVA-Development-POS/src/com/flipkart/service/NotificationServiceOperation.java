@@ -5,10 +5,7 @@ import java.util.UUID;
 
 import com.flipkart.dao.NotificationDAOImpl;
 
-import com.flipkart.constant.ModeOfPayment;
-import com.flipkart.constant.NotificationType;
 import com.flipkart.dao.NotificationDAO;
-import com.flipkart.dao.NotificationDAOImpl;
 
 public class NotificationServiceOperation implements NotificationService {
 

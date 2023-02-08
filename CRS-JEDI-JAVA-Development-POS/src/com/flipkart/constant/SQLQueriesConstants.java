@@ -1,5 +1,8 @@
 package com.flipkart.constant;
 
+/**
+ * Class containing queries relating to student
+ */
 public class SQLQueriesConstants {
 
     public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";

@@ -1,17 +1,16 @@
 package com.flipkart.service;
 import com.flipkart.bean.*;
-import com.flipkart.constant.Grade;
+import com.flipkart.constant.GradeConstant;
 import com.flipkart.dao.ProfessorDAO;
 import com.flipkart.dao.ProfessorDAOImpl;
 import com.flipkart.exception.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ProfessorServiceOperation implements ProfessorService {
-    Grade g;
+    GradeConstant g;
     ProfessorDAO professorDAO = ProfessorDAOImpl.getInstance();
     HashMap<String, List<Course>> profCourseMap = new HashMap<String, List<Course>>();
     List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
@@ -147,7 +146,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         }
         s.setCourseName(c);
         studentGrades.add(s);
-        System.out.println("Grade added");
+        System.out.println("GradeConstant added");
 
          */
         try {
@@ -156,7 +155,7 @@ public class ProfessorServiceOperation implements ProfessorService {
                 return null;
             }
             else {
-                System.out.println("Grade is not added. Try again with valid details.");
+                System.out.println("GradeConstant is not added. Try again with valid details.");
             }
         } catch (StudentNotRegistered | GradeAssignedException | ClassNotFoundException ex) {
             throw ex;
@@ -197,6 +196,7 @@ public class ProfessorServiceOperation implements ProfessorService {
         try
         {
             enrolledStudents=professorDAO.getEnrolledStudent(profId,courseCode);
+
         }
         catch(ClassNotFoundException | NoEnrolledStudentsException ex)
         {

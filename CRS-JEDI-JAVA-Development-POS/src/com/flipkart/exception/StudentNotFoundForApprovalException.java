@@ -4,13 +4,17 @@
 package com.flipkart.exception;
 
 /**
+ * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Exception thrown when student is not found for approval
- * @author JEDI-03
  *
  */
 public class StudentNotFoundForApprovalException extends Exception {
 	private String studentId;
-	
+
+	/**
+	 * Constructor
+	 * @param studentId
+	 */
 	public StudentNotFoundForApprovalException(String studentId) {
 		this.studentId = studentId;
 	}
