@@ -12,7 +12,6 @@ public enum BankConstant {
     ICICI("ICICI BankConstant"),
     Axis("Axis BankConstant");
     
-
     final private String value;
     private BankConstant(String value)
     {

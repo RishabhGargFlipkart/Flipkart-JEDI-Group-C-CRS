@@ -36,7 +36,7 @@ public class NotificationServiceOperation implements NotificationService {
     public void sendNotification(int refId,int notifId) {
         try
         {
-            notificationDaoInterface.sendNotification( refId,notifId);
+            notificationDaoInterface.sendNotification(refId,notifId);
 
         }
         catch(SQLException ex)

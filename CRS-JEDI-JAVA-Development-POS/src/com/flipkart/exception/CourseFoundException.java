@@ -2,6 +2,7 @@
  * 
  */
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
@@ -33,6 +34,6 @@ public class CourseFoundException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return "Course with courseCode: " + courseCode + " already present in catalog.";
+		return ColourConstant.ANSI_YELLOW + "Course with courseCode: " + courseCode + " already present in catalog." + ColourConstant.ANSI_RESET;
 	}
 }

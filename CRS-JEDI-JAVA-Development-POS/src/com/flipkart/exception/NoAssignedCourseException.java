@@ -1,6 +1,7 @@
 package com.flipkart.exception;
 
 import java.sql.SQLException;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
@@ -41,7 +42,7 @@ public class NoAssignedCourseException extends Exception{
     @Override
     public String getMessage()
     {
-        return "No assigned courses for professor Id: "+profId;
+        return ColourConstant.ANSI_YELLOW + "No assigned courses for professor Id: "+profId + ColourConstant.ANSI_RESET;
     }
 
 }

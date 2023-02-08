@@ -74,15 +74,6 @@ public class StudentDAOImpl implements StudentDAO {
         {
             throw new StudentNotRegisteredException(student.getName());
         }
-        finally
-        {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage()+"SQL error");
-                e.printStackTrace();
-            }
-        }
     }
 
     /**

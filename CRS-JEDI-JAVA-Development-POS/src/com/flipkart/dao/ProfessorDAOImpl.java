@@ -46,13 +46,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new NoAssignedCourseException(profId);
-        } finally{
-            try{
-                conn.close();
-            }
-            catch(SQLException e){
-                System.out.println(e.getMessage());
-            }
         }
         return ans;
     }
@@ -85,14 +78,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
             System.out.println(e.getMessage());
             throw new NoEnrolledStudentsException(profId,courseCode);
         }
-        finally
-        {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+
         return enrolledStudents;
     }
 
@@ -133,14 +119,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
 
-        } finally
-        {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-
-                System.out.println(e.getMessage());
-            }
         }
         return flag;
     }
@@ -180,14 +158,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
 
-                System.out.println(e.getMessage());
-            }
-        }
         return flag;
 
     }
@@ -213,14 +184,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+
         return false;
     }
 }

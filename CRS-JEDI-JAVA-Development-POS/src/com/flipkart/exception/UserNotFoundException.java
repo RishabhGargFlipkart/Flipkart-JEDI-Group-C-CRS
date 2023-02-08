@@ -2,6 +2,7 @@
  * 
  */
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
@@ -25,7 +26,7 @@ public class UserNotFoundException extends Exception {
 	 */
 	@Override
 	public String getMessage() {
-		return "User with userId: " + userId + " not found.";
+		return ColourConstant.ANSI_YELLOW + "User with userId: " + userId + " not found." + ColourConstant.ANSI_RESET;
 	}
 
 }

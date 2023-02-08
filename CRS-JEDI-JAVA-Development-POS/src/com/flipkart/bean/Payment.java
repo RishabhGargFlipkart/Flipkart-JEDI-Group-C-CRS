@@ -107,6 +107,7 @@ public class Payment {
      * Set name of bankConstant
      * @param bankConstant
      */
+
     public void setBank(BankConstant bankConstant) {
         this.bankConstant = bankConstant;
     }
@@ -116,6 +117,4 @@ public class Payment {
      */
     public Payment() {}
 
-    
-    
 }

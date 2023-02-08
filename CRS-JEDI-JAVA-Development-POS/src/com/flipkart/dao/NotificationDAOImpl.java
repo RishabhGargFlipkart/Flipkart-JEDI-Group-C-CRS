@@ -8,6 +8,8 @@ import java.util.UUID;
 import com.flipkart.constant.ModeOfPaymentConstant;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class NotificationDAOImpl implements NotificationDAO{
     private static volatile NotificationDAOImpl instance=null;
@@ -41,13 +43,10 @@ public class NotificationDAOImpl implements NotificationDAO{
             ps.setInt(1,notifId);
             ps.setString(2, "Payment Successful");
             ps.setInt(3,refId);
-
-
             ps.executeUpdate();
-
-
-
-
+            LocalDate localDate = LocalDate.now();
+            LocalTime localTime = LocalTime.now();
+            System.out.println("Payment successfully done with refId: "+refId+" at "+localTime+" on "+localDate);
         }
         catch(SQLException ex)
         {

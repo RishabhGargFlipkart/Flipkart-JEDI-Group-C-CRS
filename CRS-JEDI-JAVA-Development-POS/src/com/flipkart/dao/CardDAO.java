@@ -1,4 +1,5 @@
 package com.flipkart.dao;
+import java.util.Date;
 
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
@@ -13,6 +14,6 @@ public interface CardDAO {
      * @param type
      * @param cvv
      */
-    public void addCard(int refId,int cardNo,String type,int cvv);
+    public void addCard(int refId, String cardNo, String type, int cvv, Date date);
 
 }

@@ -93,4 +93,9 @@ public interface AdminService {
      * @return list of students whose grade cards needs to be generated.
      */
     public List<Student> viewPendingGradeCard();
+
+    /**
+     * @return list of students who have been approved.
+     */
+    public List<Student> viewCompletedAdmission();
 }

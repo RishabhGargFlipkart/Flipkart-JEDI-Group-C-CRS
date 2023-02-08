@@ -2,6 +2,7 @@
  * 
  */
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
@@ -59,6 +60,6 @@ public class CourseNotAssignedToProfessorException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return "courseCode: " + courseCode + " OR professorId: " + professorId + " does not exist!";
+		return ColourConstant.ANSI_YELLOW + "courseCode: " + courseCode + " OR professorId: " + professorId + " does not exist!" + ColourConstant.ANSI_RESET;
 	}
 }

@@ -2,6 +2,7 @@
  * 
  */
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 
 
@@ -37,6 +38,6 @@ private String courseCode;
 	@Override
 	public String getMessage() 
 	{
-		return "Course with courseCode: " + courseCode + " can not be deleted.";
+		return ColourConstant.ANSI_YELLOW + "Course with courseCode: " + courseCode + " can not be deleted." + ColourConstant.ANSI_RESET;
 	}
 }

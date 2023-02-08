@@ -90,4 +90,7 @@ public interface AdminDAO {
      */
     public List<Student> viewPendingGradeCard();
 
+
+    public List<Student> viewCompletedAdmission();
+
 }
