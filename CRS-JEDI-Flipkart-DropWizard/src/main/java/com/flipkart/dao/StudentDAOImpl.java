@@ -44,13 +44,9 @@ public class StudentDAOImpl implements StudentDAO {
             preparedStatement.setString(2, student.getName());
             preparedStatement.setString(3, student.getRole());
             preparedStatement.setString(4, student.getPassword());
-//            preparedStatement.setString(5, student.getGender());
-//            preparedStatement.setString(6, student.getAddress());
             int rowsAffected=preparedStatement.executeUpdate();
             if(rowsAffected==1)
             {
-                //add the student record
-                //"insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
                 PreparedStatement preparedStatementStudent;
                 preparedStatementStudent=connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT);
                 preparedStatementStudent.setString(1,student.getUserId());
@@ -96,7 +92,7 @@ public class StudentDAOImpl implements StudentDAO {
         }
         catch(SQLException e)
         {
-           System.out.println(e);
+            System.out.println(e);
         }
 
         return 0;

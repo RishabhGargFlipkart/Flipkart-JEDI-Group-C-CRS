@@ -1,5 +1,7 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Notification;
+
 import java.sql.SQLException;
 
 /**
@@ -14,5 +16,5 @@ public interface NotificationDAO {
      * @param notifId
      * @throws SQLException
      */
-    public void sendNotification(int refId, int notifId) throws SQLException;
+    public Notification sendNotification(int refId, int notifId) throws SQLException;
 }

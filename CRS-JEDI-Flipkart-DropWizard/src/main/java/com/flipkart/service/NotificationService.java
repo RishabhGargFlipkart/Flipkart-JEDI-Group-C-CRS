@@ -1,4 +1,6 @@
 package com.flipkart.service;
+import com.flipkart.bean.Notification;
+
 import java.util.UUID;
 
 /**
@@ -12,7 +14,7 @@ public interface NotificationService {
      * @param refId
      * @param notifId
      */
-    public void sendNotification(int refId, int notifId);
+    public Notification sendNotification(int refId, int notifId);
 
     /**
      * Method to get reference id

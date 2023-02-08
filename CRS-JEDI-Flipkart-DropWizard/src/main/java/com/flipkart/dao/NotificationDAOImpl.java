@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import com.flipkart.bean.Notification;
 import com.flipkart.constant.ModeOfPaymentConstant;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
@@ -35,8 +36,9 @@ public class NotificationDAOImpl implements NotificationDAO{
      * @throws SQLException
      */
     @Override
-    public void sendNotification(int refId,int notifId) throws SQLException{
+    public Notification sendNotification(int refId,int notifId) throws SQLException{
         Connection connection=DBUtils.getConnection();
+        Notification notification = new Notification();
         try
         {
             PreparedStatement ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION);
@@ -46,12 +48,17 @@ public class NotificationDAOImpl implements NotificationDAO{
             ps.executeUpdate();
             LocalDate localDate = LocalDate.now();
             LocalTime localTime = LocalTime.now();
+
+            notification.setReferenceId(refId);
+            notification.setLocalDate(localDate);
+            notification.setLocalTime(localTime);
             System.out.println("Payment successfully done with refId: "+refId+" at "+localTime+" on "+localDate);
         }
         catch(SQLException ex)
         {
             throw ex;
         }
+        return notification;
     }
     public UUID addPayment(String studentId, ModeOfPaymentConstant modeOfPaymentConstant, double amount) throws SQLException
     {

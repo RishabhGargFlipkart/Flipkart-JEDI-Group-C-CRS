@@ -1,4 +1,8 @@
 package com.flipkart.bean;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Class for Notification, after Payment done
@@ -9,7 +13,35 @@ public class Notification {
     private int studentId;
     private int notificationId;
     private String notificationMessage;
-    private String referenceId;
+
+    public int getReferenceId() {
+        return referenceId;
+    }
+
+    private int referenceId;
+
+    public void setReferenceId(int referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    public LocalTime getLocalTime() {
+        return localTime;
+    }
+
+    public void setLocalTime(LocalTime localTime) {
+        this.localTime = localTime;
+    }
+
+    private LocalDate localDate;
+    private LocalTime localTime;
 
     /**
      * Default constructor
@@ -23,7 +55,7 @@ public class Notification {
      * @param notificationMessage
      * @param referenceId
      */
-    public Notification(int studentId, int notificationId, String notificationMessage, String referenceId) {
+    public Notification(int studentId, int notificationId, String notificationMessage, int referenceId) {
         this.studentId = studentId;
         this.notificationId = notificationId;
         this.notificationMessage = notificationMessage;
@@ -79,20 +111,5 @@ public class Notification {
         this.notificationMessage = notificationMessage;
     }
 
-    /**
-     * Method to get reference id
-     * @return
-     */
-    public String getReferenceId() {
-        return referenceId;
-    }
-
-    /**
-     * Method to set reference id
-     * @param referenceId
-     */
-    public void setReferenceId(String referenceId) {
-        this.referenceId = referenceId;
-    }
 
 }

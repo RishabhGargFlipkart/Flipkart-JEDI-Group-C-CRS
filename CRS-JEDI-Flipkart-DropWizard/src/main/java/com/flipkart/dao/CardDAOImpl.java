@@ -46,7 +46,6 @@ public class CardDAOImpl implements CardDAO{
             statement.setDate(5, sqlDate);
             statement.executeUpdate();
         }catch(SQLException e){
-            System.out.println("hi");
             System.out.println(e.getMessage());
         }
     }

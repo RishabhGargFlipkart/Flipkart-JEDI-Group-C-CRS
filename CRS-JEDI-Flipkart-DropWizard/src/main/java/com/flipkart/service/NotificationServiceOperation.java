@@ -3,6 +3,7 @@ package com.flipkart.service;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import com.flipkart.bean.Notification;
 import com.flipkart.dao.NotificationDAOImpl;
 
 import com.flipkart.dao.NotificationDAO;
@@ -33,16 +34,18 @@ public class NotificationServiceOperation implements NotificationService {
      * @param notifId
      */
     @Override
-    public void sendNotification(int refId,int notifId) {
+    public Notification sendNotification(int refId,int notifId) {
+        Notification notification = new Notification();
         try
         {
-            notificationDaoInterface.sendNotification(refId,notifId);
+            notification = notificationDaoInterface.sendNotification(refId,notifId);
 
         }
         catch(SQLException ex)
         {
             System.out.println("Error occurred "+ex.getMessage());
         }
+        return notification;
     }
 
     /**
