@@ -233,7 +233,7 @@ public class StudentCRSMenu {
         }
 
 
-        System.out.println(String.format("%-20s %-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
+        System.out.println(ColourConstant.ANSI_BLUE+String.format("%-20s %-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS")+ColourConstant.ANSI_RESET);
         try {
             for (Course obj : course_available) {
                 System.out.println(String.format("%-20s %-20s %-20s %-20s", obj.getCourseCode(), obj.getCourseName(), obj.getInstructorId(), obj.getSeats()));
@@ -286,7 +286,7 @@ public class StudentCRSMenu {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
+        System.out.println(ColourConstant.ANSI_BLUE+String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE")+ColourConstant.ANSI_RESET);
 
         if(grade_card.isEmpty())
         {
