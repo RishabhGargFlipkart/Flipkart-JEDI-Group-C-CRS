@@ -1,6 +1,6 @@
 package com.flipkart.constant;
 
-public enum Bank {
+public enum BankConstant {
 
     HDFC("HDFC Bank"),
     SBI("SBI"),
@@ -9,7 +9,7 @@ public enum Bank {
     
 
     final private String value;
-    private Bank(String value)
+    private BankConstant(String value)
     {
         this.value=value;
     }

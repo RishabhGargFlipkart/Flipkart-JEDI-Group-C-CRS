@@ -2,6 +2,7 @@
  * 
  */
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * Exception thrown when student is not found for approval
@@ -29,6 +30,6 @@ public class StudentNotFoundForApprovalException extends Exception {
 	 */
 	@Override
 	public String getMessage() {
-		return "student with Id: " + studentId + " not found for approval!" ;
+		return ColourConstant.ANSI_YELLOW + "student with Id: " + studentId + " not found for approval!"  + ColourConstant.ANSI_RESET;
 	}
 }

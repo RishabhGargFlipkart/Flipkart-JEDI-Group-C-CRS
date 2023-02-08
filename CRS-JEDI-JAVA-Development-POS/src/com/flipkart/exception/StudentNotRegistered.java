@@ -1,4 +1,5 @@
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 public class StudentNotRegistered extends Exception{
     public String studentId;
@@ -28,7 +29,7 @@ public class StudentNotRegistered extends Exception{
     @Override
     public String getMessage()
     {
-        return "Student Id: "+studentId+" is not registered in the course: "+courseCode;
+        return ColourConstant.ANSI_YELLOW + "Student Id: "+studentId+" is not registered in the course: "+courseCode + ColourConstant.ANSI_RESET;
     }
 
 }

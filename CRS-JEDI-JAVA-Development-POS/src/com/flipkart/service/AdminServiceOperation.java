@@ -106,6 +106,10 @@ public class AdminServiceOperation implements AdminService {
         return adminDaoImpl.viewPendingAdmission();
     }
 
+    public List<Student> viewCompletedAdmission(){
+        return adminDaoImpl.viewCompletedAdmission();
+    }
+
     public List<Student> viewPendingRegistration(){
         return adminDaoImpl.viewPendingRegistration();
     }

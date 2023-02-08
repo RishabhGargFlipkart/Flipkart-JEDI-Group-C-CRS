@@ -1,4 +1,5 @@
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * Exception to check if the professor is not added successfully by admin
@@ -26,6 +27,6 @@ public class ProfessorNotAddedException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return "professorId: " + professorId + " not added!";
+		return ColourConstant.ANSI_YELLOW + "professorId: " + professorId + " not added!";
 	}
 }

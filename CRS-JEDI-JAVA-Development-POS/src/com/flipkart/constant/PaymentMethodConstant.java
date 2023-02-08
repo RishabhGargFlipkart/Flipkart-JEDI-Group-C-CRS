@@ -1,6 +1,6 @@
 package com.flipkart.constant;
 
-public enum PaymentMethod {
+public enum PaymentMethodConstant {
     UPI("UPI"),
     Cash("Cash"),
     Cheque("Cheque"),
@@ -8,7 +8,7 @@ public enum PaymentMethod {
     Card("Card");
 
     final private String value;
-    private PaymentMethod(String value)
+    private PaymentMethodConstant(String value)
     {
         this.value=value;
     }

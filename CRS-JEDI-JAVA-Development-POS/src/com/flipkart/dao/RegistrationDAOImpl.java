@@ -60,11 +60,7 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            stmt.close();
-            conn.close();
-        }
+
         return false;
     }
 
@@ -101,11 +97,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
 
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            stmt.close();
-            conn.close();
-        }
 
         return count;
     }
@@ -131,11 +122,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         }
         catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally
-        {
-            stmt.close();
-            conn.close();
         }
 
         return true;
@@ -169,11 +155,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println(e.getClass());
             System.out.println(e.getMessage());
-        }
-        finally
-        {
-            stmt.close();
-            conn.close();
         }
 
         return check;
@@ -211,12 +192,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println("Exception found" + e.getMessage());
         }
-        finally
-        {
-
-            stmt.close();
-            conn.close();
-        }
 
 
         return false;
@@ -248,11 +223,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         catch(Exception e)
         {
             System.out.println(e.getMessage());
-        }
-        finally
-        {
-            stmt.close();
-            conn.close();
         }
 
         return fee;
@@ -293,12 +263,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            stmt.close();
-            conn.close();
-
-        }
 
         return grade_List;
     }
@@ -336,11 +300,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            stmt.close();
-            conn.close();
-        }
 
         return availableCourseList;
 
@@ -373,11 +332,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             System.out.println(e.getMessage());
 
         }
-        finally
-        {
-            stmt.close();
-            conn.close();
-        }
 
         return registeredCourseList;
     }
@@ -406,11 +360,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
             System.out.println(e.getMessage());
 
         }
-        finally
-        {
-            stmt.close();
-            conn.close();
-        }
 
         return status;
     }
@@ -434,11 +383,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println(e.getMessage());
 
-        }
-        finally
-        {
-            stmt.close();
-            conn.close();
         }
 
     }
@@ -465,11 +409,6 @@ public class RegistrationDAOImpl implements RegistrationDAO{
         {
             System.out.println(e.getMessage());
 
-        }
-        finally
-        {
-            stmt.close();
-            conn.close();
         }
 
         return status;
