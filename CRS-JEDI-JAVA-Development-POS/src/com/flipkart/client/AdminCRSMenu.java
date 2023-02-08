@@ -7,6 +7,7 @@ import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.bean.Professor;
 
 import java.util.List;
+import java.util.*;
 import java.util.Scanner;
 
 public class AdminCRSMenu {
@@ -18,7 +19,7 @@ public class AdminCRSMenu {
     public void createMenu() throws StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException {
         while(true)
         {
-            System.out.println("Welcome to Admin Department");
+            System.out.println("\033[0;1mWelcome to Admin Department\033[0m");
             System.out.println("Please select an option to perform:");
             System.out.println("1. add course");
             System.out.println("2. delete course");
@@ -36,35 +37,52 @@ public class AdminCRSMenu {
             switch(option) {
                 case 1:
                     addCourse();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 2:
                     deleteCourse();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 3:
                     approveStudent();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 4:
                     addProfessor();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 5:
                     viewCourses();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 6:
                     viewProfessors();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 7:
                     approveGradeCard();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 8:
                     approveRegistration();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 9:
+                    System.out.println("Good Bye!");
                     return;
             }
         }
     }
 
-    private void addCourse() throws CourseFoundException {
+    private void addCourse() {
         List<Course> courseList = viewCourses();
 
         scanner.nextLine();
@@ -92,23 +110,43 @@ public class AdminCRSMenu {
         }
     }
 
-    private void deleteCourse() throws CourseNotDeletedException, CourseNotFoundException {
+    private void deleteCourse() {
         List<Course> courseList = adminOperation.viewCourses();
         System.out.println("Enter course Id: ");
         String courseID=scanner.next();
-        adminOperation.deleteCourse(courseID, courseList);
+        try{
+            adminOperation.deleteCourse(courseID, courseList);
+        }catch(CourseNotFoundException | CourseNotDeletedException e){
+            System.out.println(e.getMessage());
+        }
+        
 
     }
 
-    private void approveStudent() throws StudentNotFoundForApprovalException {
+    private void approveStudent(){
+
         List<Student> studentList= adminOperation.viewPendingAdmission();
         System.out.println("Student IDs to be approved:");
+        Formatter fmt = new Formatter();
+        fmt.format("\033[1m%15s %15s\n", "Student Id", "Name\033[0m");
         for (Student s: studentList) {
-            System.out.println(""+ s.getUserId()+"              "+ s.getName());
+            fmt.format("%14s %17s\n", s.getUserId(), s.getName());
+            //System.out.println(""+ s.getUserId()+"\t\t\t"+ s.getName());
+        }
+        System.out.println(fmt);
+        if(studentList.isEmpty())
+        {
+            System.out.println("No pending admission.\n");
+            return;
         }
         System.out.println("Enter Student's ID to be approved:");
-        String studentUserIdApproval = scanner.next();
-        adminOperation.approveStudent(studentUserIdApproval, studentList);
+        try{
+            String studentUserIdApproval = scanner.next();
+            adminOperation.approveStudent(studentUserIdApproval, studentList);
+        }catch(StudentNotFoundForApprovalException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private List<Course> viewCourses() {
@@ -117,10 +155,14 @@ public class AdminCRSMenu {
             System.out.println("No course in the catalogue!");
             return courseList;
         }
-        System.out.println("COURSE CODE      COURSE NAME       INSTRUCTOR");
-        for(Course course : courseList) {
-            System.out.println(course.getCourseCode()+"      "+course.getCourseName()+"       "+course.getInstructorId());
+
+        Formatter fmt = new Formatter();
+        fmt.format("\033[1m%15s %15s %20s\n", "COURSE CODE", "COURSE NAME", "INSTRUCTOR ID\033[0m");
+        for (Course course: courseList) {
+            fmt.format("%14s %14s %17s\n", course.getCourseCode(),course.getCourseName(),course.getInstructorId());
+            //System.out.println(""+ s.getUserId()+"\t\t\t"+ s.getName());
         }
+        System.out.println(fmt);
         return courseList;
     }
 
@@ -157,26 +199,57 @@ public class AdminCRSMenu {
         return adminOperation.viewProfessors();
     }
 
-    public void approveGradeCard() throws StudentNotFoundForApprovalException {
+    public void approveGradeCard(){
         List<Student> studentList= adminOperation.viewPendingGradeCard();
         System.out.println("Students wanting grade card approval:");
+        Formatter fmt = new Formatter();
+        fmt.format("\033[1m%15s %15s\n", "Student Id", "Name\033[0m");
+        //System.out.println("\033[0;1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tINSTRUCTOR\033[0m");
+        //System.out.println("STUDENT ID\t\tSTUDENT NAME");
         for (Student s: studentList) {
-            System.out.println(""+ s.getUserId()+"              "+ s.getName());
+            fmt.format("%14s %17s\n", s.getUserId(), s.getName());
+        }
+        if(studentList.isEmpty())
+        {
+            System.out.println("No pending Gradecard approval.\n");
+            return;
         }
         System.out.println("Enter Student's ID to be generated:");
         String studentUserIdApproval = scanner.next();
-        adminOperation.approveGradeCard(studentUserIdApproval, studentList);
+        try{
+            adminOperation.approveGradeCard(studentUserIdApproval, studentList);
+        }catch(StudentNotFoundForApprovalException e){
+            System.out.println(e.getMessage());
+        }
+
+
 
     }
     public void approveRegistration() throws StudentNotFoundForApprovalException {
         List<Student> studentList= adminOperation.viewPendingRegistration();
         System.out.println("Following student's registration is pending");
-        for (Student student : studentList) {
-            System.out.println(""+ student.getUserId()+"              "+ student.getName());
+
+
+        Formatter fmt = new Formatter();
+        fmt.format("\033[0;1m%15s %15s\n", "Student Id", "Name\033[0m");
+        for (Student s: studentList) {
+            fmt.format("%14s %17s\n", s.getUserId(), s.getName());
+            //System.out.println(""+ s.getUserId()+"\t\t\t"+ s.getName());
+        }
+        System.out.println(fmt);
+        if(studentList.isEmpty())
+        {
+            System.out.println("No pending Registrations.\n");
+            return;
         }
         System.out.println("Enter Student's ID to be approved:");
         String studentUserIdApproval = scanner.next();
-        adminOperation.approveRegistration(studentUserIdApproval,studentList);
+        try{
+            adminOperation.approveRegistration(studentUserIdApproval,studentList);
+        }catch(StudentNotFoundForApprovalException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 }
 

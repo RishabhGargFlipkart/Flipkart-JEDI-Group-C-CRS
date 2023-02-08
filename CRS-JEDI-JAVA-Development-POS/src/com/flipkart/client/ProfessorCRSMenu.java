@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import com.flipkart.service.ProfessorServiceOperation;
+import java.util.*;
 
 public class ProfessorCRSMenu {
     ProfessorService professorInterface=new ProfessorServiceOperation();
@@ -69,7 +70,7 @@ public class ProfessorCRSMenu {
 
         int userInput;
         while (true) {
-            System.out.println("---------Professor Menu---------");
+            System.out.println("\033[0;1m---------Professor Menu---------");
             System.out.println("1. View Your Courses");
             System.out.println("2. View Enrolled Students");
             System.out.println("3. Add grade");
@@ -83,20 +84,31 @@ public class ProfessorCRSMenu {
                 case 1:
                     //view all the courses taught by the professor
                     getCourses(profId);
+                    System.out.println("\n");
+                    System.out.println("\n");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 2:
                     //view all the enrolled students for the course
                     System.out.println("Enter Course Code:");
                     String courseCode = sc.next();
                     viewEnrolledStudents(profId, courseCode);
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("\n");
                     break;
 
                 case 3:
                     //add grade for a student
                     addGrade(profId);
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 4:
                     assignCourse(profId);
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 5:
                     //logout from the system
@@ -104,6 +116,8 @@ public class ProfessorCRSMenu {
                     return;
                 default:
                     System.out.println("Invalid Input");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
             }
         }
 
@@ -144,16 +158,16 @@ public class ProfessorCRSMenu {
         {
             System.out.println(e.getMessage());
         }
-        System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
+        Formatter fmt=new Formatter();
+        System.out.println("\033[1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tNo. of students enrolled\033[0m");
+        //System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
         for(Course obj: coursesEnrolled)
         {
-            System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
+            fmt.format("%14s %14s %17s\n", obj.getCourseCode(), obj.getCourseName(),(10- obj.getSeats()));
         }
     }
 
     public void viewEnrolledStudents(String profId,String courseCode) {
-
-
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try {
             enrolledStudents = professorInterface.viewEnrolledStudents(profId, courseCode);
@@ -163,11 +177,12 @@ public class ProfessorCRSMenu {
         }
         if(enrolledStudents.size()==0)
             return;
-        System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
-
+        Formatter fmt=new Formatter();
+        //System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
+        System.out.println("\033[1mCOURSE CODE\t\t\tCOURSE NAME\t\t\tStudents enrolled\033[0m");
         for(EnrolledStudent obj: enrolledStudents)
         {
-            System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+            fmt.format("%14s %14s %17s\n", obj.getCourseCode(), obj.getCourseName(),obj.getStudentId());
         }
 
     }

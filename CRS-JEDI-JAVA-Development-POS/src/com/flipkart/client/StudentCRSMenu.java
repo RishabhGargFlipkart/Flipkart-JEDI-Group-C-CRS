@@ -33,7 +33,7 @@ public class StudentCRSMenu {
         }
         while(true) {
             System.out.println("*****************************");
-            System.out.println("**********Student Menu*********");
+            System.out.println("\033[0;1m**********Student Menu*********");
             System.out.println("*****************************");
             System.out.println("1. Course Registration");
             System.out.println("2. Add Course");

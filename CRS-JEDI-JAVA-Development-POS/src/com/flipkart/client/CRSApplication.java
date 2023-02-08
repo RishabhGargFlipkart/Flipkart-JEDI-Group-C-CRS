@@ -10,6 +10,8 @@ import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.bean.Student;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 
@@ -17,9 +19,6 @@ public class CRSApplication {
     static boolean loggedin = false;
     StudentDAO studentDAO=StudentDAOImpl.getInstance();
     UserDAO userInterface = UserDAOImpl.getInstance();
-//    AdminService adminService = new AdminServiceOperation();
-
-
 
     public static void main(String[]args) throws UserNotFoundException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, SQLException, ClassNotFoundException, NoEnrolledStudentsException, StudentNotRegistered, GradeAssignedException, NoAssignedCourseException, ProfessorAssignedException {
 
@@ -34,15 +33,23 @@ public class CRSApplication {
             switch(userInput){
                 case 1:
                     crsApplication.loginUser();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 2:
                     crsApplication.registerStudent();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 case 3:
                     crsApplication.updatePassword();
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
                     break;
                 default:
                     System.out.println("Invalid Input");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------");
             }
             createMainMenu();
             userInput=sc.nextInt();
@@ -52,27 +59,34 @@ public class CRSApplication {
     }
 
     public static void createMainMenu(){
-        System.out.println("-------------Welcome to Course Registration System! Choose from the options given below-------------");
+        System.out.println("\033[0;1m-------------Welcome to Course Registration System! Choose from the options given below-------------\033[0m");
         System.out.println("             1. Login");
         System.out.println("             2. Registration of Student");
         System.out.println("             3. Update Password");
         System.out.println("             4. Exit");
         System.out.println(" ");
-        System.out.println(" Enter your option(1 to 4)");
+        System.out.println("\033[0;1m Enter your option(1 to 4)\033[0m");
     }
 
-    public void loginUser() throws CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, UserNotFoundException, SQLException, ClassNotFoundException, NoEnrolledStudentsException, StudentNotRegistered, GradeAssignedException, NoAssignedCourseException, ProfessorAssignedException {
+    public void loginUser() throws CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, SQLException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         String userId,password,role;
         System.out.println(" ");
-        System.out.println("------------Login------------");
+        System.out.println("\033[0;1m ------------Login------------\033[0m");
         System.out.print("Enter User ID: ");
         userId = sc.next();
         System.out.print("Enter Password: ");
         password=sc.next();
         System.out.println("Enter Role: Student,Professor,Admin ");
         role=sc.next();
-        loggedin = userInterface.verifyCredentials(userId, password);
+        try{
+            loggedin = userInterface.verifyCredentials(userId, password);
+            LocalDate localDate = LocalDate.now();
+            LocalTime localTime = LocalTime.now();
+            System.out.println("Hi, you have successfully logged in at " + localTime+ " on "+ localDate +"\n");
+        }catch (UserNotFoundException e){
+            System.out.println(e.getMessage());
+        }
 
         if(loggedin){
             if(role.equalsIgnoreCase("Student")){
@@ -102,7 +116,7 @@ public class CRSApplication {
         String gender;
         int batch;
 
-        System.out.println("---------------Student Registration-------------");
+        System.out.println("\033[0;1m---------------Student Registration-------------\033[0m");
         System.out.print("Name:");
         name=sc.nextLine();
         System.out.print("ID:");
@@ -151,7 +165,7 @@ public class CRSApplication {
         String userId,newPassword;
         try
         {
-            System.out.println("------------------Update Password--------------------");
+            System.out.println("\033[0;1m------------------Update Password--------------------\033[0m");
             System.out.println("Email");
             userId=sc.next();
             System.out.println("New Password:");
