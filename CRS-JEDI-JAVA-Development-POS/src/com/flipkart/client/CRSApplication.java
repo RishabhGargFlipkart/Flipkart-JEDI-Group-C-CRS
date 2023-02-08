@@ -6,10 +6,10 @@ import com.flipkart.dao.StudentDAOImpl;
 import com.flipkart.dao.UserDAO;
 import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.exception.*;
-import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.bean.Student;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -17,20 +17,25 @@ public class CRSApplication {
     static boolean loggedin = false;
     StudentDAO studentDAO=StudentDAOImpl.getInstance();
     UserDAO userInterface = UserDAOImpl.getInstance();
-//    AdminService adminService = new AdminServiceOperation();
-
-
 
     public static void main(String[]args) throws UserNotFoundException, CourseNotDeletedException, CourseNotFoundException, CourseFoundException, UserIdAlreadyInUseException, StudentNotFoundForApprovalException, ProfessorNotAddedException, SQLException, ClassNotFoundException, NoEnrolledStudentsException, StudentNotRegistered, GradeAssignedException, NoAssignedCourseException, ProfessorAssignedException {
 
         Scanner sc = new Scanner(System.in);
         CRSApplication crsApplication=new CRSApplication();
-        int userInput;
-        createMainMenu();
-        userInput=sc.nextInt();
+        int userInput=0;
+        while(true){
+            createMainMenu();
+            try {
 
-        while(userInput!=4)
-        {
+                userInput = sc.nextInt();
+            }catch (InputMismatchException ex) {
+                System.out.println("Enter correct input");
+                sc.nextLine();
+            }
+
+
+    //        while(userInput!=4)
+    //        {
             switch(userInput){
                 case 1:
                     crsApplication.loginUser();
@@ -41,14 +46,19 @@ public class CRSApplication {
                 case 3:
                     crsApplication.updatePassword();
                     break;
+                case 4:
+                    sc.close();
+                    return;
                 default:
-                    System.out.println("Invalid Input");
+//                    System.out.println("Invalid Input");
             }
-            createMainMenu();
-            userInput=sc.nextInt();
+//            createMainMenu();
+//            try {
+//                userInput = sc.nextInt();
+//            } catch (InputMismatchException e) {
+//                break;
+//            }
         }
-
-        sc.close();
     }
 
     public static void createMainMenu(){
@@ -90,7 +100,7 @@ public class CRSApplication {
             }
         }
         else{
-            System.out.println("Wrong password");
+            System.out.println("Wrong user Id or password");
         }
 
     }

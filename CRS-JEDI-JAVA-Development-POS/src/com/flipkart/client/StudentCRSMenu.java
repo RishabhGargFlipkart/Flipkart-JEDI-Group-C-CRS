@@ -1,4 +1,5 @@
 package com.flipkart.client;
+import java.util.InputMismatchException;
 import java.util.Random;
 import com.flipkart.bean.Course;
 import com.flipkart.dao.*;
@@ -23,7 +24,7 @@ public class StudentCRSMenu {
     public void createMenu(String studentId)
     {
 
-        int choice;
+        int choice = 0;
         is_loggedin = getLoginStatus(studentId);
         is_registered=getRegistrationStatus(studentId);
         if(!is_loggedin)
@@ -44,7 +45,11 @@ public class StudentCRSMenu {
             System.out.println("7. Make Payment");
             System.out.println("8. Logout");
             System.out.println("*****************************");
-            choice = sc.nextInt();
+            try {
+                choice = sc.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Enter integer");
+            }
             switch (choice) {
                 case 1:
                     registerCourses(studentId);
@@ -334,7 +339,13 @@ public class StudentCRSMenu {
 
             System.out.println("Your total fee  = " + fee);
             System.out.println("Want to continue Fee Payment(y/n)");
-            String ch = sc.next();
+            String ch = "";
+            try {
+                ch = sc.next();
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Enter y/n");
+            }
 
             int refId=rand.nextInt(Integer.SIZE - 1);
             int notifId=rand.nextInt(Integer.SIZE-1);
