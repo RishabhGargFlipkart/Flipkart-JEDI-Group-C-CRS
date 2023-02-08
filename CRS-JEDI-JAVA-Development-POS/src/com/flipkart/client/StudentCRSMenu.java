@@ -1,6 +1,8 @@
 package com.flipkart.client;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 import com.flipkart.bean.Course;
@@ -44,6 +46,9 @@ public class StudentCRSMenu {
             System.out.println("Registration is not approved. Wait for Admin approval.");
             return;
         }
+        LocalDate localDate = LocalDate.now();
+        LocalTime localTime = LocalTime.now();
+        System.out.println("Hi, you have successfully logged in at " + localTime+ " on "+ localDate +"\n");
         while(true) {
             System.out.println("*****************************");
             System.out.println("**********Student Menu*********");
@@ -135,6 +140,7 @@ public class StudentCRSMenu {
             catch(Exception e)
             {
                 System.out.println(e.getMessage());
+                return;
             }
         }
         System.out.println("6 courses have been successfully registered");
@@ -325,7 +331,7 @@ public class StudentCRSMenu {
         Boolean isGradeCardApproved=studentDAO.checkIsGradeCard(studentId);
         if(!isGradeCardApproved)
         {
-            System.out.println("GradeConstant Card is not approved. Please contact the Admin.");
+            System.out.println("Grade Card is not approved. Please contact the Admin.");
             return;
         }
         List<StudentGrade> grade_card=null;
@@ -526,7 +532,6 @@ public class StudentCRSMenu {
                     notificationInterface.sendNotification(refId,notifId);
                 }
                 paymentDAO.isPaid(studentId);
-                System.out.println("Payment done");
             }
 
         }

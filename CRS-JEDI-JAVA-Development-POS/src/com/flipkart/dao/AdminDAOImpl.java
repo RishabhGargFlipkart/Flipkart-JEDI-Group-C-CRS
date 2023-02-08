@@ -241,10 +241,10 @@ public class AdminDAOImpl implements AdminDAO{
                 professorList.add(professor);
 
             }
-
+            System.out.println("List of Professors: ");
             for(Professor p:professorList)
             {
-                System.out.println(p.getUserId());
+                System.out.println("Professor ID: "+p.getUserId()+"  Professor Name: "+p.getName());
             }
 
         }catch(SQLException se) {

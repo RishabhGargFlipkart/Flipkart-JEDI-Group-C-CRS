@@ -129,9 +129,7 @@ public class CRSApplication {
         role=sc.next();
         try{
             loggedin = userInterface.verifyCredentials(userId, password);
-            LocalDate localDate = LocalDate.now();
-            LocalTime localTime = LocalTime.now();
-            System.out.println("Hi, you have successfully logged in at " + localTime+ " on "+ localDate +"\n");
+
         }catch (UserNotFoundException e){
             System.out.println(e.getMessage());
         }
@@ -143,15 +141,22 @@ public class CRSApplication {
                 student.createMenu(userId);
             }
             else if(role.equalsIgnoreCase("Professor")){
+                LocalDate localDate = LocalDate.now();
+                LocalTime localTime = LocalTime.now();
+                System.out.println("Hi, you have successfully logged in at " + localTime+ " on "+ localDate +"\n");
                 ProfessorCRSMenu prof = new ProfessorCRSMenu();
                 prof.createMenu(userId,password);
             }
             else if(role.equalsIgnoreCase("Admin")){
+                LocalDate localDate = LocalDate.now();
+                LocalTime localTime = LocalTime.now();
+                System.out.println("Hi, you have successfully logged in at " + localTime+ " on "+ localDate +"\n");
                 AdminCRSMenu admin=new AdminCRSMenu();
                 admin.createMenu();
             }
             else{
                 System.out.println("Enter a correct role!");
+                return;
             }
         }
         else{

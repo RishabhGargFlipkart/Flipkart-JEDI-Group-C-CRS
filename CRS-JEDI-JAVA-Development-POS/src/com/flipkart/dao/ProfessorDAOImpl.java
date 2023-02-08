@@ -26,7 +26,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     public List<Course> getCourses(String profId) throws ClassNotFoundException, NoAssignedCourseException {
         Connection conn = DBUtils.getConnection();
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         List<Course> ans=new ArrayList<Course>();
         try{
             PreparedStatement statement= conn.prepareStatement(SQLQueriesProfessor.GET_COURSES);
@@ -54,7 +54,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     public List<EnrolledStudent> getEnrolledStudent(String profId, String courseCode) throws NoEnrolledStudentsException, ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try{
             PreparedStatement statement= conn.prepareStatement(SQLQueriesProfessor.GET_ENROLLED_STUDENTS);
@@ -86,7 +86,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     public boolean addGrade(String studentId, String courseCode, String grade) throws StudentNotRegistered, GradeAssignedException, ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         boolean flag=false;
         try{
             PreparedStatement checkStatement=conn.prepareStatement(SQLQueriesProfessor.GET_ASSIGNED_GRADE);
@@ -127,7 +127,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     public boolean assignCourse(String profId,String courseCode) throws ProfessorAssignedException, CourseNotFoundException,ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         boolean flag=false;
         try{
             PreparedStatement checkStatement=conn.prepareStatement(SQLQueriesProfessor.GET_ASSIGNED_PROF);
@@ -168,7 +168,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     public boolean getProfessors(String profId,String password) throws SQLException, ClassNotFoundException {
         Connection conn = DBUtils.getConnection();
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
         List<Professor> professors=new ArrayList<>();
 
