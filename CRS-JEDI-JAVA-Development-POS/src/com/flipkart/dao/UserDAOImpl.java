@@ -60,6 +60,10 @@ public class UserDAOImpl implements UserDAO{
         {
             System.out.println("Something went wrong, please try again! "+ ex.getMessage());
         }
+        catch(UserNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
         finally
         {
             try {

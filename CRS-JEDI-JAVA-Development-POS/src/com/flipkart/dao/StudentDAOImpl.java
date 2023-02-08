@@ -9,6 +9,8 @@ import java.sql.Statement;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
+
+import com.flipkart.exception.StudentNotRegisteredException;
 public class StudentDAOImpl implements StudentDAO {
 
     private static volatile StudentDAOImpl instance=null;
@@ -26,8 +28,13 @@ public class StudentDAOImpl implements StudentDAO {
         }
         return instance;
     }
+
+    /**
+     * @param student
+     * @throws StudentNotRegisteredException
+     */
     @Override
-    public void addStudent(Student student) {
+    public void addStudent(Student student) throws StudentNotRegisteredException {
         Connection connection=DBUtils.getConnection();
         try
         {
@@ -65,7 +72,7 @@ public class StudentDAOImpl implements StudentDAO {
         }
         catch(Exception ex)
         {
-            System.out.println(ex);
+            throw new StudentNotRegisteredException(student.getName());
         }
         finally
         {
@@ -77,6 +84,11 @@ public class StudentDAOImpl implements StudentDAO {
             }
         }
     }
+
+    /**
+     * @param userId
+     * @return
+     */
     @Override
     public int getStudentId(String userId) {
         Connection connection=DBUtils.getConnection();
@@ -98,6 +110,11 @@ public class StudentDAOImpl implements StudentDAO {
 
         return 0;
     }
+
+    /**
+     * @param studentId
+     * @return
+     */
     @Override
     public boolean isApproved(int studentId) {
         Connection connection=DBUtils.getConnection();
@@ -119,6 +136,11 @@ public class StudentDAOImpl implements StudentDAO {
 
         return false;
     }
+
+    /**
+     * @param studentId
+     * @return
+     */
     public boolean checkIsPaid(String studentId){
         Connection connection=DBUtils.getConnection();
         Student s=new Student();
