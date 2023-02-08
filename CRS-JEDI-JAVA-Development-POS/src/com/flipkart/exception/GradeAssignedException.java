@@ -1,4 +1,5 @@
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 public class GradeAssignedException extends Exception {
 
@@ -29,6 +30,6 @@ public class GradeAssignedException extends Exception {
     @Override
     public String getMessage()
     {
-        return "Student Id: "+studentId+" is already assigned with a grade for courseCode: "+courseCode;
+        return ColourConstant.ANSI_YELLOW + "Student Id: "+studentId+" is already assigned with a grade for courseCode: "+courseCode + ColourConstant.ANSI_RESET;
     }
 }

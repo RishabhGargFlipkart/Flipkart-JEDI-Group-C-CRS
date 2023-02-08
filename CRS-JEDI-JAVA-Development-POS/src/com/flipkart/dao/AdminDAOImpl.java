@@ -289,6 +289,39 @@ public class AdminDAOImpl implements AdminDAO{
     }
 
     @Override
+    public List<Student> viewCompletedAdmission() {
+        statement = null;
+        List<Student> userList = new ArrayList<Student>();
+        try {
+
+            String sql = SQLQueriesAdmin.VIEW_COMPLETED_ADMISSION_QUERY;
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+
+                Student user = new Student();
+                user.setUserId(resultSet.getString(1));
+                user.setName(resultSet.getString(2));
+                user.setPassword(resultSet.getString(3));
+                user.setRole(resultSet.getString(4));
+                user.setGender(resultSet.getString(5));
+                user.setAddress(resultSet.getString(6));
+                userList.add(user);
+            }
+
+            System.out.println(userList.size() + " students have pending-approval");
+
+        }catch(SQLException se) {
+
+            System.out.println(se.getMessage());
+
+        }
+
+        return userList;
+    }
+
+    @Override
     public List<Student> viewPendingRegistration() {
         statement = null;
         List<Student> userList = new ArrayList<Student>();

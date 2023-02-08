@@ -1,19 +1,21 @@
 package com.flipkart.client;
-import java.util.InputMismatchException;
-import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 import com.flipkart.bean.Course;
 import com.flipkart.dao.*;
 import com.flipkart.service.ProfessorService;
 import com.flipkart.service.ProfessorServiceOperation;
 import com.flipkart.service.RegistrationService;
 import com.flipkart.service.RegistrationServiceOperation;
-import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.ModeOfPaymentConstant;
 import com.flipkart.service.NotificationService;
 import com.flipkart.service.NotificationServiceOperation;
-import com.flipkart.constant.NotificationType;
-import java.util.Scanner;
-import java.util.List;
+
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.ColourConstant;
+
 public class StudentCRSMenu {
     Random rand=new Random();
     Scanner sc = new Scanner(System.in);
@@ -34,7 +36,7 @@ public class StudentCRSMenu {
         }
         while(true) {
             System.out.println("*****************************");
-            System.out.println("\033[0;1m**********Student Menu*********");
+            System.out.println("**********Student Menu*********");
             System.out.println("*****************************");
             System.out.println("1. Course Registration");
             System.out.println("2. Add Course");
@@ -120,8 +122,8 @@ public class StudentCRSMenu {
                 System.out.println(e.getMessage());
             }
         }
-
-        System.out.println("Registration Successful");
+        System.out.println("6 courses have been successfully registered");
+        System.out.println("No more courses can be registered");
         is_registered = true;
 
         try
@@ -355,13 +357,13 @@ public class StudentCRSMenu {
                 System.out.println("Select Mode of Payment:");
 
                 int index = 1;
-                for(ModeOfPayment mode : ModeOfPayment.values())
+                for(ModeOfPaymentConstant mode : ModeOfPaymentConstant.values())
                 {
                     System.out.println(index + " " + mode);
                     index = index + 1;
                 }
                 int c=sc.nextInt();
-                ModeOfPayment mode = ModeOfPayment.getModeofPayment(c);
+                ModeOfPaymentConstant mode = ModeOfPaymentConstant.getModeofPayment(c);
                 PaymentDAO paymentDAO= PaymentDAOImpl.getInstance();
                 if(c==1)
                 {
@@ -374,17 +376,48 @@ public class StudentCRSMenu {
                         return;
                     }
                     System.out.println("Enter Card number: ");
-                    int cardno=sc.nextInt();
+                    String cardno = sc.next();
+                    while(cardno.length()!=16){
+                        System.out.println("Incorrect Card Number!");
+                        System.out.println("Enter valid card number");
+                        cardno = sc.next();
+                    }
                     System.out.println("Enter cvv");
-                    int cvv=sc.nextInt();
+                    int cvv = sc.nextInt();
+                    while(cvv<99 || cvv>1000) {
+                        System.out.println("Incorrect CVV!");
+                        System.out.println("Enter valid CVV");
+                        cvv = sc.nextInt();
+                    }
+
                     System.out.println("Enter name of the bank");
                     String bank=sc.next();
 
 
-                    paymentDAO.addPayment(refId,studentId,fee,"CARD",bank);
-                    CardDAO cardDAO= CardDAOImpl.getInstance();
-                    cardDAO.addCard(refId,cardno,type,cvv);
-                    notificationInterface.sendNotification( refId,notifId);
+                    while(true)
+                    {
+
+                        try{
+                            System.out.println("Enter expiry in format MM/yy");
+                            String input = sc.next();
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yy");
+                            simpleDateFormat.setLenient(false);
+                            Date expiry = simpleDateFormat.parse(input);
+                            boolean expired = expiry.before(new Date());
+                            if(expired) {
+                                System.out.println("Card is expired");
+                                return;
+                            }
+                            paymentDAO.addPayment(refId,studentId,fee,"CARD",bank);
+                            CardDAO cardDAO= CardDAOImpl.getInstance();
+                            cardDAO.addCard(refId,cardno,type,cvv,expiry);
+                            notificationInterface.sendNotification(refId,notifId);
+                            break;
+                        }
+                        catch(ParseException parseException){
+                            System.out.println(ColourConstant.ANSI_YELLOW + parseException.getMessage() + ColourConstant.ANSI_RESET);
+                        }
+                    }
 
                 }
                 else if(c == 2)
@@ -396,6 +429,7 @@ public class StudentCRSMenu {
                     paymentDAO.addPayment(refId, studentId,fee,"CHEQUE",bank);
                     ChequeDAO chequeDAO = ChequeDAOImpl.getInstance();
                     chequeDAO.addCheque(refId,chequeNo);
+                    notificationInterface.sendNotification(refId,notifId);
 
                 }
                 else if(c == 3)
@@ -409,6 +443,7 @@ public class StudentCRSMenu {
                     paymentDAO.addPayment(refId,studentId,fee,"UPI",bank);
                     UpiDAOImpl upiDAO = UpiDAOImpl.getInstance();
                     upiDAO.addUPI(refId,upiID,service);
+                    notificationInterface.sendNotification(refId,notifId);
                 }
                 else if(c==4) {
                     System.out.println("Enter Account number: ");

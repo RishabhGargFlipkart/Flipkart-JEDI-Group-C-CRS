@@ -1,6 +1,6 @@
 package com.flipkart.constant;
 
-public enum Grade {
+public enum GradeConstant {
 
 
         A(10),
@@ -12,7 +12,7 @@ public enum Grade {
         D(4),
         E(3);
         final private int value;
-        private Grade(int value)
+        private GradeConstant(int value)
         {
             this.value=value;
         }

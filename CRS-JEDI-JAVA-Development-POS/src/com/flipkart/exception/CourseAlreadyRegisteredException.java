@@ -1,4 +1,5 @@
 package com.flipkart.exception;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * Exception to check if course is already registered by student
@@ -30,7 +31,7 @@ public class CourseAlreadyRegisteredException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return "You have already registered for " + courseCode;
+		return ColourConstant.ANSI_YELLOW + "You have already registered for " + courseCode + ColourConstant.ANSI_RESET;
 	}
 
 }

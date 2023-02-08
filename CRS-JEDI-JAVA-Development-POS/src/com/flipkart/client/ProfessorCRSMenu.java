@@ -165,6 +165,7 @@ public class ProfessorCRSMenu {
         {
             fmt.format("%14s %14s %17s\n", obj.getCourseCode(), obj.getCourseName(),(10- obj.getSeats()));
         }
+        System.out.println(fmt);
     }
 
     public void viewEnrolledStudents(String profId,String courseCode) {
@@ -184,7 +185,7 @@ public class ProfessorCRSMenu {
         {
             fmt.format("%14s %14s %17s\n", obj.getCourseCode(), obj.getCourseName(),obj.getStudentId());
         }
-
+        System.out.println(fmt);
     }
 
     public void addGrade(String profId) {

@@ -64,14 +64,7 @@ public class UserDAOImpl implements UserDAO{
         {
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+
         return false;
     }
 
@@ -101,14 +94,7 @@ public class UserDAOImpl implements UserDAO{
         {
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+
         return false;
     }
 }

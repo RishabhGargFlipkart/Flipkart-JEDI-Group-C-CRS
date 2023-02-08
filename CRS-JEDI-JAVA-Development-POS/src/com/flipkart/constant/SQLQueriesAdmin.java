@@ -4,6 +4,7 @@ public class SQLQueriesAdmin {
     //AdminDao Queries
 	public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";
 	public static final String ADD_COURSE_QUERY = "insert into Course(courseCode, courseName, profId, seats, fee) values (?, ?, ?, ?, ?)";
+	public static final String VIEW_COMPLETED_ADMISSION_QUERY = "select userid, name, password, role, gender, address from student inner join user on Student.studentId = User.userid where loginApproved = 1";
 	public static final String VIEW_PENDING_ADMISSION_QUERY = "select userid, name, password, role, gender, address from student inner join user on Student.studentId = User.userid where loginApproved = 0";
 	public static final String VIEW_PENDING_REGISTRATION_QUERY = "select userid, name, password, role, gender, address from student inner join  user on Student.studentId = User.userid where regApproved = 0";
 	public static final String VIEW_PENDING_GRADECARD_QUERY = "select userid, name, password, role, gender, address from student inner join  user on Student.studentId = User.userid where gradeCardApproved = 0";

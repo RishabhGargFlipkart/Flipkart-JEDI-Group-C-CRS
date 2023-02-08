@@ -58,7 +58,7 @@ public class CRSApplication {
                     sc.close();
                     return;
                 default:
-                    System.out.println("Invalid Input");
+                    System.out.println("Invalid Menu Input");
                     System.out.println("---------------------------------------------------------------------------------------------------");
                     System.out.println("---------------------------------------------------------------------------------------------------");
             }
@@ -72,7 +72,7 @@ public class CRSApplication {
     }
 
     public static void createMainMenu(){
-        System.out.println("\033[0;1m-------------Welcome to Course Registration System! Choose from the options given below-------------\033[0m");
+        System.out.println("\033[0;1m-------------Welcome to Course Registration System (CRS) ! Choose from the options given below-------------\033[0m");
         System.out.println("             1. Login");
         System.out.println("             2. Registration of Student");
         System.out.println("             3. Update Password");
@@ -115,6 +115,9 @@ public class CRSApplication {
                 AdminCRSMenu admin=new AdminCRSMenu();
                 admin.createMenu();
             }
+            else{
+                System.out.println("Enter a correct role!");
+            }
         }
         else{
             System.out.println("Wrong user Id or password");
@@ -130,10 +133,10 @@ public class CRSApplication {
         int batch;
 
         System.out.println("\033[0;1m---------------Student Registration-------------\033[0m");
-        System.out.print("Name:");
-        name=sc.nextLine();
         System.out.print("ID:");
         userId=sc.next();
+        System.out.print("Name:");
+        name=sc.next();
         System.out.print("Password:");
         password=sc.next();
         System.out.print("Gender: \t 1: Male \t 2.Female\t 3.Other");

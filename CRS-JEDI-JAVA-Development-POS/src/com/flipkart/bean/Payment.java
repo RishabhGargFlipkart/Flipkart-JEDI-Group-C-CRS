@@ -1,22 +1,22 @@
 package com.flipkart.bean;
 
-import com.flipkart.constant.PaymentMethod;
-import com.flipkart.constant.Bank;
+import com.flipkart.constant.PaymentMethodConstant;
+import com.flipkart.constant.BankConstant;
 public class Payment {
     private String referenceId;
     private String studentId;
     private double amount;
-    private PaymentMethod paymentType;
+    private PaymentMethodConstant paymentType;
 
-    public Payment(String referenceId, String studentId, double amount, PaymentMethod paymentType, Bank bank) {
+    public Payment(String referenceId, String studentId, double amount, PaymentMethodConstant paymentType, BankConstant bankConstant) {
         this.referenceId = referenceId;
         this.studentId = studentId;
         this.amount = amount;
         this.paymentType = paymentType;
-        this.bank = bank;
+        this.bankConstant = bankConstant;
     }
 
-    private Bank bank;
+    private BankConstant bankConstant;
 
     public String getReferenceId() {
         return referenceId;
@@ -42,20 +42,20 @@ public class Payment {
         this.amount = amount;
     }
 
-    public PaymentMethod getPaymentType() {
+    public PaymentMethodConstant getPaymentType() {
         return paymentType;
     }
 
-    public void setPaymentType(PaymentMethod paymentType) {
+    public void setPaymentType(PaymentMethodConstant paymentType) {
         this.paymentType = paymentType;
     }
 
-    public Bank getBank() {
-        return bank;
+    public BankConstant getBank() {
+        return bankConstant;
     }
 
-    public void setBank(Bank bank) {
-        this.bank = bank;
+    public void setBank(BankConstant bankConstant) {
+        this.bankConstant = bankConstant;
     }
 
     public Payment() {
