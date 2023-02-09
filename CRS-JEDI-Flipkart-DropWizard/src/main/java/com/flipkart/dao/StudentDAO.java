@@ -27,7 +27,7 @@ public interface StudentDAO {
      * @param studentId
      * @return
      */
-    public boolean isApproved(int studentId);
+    public boolean isApproved(String studentId);
 
     /**
      * returns the payment status of student

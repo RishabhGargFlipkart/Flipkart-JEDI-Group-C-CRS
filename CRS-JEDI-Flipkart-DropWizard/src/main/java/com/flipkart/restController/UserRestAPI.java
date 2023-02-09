@@ -11,14 +11,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.flipkart.service.*;
 import org.hibernate.validator.constraints.Email;
 
 import com.flipkart.bean.Student;
 import com.flipkart.exception.UserNotFoundException;
-import com.flipkart.service.StudentService;
-import com.flipkart.service.StudentServiceOperation;
-import com.flipkart.service.UserService;
-import com.flipkart.service.UserServiceOperation;
 
 /**
  * @author dilpreetkaur
@@ -29,7 +26,7 @@ import com.flipkart.service.UserServiceOperation;
 public class UserRestAPI {
     StudentService StudentService=StudentServiceOperation.getInstance();
     UserService UserService =new UserServiceOperation();
-
+        RegistrationService registrationInterface=RegistrationServiceOperation.getInstance();
 
     /**
      *
@@ -86,8 +83,8 @@ public class UserRestAPI {
             boolean loggedIn = UserService.verifyCredentials(userId, password);
             if (loggedIn) {
                 if (role.equalsIgnoreCase("Student")) {
-                    int studentId = StudentService.getStudentId(userId);
-                    boolean isApproved = StudentService.isApproved(studentId);
+                    String studentId = userId;
+                    boolean isApproved = registrationInterface.getLoginStatus(studentId);
                     if (!isApproved) {
                         return Response.status(200).entity("Login unsuccessful! Student " + userId + " has not been approved by the administration!").build();
                     }
@@ -96,7 +93,7 @@ public class UserRestAPI {
             } else {
                 return Response.status(500).entity("Invalid credentials!").build();
             }
-        }catch (UserNotFoundException e){
+        }catch (Exception e){
             return Response.status(500).entity(e.getMessage()).build();
         }
 

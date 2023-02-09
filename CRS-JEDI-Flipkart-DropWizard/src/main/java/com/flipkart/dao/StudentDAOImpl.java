@@ -101,11 +101,11 @@ public class StudentDAOImpl implements StudentDAO {
      * @return
      */
     @Override
-    public boolean isApproved(int studentId) {
+    public boolean isApproved(String studentId) {
         Connection connection=DBUtils.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.IS_APPROVED);
-            statement.setInt(1, studentId);
+            statement.setString(1, studentId);
             ResultSet rs = statement.executeQuery();
 
             if(rs.next())

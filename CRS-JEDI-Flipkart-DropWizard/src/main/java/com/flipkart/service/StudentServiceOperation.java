@@ -74,7 +74,7 @@ public class StudentServiceOperation implements StudentService {
      * @return
      */
     @Override
-    public boolean isApproved(int studentId) {
+    public boolean isApproved(String studentId) {
         return studentDaoInterface.isApproved(studentId);
     }
 }
