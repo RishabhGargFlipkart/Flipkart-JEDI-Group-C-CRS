@@ -63,9 +63,6 @@ public class StudentDAOImpl implements StudentDAO {
                 preparedStatementStudent.setString(8, student.getAddress());
                 preparedStatementStudent.setBoolean(9,false);
                 preparedStatementStudent.executeUpdate();
-                ResultSet results=preparedStatementStudent.getGeneratedKeys();
-                if(results.next())
-                    results.getInt(1);
             }
 
 

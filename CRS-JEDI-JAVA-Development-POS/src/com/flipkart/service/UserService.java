@@ -1,5 +1,7 @@
 package com.flipkart.service;
 
+import com.flipkart.exception.UserNotFoundException;
+
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Interface for Admin Dao Operations
@@ -29,5 +31,5 @@ public interface UserService{
      * @param password
      * @return
      */
-    public boolean verifyCredentials(String userID, String password);
+    public boolean verifyCredentials(String userID, String password) throws UserNotFoundException;
 }
