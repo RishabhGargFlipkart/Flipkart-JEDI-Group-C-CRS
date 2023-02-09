@@ -27,9 +27,8 @@ public class App extends Application<Configuration> {
         LOGGER.info("Registering REST resources");
         //registering all the RESTful service classes.
         e.jersey().register(new AdminRestAPI());
-        e.jersey().register(new AdminRestAPI());
         e.jersey().register(new ProfessorRestAPI());
-        //e.jersey().register(new StudentRestAPI());
+        e.jersey().register(new StudentRestAPI());
         e.jersey().register(new UserRestAPI());
         e.jersey().register(new JsonProcessingExceptionMapper(true));
     }
