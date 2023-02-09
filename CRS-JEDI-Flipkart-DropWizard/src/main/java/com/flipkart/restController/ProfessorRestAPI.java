@@ -98,6 +98,7 @@ public class ProfessorRestAPI {
             enrolledStudents=professorInterface.viewEnrolledStudents(profId, courseCode);
             List<Course> coursesEnrolled=new ArrayList<Course>();
             coursesEnrolled	=professorInterface.getCourses(profId);
+
             if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
             {
                 professorInterface.addGrade(profId, studentId, courseCode, grade);
@@ -105,7 +106,7 @@ public class ProfessorRestAPI {
             else
             {
                 //error code
-                return Response.status(500).entity( "Something went wrong, Please Try Again ! ").build();
+                return Response.status(500).entity( "Not validated, wrong input ! ").build();
             }
         }
         catch(Exception ex)

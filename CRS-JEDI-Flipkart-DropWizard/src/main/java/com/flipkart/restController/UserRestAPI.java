@@ -7,11 +7,7 @@ import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -41,11 +37,10 @@ public class UserRestAPI {
      * @param newPassword: new password to be stored in db.
      * @return @return 201, if password is updated, else 500 in case of error
      */
-    @GET
+    @PUT
     @Path("/updatePassword")
     public Response updatePassword(
             @NotNull
-            @Email(message = "Invalid User ID: Not in email format")
             @QueryParam("userId") String userId,
             @NotNull
             @Size(min = 4 , max = 20 , message = "Password length should be between 4 and 20 characters")
@@ -71,6 +66,8 @@ public class UserRestAPI {
 
     @POST
     @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response verifyCredentials(
             @NotNull
             @QueryParam("userId") String userId,
@@ -78,28 +75,29 @@ public class UserRestAPI {
             @Size(min = 4 , max = 20 , message = "Password length should be between 4 and 20 characters")
             @QueryParam("password") String password,
             @NotNull
-            @QueryParam("role") String role) throws ValidationException {
+            @QueryParam("role") String role) throws ValidationException, UserNotFoundException {
 
-        if(!(role.equalsIgnoreCase("Student") && role.equalsIgnoreCase("Professor") && role.equalsIgnoreCase("Admin"))) {
-            return Response.status(500).entity("Enter Valid Role!").build();
-        }
 
-        boolean loggedIn=UserService.verifyCredentials(userId, password);
-        if(loggedIn)
-        {
-            if(role.equalsIgnoreCase("Student")){
-                    int studentId=StudentService.getStudentId(userId);
-                    boolean isApproved=StudentService.isApproved(studentId);
-                    if(!isApproved)
-                    {
-                        return Response.status(200).entity("Login unsuccessful! Student "+userId+" has not been approved by the administration!" ).build();
-                    }
+        try {
+            if (!((role.equalsIgnoreCase("Student") || role.equalsIgnoreCase("Professor") || role.equalsIgnoreCase("Admin")))) {
+                return Response.status(500).entity("Enter Valid Role!").build();
             }
-            return Response.status(200).entity("Login successful").build();
-        }
-        else
-        {
-            return Response.status(500).entity("Invalid credentials!").build();
+
+            boolean loggedIn = UserService.verifyCredentials(userId, password);
+            if (loggedIn) {
+                if (role.equalsIgnoreCase("Student")) {
+                    int studentId = StudentService.getStudentId(userId);
+                    boolean isApproved = StudentService.isApproved(studentId);
+                    if (!isApproved) {
+                        return Response.status(200).entity("Login unsuccessful! Student " + userId + " has not been approved by the administration!").build();
+                    }
+                }
+                return Response.status(200).entity("Login successful").build();
+            } else {
+                return Response.status(500).entity("Invalid credentials!").build();
+            }
+        }catch (UserNotFoundException e){
+            return Response.status(500).entity(e.getMessage()).build();
         }
 
     }
@@ -112,6 +110,7 @@ public class UserRestAPI {
      */
     @POST
     @Path("/studentRegistration")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response register(@Valid Student student)
     {

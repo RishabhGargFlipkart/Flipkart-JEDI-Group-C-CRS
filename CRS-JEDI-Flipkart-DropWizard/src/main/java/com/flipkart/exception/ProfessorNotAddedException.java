@@ -1,5 +1,4 @@
 package com.flipkart.exception;
-import com.flipkart.constant.ColourConstant;
 
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
@@ -31,6 +30,6 @@ public class ProfessorNotAddedException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return ColourConstant.ANSI_YELLOW + "professorId: " + professorId + " not added!";
+		return "professorId: " + professorId + " not added!";
 	}
 }

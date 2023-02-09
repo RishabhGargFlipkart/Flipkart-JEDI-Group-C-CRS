@@ -42,6 +42,7 @@ public class StudentServiceOperation implements StudentService {
             newStudent.setUserId(userId);
             newStudent.setUserId(userId);
             newStudent.setName(name);
+            newStudent.setStudentApproved(false);
             newStudent.setGradeCardApproved(false);
             newStudent.setRegistrationApproved(false);
             newStudent.setBatch(batch);

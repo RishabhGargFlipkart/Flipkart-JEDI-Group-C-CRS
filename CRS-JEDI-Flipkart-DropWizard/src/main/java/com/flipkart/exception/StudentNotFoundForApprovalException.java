@@ -2,7 +2,6 @@
  * 
  */
 package com.flipkart.exception;
-import com.flipkart.constant.ColourConstant;
 
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
@@ -34,6 +33,6 @@ public class StudentNotFoundForApprovalException extends Exception {
 	 */
 	@Override
 	public String getMessage() {
-		return ColourConstant.ANSI_YELLOW + "student with Id: " + studentId + " not found for approval!"  + ColourConstant.ANSI_RESET;
+		return "student with Id: " + studentId + " not found for approval!" ;
 	}
 }

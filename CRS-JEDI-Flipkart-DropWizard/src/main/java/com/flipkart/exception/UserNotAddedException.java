@@ -1,5 +1,5 @@
 package com.flipkart.exception;
-import com.flipkart.constant.ColourConstant;
+
 /**
  * @author JEDI-Group-C Praneet, Rishabh, Akhil, Manan, Nidhi, Shivanshu, Divyansh
  * Exception to check if user cannot be added
@@ -30,6 +30,6 @@ public class UserNotAddedException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return ColourConstant.ANSI_YELLOW + "UserId: " + userId + " is already in use!" + ColourConstant.ANSI_RESET;
+		return "UserId: " + userId + " is already in use!";
 	}
 }

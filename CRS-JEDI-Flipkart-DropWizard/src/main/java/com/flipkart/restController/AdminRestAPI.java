@@ -11,13 +11,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -77,7 +71,7 @@ public class AdminRestAPI {
      * @param courseCode
      * @return
      */
-    @PUT
+    @DELETE
     @Path("/deleteCourse")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteCourse(
@@ -140,7 +134,6 @@ public class AdminRestAPI {
     @Path("/viewCourses")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> viewCoursesInCatalogue() {
-
         return adminOperation.viewCourses();
 
     }
@@ -220,7 +213,7 @@ public class AdminRestAPI {
     @GET
     @Path("/viewPendingAdmissions")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Student> viewPendingAdmissions() {
+    public List<Student> viewPendingAdmissions() throws ValidationException {
         return adminOperation.viewPendingAdmission();
     }
 
@@ -232,7 +225,7 @@ public class AdminRestAPI {
     @GET
     @Path("/viewPendingRegistration")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Student> viewPendingRegistration() {
+    public List<Student> viewPendingRegistration() throws ValidationException {
         return adminOperation.viewPendingRegistration();
     }
 
@@ -244,7 +237,7 @@ public class AdminRestAPI {
     @GET
     @Path("/viewPendingGradeCard")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Student> viewPendingGradeCard() {
+    public List<Student> viewPendingGradeCard() throws ValidationException {
         return adminOperation.viewPendingGradeCard();
     }
 }

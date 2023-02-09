@@ -1,6 +1,4 @@
 package com.flipkart.exception;
-import com.flipkart.constant.ColourConstant;
-
 
 
 /**
@@ -33,7 +31,7 @@ public class CourseAlreadyRegisteredException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return ColourConstant.ANSI_YELLOW + "You have already registered for " + courseCode + ColourConstant.ANSI_RESET;
+		return "You have already registered for " + courseCode;
 	}
 
 }

@@ -26,7 +26,7 @@ public class ProfessorValidator {
 		for(int i=0;i<students.size();i++)
 		{
 			//role.equalsIgnoreCase("ADMIN")
-			if(students.get(i).getStudentId()==studentId)
+			if(students.get(i).getStudentId().equals(studentId))
 				result=true;
 				
 		}

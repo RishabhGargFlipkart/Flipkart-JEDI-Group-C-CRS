@@ -2,8 +2,6 @@
  * 
  */
 package com.flipkart.exception;
-import com.flipkart.constant.ColourConstant;
-
 
 
 /**
@@ -31,7 +29,7 @@ public class CourseLimitExceedException extends Exception{
 	@Override
 	public String getMessage() 
 	{
-		return ColourConstant.ANSI_YELLOW + "You have already registered for " + num + " courses" + ColourConstant.ANSI_RESET;
+		return "You have already registered for " + num + " courses";
 	}
 
 

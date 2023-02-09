@@ -44,6 +44,7 @@ public class StudentDAOImpl implements StudentDAO {
             preparedStatement.setString(2, student.getName());
             preparedStatement.setString(3, student.getRole());
             preparedStatement.setString(4, student.getPassword());
+
             int rowsAffected=preparedStatement.executeUpdate();
             if(rowsAffected==1)
             {
@@ -59,9 +60,6 @@ public class StudentDAOImpl implements StudentDAO {
                 preparedStatementStudent.setString(8, student.getAddress());
                 preparedStatementStudent.setBoolean(9,false);
                 preparedStatementStudent.executeUpdate();
-                ResultSet results=preparedStatementStudent.getGeneratedKeys();
-                if(results.next())
-                    results.getInt(1);
             }
 
 
