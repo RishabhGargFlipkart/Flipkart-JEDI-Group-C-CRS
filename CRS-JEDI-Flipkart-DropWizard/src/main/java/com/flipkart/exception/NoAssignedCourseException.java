@@ -42,7 +42,7 @@ public class NoAssignedCourseException extends Exception{
     @Override
     public String getMessage()
     {
-        return ColourConstant.ANSI_YELLOW + "No assigned courses for professor Id: "+profId + ColourConstant.ANSI_RESET;
+        return "No assigned courses for professor Id: "+profId ;
     }
 
 }

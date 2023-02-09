@@ -112,7 +112,7 @@ public class UserRestAPI {
      */
     @POST
     @Path("/studentRegistration")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes("application/json")
     public Response register(@Valid Student student)
     {
 

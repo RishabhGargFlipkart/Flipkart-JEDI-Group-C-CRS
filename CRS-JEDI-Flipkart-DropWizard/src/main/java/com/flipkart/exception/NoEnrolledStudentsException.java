@@ -60,6 +60,6 @@ public class NoEnrolledStudentsException extends Exception{
     @Override
     public String getMessage()
     {
-        return ColourConstant.ANSI_YELLOW + "No enrolled students for profId: " + profId + " and courseCode: " + courseCode + ColourConstant.ANSI_RESET;
+        return "No enrolled students for profId: " + profId + " and courseCode: " + courseCode ;
     }
 }

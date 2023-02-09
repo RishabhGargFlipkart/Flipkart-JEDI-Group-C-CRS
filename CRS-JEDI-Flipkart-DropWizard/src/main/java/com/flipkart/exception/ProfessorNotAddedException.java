@@ -31,6 +31,6 @@ public class ProfessorNotAddedException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return ColourConstant.ANSI_YELLOW + "professorId: " + professorId + " not added!";
+		return "professorId: " + professorId + " not added!";
 	}
 }

@@ -38,6 +38,6 @@ private String courseCode;
 	@Override
 	public String getMessage() 
 	{
-		return ColourConstant.ANSI_YELLOW + "Course with courseCode: " + courseCode + " can not be deleted." + ColourConstant.ANSI_RESET;
+		return  "Course with courseCode: " + courseCode + " can not be deleted." ;
 	}
 }

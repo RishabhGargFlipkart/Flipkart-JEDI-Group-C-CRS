@@ -34,6 +34,6 @@ public class CourseNotFoundException extends Exception{
 	@Override
 	public String getMessage() 
 	{
-		return ColourConstant.ANSI_YELLOW + "Course with courseCode: " + courseCode + " not found." + ColourConstant.ANSI_RESET;
+		return  "Course with courseCode: " + courseCode + " not found.";
 	}
 }

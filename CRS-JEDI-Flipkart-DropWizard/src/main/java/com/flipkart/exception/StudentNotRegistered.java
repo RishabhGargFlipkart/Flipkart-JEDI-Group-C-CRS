@@ -59,7 +59,7 @@ public class StudentNotRegistered extends Exception{
     @Override
     public String getMessage()
     {
-        return ColourConstant.ANSI_YELLOW + "Student Id: "+studentId+" is not registered in the course: "+courseCode + ColourConstant.ANSI_RESET;
+        return "Student Id: "+studentId+" is not registered in the course: "+courseCode;
     }
 
 }

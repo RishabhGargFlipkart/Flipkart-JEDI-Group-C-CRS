@@ -41,6 +41,6 @@ public class ProfessorAssignedException extends Exception {
     @Override
     public String getMessage()
     {
-        return ColourConstant.ANSI_YELLOW + "Course with Id: "+courseId+" is already assigned to a professor." + ColourConstant.ANSI_RESET;
+        return "Course with Id: "+courseId+" is already assigned to a professor.";
     }
 }

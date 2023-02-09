@@ -61,6 +61,6 @@ public class GradeAssignedException extends Exception {
     @Override
     public String getMessage()
     {
-        return ColourConstant.ANSI_YELLOW + "Student Id: "+studentId+" is already assigned with a grade for courseCode: "+courseCode + ColourConstant.ANSI_RESET;
+        return "Student Id: "+studentId+" is already assigned with a grade for courseCode: "+courseCode ;
     }
 }

@@ -60,6 +60,6 @@ public class CourseNotAssignedToProfessorException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return ColourConstant.ANSI_YELLOW + "courseCode: " + courseCode + " OR professorId: " + professorId + " does not exist!" + ColourConstant.ANSI_RESET;
+		return  "courseCode: " + courseCode + " OR professorId: " + professorId + " does not exist!" ;
 	}
 }

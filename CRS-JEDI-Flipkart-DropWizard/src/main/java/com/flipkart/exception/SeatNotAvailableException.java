@@ -27,7 +27,7 @@ public class SeatNotAvailableException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return  ColourConstant.ANSI_YELLOW + "Seats are not available in : " + courseCode + ColourConstant.ANSI_RESET;
+		return  "Seats are not available in : " + courseCode;
 	}
 
 

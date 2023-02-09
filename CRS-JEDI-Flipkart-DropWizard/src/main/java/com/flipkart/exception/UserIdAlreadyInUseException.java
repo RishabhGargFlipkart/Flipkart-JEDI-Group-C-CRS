@@ -45,7 +45,7 @@ public class UserIdAlreadyInUseException extends Exception{
 	 */
 	@Override
 	public String getMessage() {
-		return ColourConstant.ANSI_YELLOW + "userId: " + userId + " is already in use." + ColourConstant.ANSI_RESET;
+		return "userId: " + userId + " is already in use." ;
 	}
 
 }

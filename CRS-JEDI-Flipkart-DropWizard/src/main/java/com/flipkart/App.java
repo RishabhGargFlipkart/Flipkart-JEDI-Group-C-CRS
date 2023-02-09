@@ -2,6 +2,7 @@ package com.flipkart;
 
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
+import io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -30,6 +31,7 @@ public class App extends Application<Configuration> {
         e.jersey().register(new ProfessorRestAPI());
         e.jersey().register(new StudentRestAPI());
         e.jersey().register(new UserRestAPI());
+        e.jersey().register(new JsonProcessingExceptionMapper(true));
     }
 
     public static void main(String[] args) throws Exception {
